@@ -1,0 +1,24 @@
+{
+  "case_id": "C06",
+  "snippet_op": "Delete",
+  "expected_tuple_action": "Update",
+  "description": "Remove the Gender and Major lines from 王伟's registration block. The existing tuple should be updated with Gender=null and Major=null, as those attributes lose their only provenance.",
+  "expected_db": {
+    "Student": [
+      {"ID": 101, "Name": "王伟", "Gender": null, "BirthDate": "2005-09-06",
+       "Email": "student101@email.com", "Major": null},
+      {"ID": 102, "Name": "冯洋", "Gender": "女", "BirthDate": "2004-03-04",
+       "Email": "student102@email.com", "Major": "哲学"},
+      {"ID": 103, "Name": "金芳", "Gender": "女", "BirthDate": "2005-04-16",
+       "Email": "student103@email.com", "Major": "心理学"}
+    ],
+    "Course": [
+      {"ID": "CS101",   "Name": "计算机导论", "Credit": 3},
+      {"ID": "HIST101", "Name": "世界历史",   "Credit": 3}
+    ],
+    "CourseOffering": [
+      {"StudentID": 101, "CourseID": "CS101"},
+      {"StudentID": 102, "CourseID": "HIST101"}
+    ]
+  }
+}

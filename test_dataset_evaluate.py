@@ -39,7 +39,7 @@ BACKEND_URL = "http://localhost:5000"
 DATASET_DIR = Path(__file__).parent.parent / "dataset"
 OUTPUT_DIR = Path(__file__).parent.parent / "dataset_output"
 POLL_INTERVAL = 2
-MAX_WAIT_TIME = 7200
+MAX_WAIT_TIME = 28000
 
 DEFAULT_MODEL = "gpt-4o"
 DEFAULT_RUN_NAME = None 

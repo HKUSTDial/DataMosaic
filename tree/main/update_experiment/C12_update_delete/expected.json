@@ -1,0 +1,23 @@
+{
+  "case_id": "C12",
+  "snippet_op": "Update",
+  "expected_tuple_action": "Delete",
+  "description": "Change the CS101 enrollment entry from '王伟申请CS101 [注册成功]' to 'waiting...'. CourseOffering(101, CS101) should be deleted.",
+  "expected_db": {
+    "Student": [
+      {"ID": 101, "Name": "王伟", "Gender": "女", "BirthDate": "2005-09-06",
+       "Email": "student101@email.com", "Major": "物理学"},
+      {"ID": 102, "Name": "冯洋", "Gender": "女", "BirthDate": "2004-03-04",
+       "Email": "student102@email.com", "Major": "哲学"},
+      {"ID": 103, "Name": "金芳", "Gender": "女", "BirthDate": "2005-04-16",
+       "Email": "student103@email.com", "Major": "心理学"}
+    ],
+    "Course": [
+      {"ID": "CS101",   "Name": "计算机导论", "Credit": 3},
+      {"ID": "HIST101", "Name": "世界历史",   "Credit": 3}
+    ],
+    "CourseOffering": [
+      {"StudentID": 102, "CourseID": "HIST101"}
+    ]
+  }
+}
