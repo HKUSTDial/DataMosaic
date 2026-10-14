@@ -1,0 +1,8 @@
+/.env
+/.env.production
+/data/
+/logs/
+/web/node_modules/
+/web/dist/
+__pycache__/
+*.pyc

@@ -1,0 +1,60 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: web/Dockerfile
+    ports:
+      - "${DOCSENSA_WEB_BIND:-127.0.0.1}:${DOCSENSA_WEB_PORT:-8080}:80"
+
+  api:
+    build: ./api
+    env_file: .env
+    environment:
+      DOCPILOT_URL: http://docpilot:8008
+      DATAMOSAIC_URL: http://datamosaic:5000
+
+  docpilot:
+    build: ./.local/DocPilot
+    environment:
+      DOCPILOT_CORS_ORIGINS: ${DOCPILOT_CORS_ORIGINS}
+    expose:
+      - "8008"
+    volumes:
+      - docpilot_runs:/app/demo/chat/backend/runs
+      - docpilot_workspace:/app/demo/chat/workspace
+      - docpilot_agent_runs:/app/runs
+      - docpilot_mineru_models:/home/docpilot/.mineru/models
+
+  datamosaic:
+    build: ./.local/DataMosaic
+    env_file: ./.local/DataMosaic/llm/.env
+    environment:
+      DATAMOSAIC_CORS_ORIGINS: ${DATAMOSAIC_CORS_ORIGINS}
+    expose:
+      - "5000"
+    volumes:
+      - datamosaic_uploads:/app/backend/uploads
+      - datamosaic_history:/app/backend/history
+      - datamosaic_output:/app/backend/output
+      - datamosaic_projects:/app/backend/projects
+      - datamosaic_databases:/app/backend/databases
+
+volumes:
+  docpilot_runs:
+    name: docpilot_runs
+  docpilot_workspace:
+    name: docpilot_workspace
+  docpilot_agent_runs:
+    name: docpilot_agent_runs
+  docpilot_mineru_models:
+    name: docpilot_mineru_models
+  datamosaic_uploads:
+    name: datamosaic_uploads
+  datamosaic_history:
+    name: datamosaic_history
+  datamosaic_output:
+    name: datamosaic_output
+  datamosaic_projects:
+    name: datamosaic_projects
+  datamosaic_databases:
+    name: datamosaic_databases
