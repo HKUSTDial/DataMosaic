@@ -3,6 +3,11 @@
 [![Python](https://img.shields.io/badge/Python-%E2%89%A53.11-3776AB.svg)](https://www.python.org/)
 [![Interface](https://img.shields.io/badge/Interface-React%20%2B%20FastAPI%20%2B%20Flask-0F766E.svg)](./web/)
 
+<p align="center">
+  <img src="assets/system.png" alt="Overview of DocSensaAI system." width="100%" />
+</p>
+
+
 **A task-driven Document AI system for turning information from complex data sources into answers and structured data.**
 
 Given a task **Q** and available sources, DocSensaAI is built around three complementary capabilities:
