@@ -14,7 +14,7 @@ services:
       DATAMOSAIC_URL: http://datamosaic:5000
 
   docpilot:
-    build: ./.local/DocPilot
+    build: ./module/DocPilot
     environment:
       DOCPILOT_CORS_ORIGINS: ${DOCPILOT_CORS_ORIGINS}
     expose:
@@ -26,8 +26,8 @@ services:
       - docpilot_mineru_models:/home/docpilot/.mineru/models
 
   datamosaic:
-    build: ./.local/DataMosaic
-    env_file: ./.local/DataMosaic/llm/.env
+    build: ./module/DataMosaic
+    env_file: ./module/DataMosaic/llm/.env
     environment:
       DATAMOSAIC_CORS_ORIGINS: ${DATAMOSAIC_CORS_ORIGINS}
     expose:

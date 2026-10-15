@@ -2,8 +2,8 @@
 set -Eeuo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DOCPILOT_DIR="$ROOT_DIR/.local/DocPilot"
-DATAMOSAIC_DIR="$ROOT_DIR/.local/DataMosaic"
+DOCPILOT_DIR="$ROOT_DIR/module/DocPilot"
+DATAMOSAIC_DIR="$ROOT_DIR/module/DataMosaic"
 LOG_DIR="$ROOT_DIR/logs/local"
 WEB_PORT="${DOCSENSA_WEB_PORT:-8080}"
 BUILD_DIR=""

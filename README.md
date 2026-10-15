@@ -20,7 +20,7 @@ These capabilities are organized into task-oriented modules:
 
 | Engine / Module | Repository | What it does | Output |
 | --- | --- | --- | --- |
-| **Analyze** (`/analyze/`) | [DocPilot](https://github.com/SetonLiang/DocPilot) | Investigates questions across long visual documents and follows evidence across pages | An answer with agent steps and navigable source evidence |
+| **Analyze** (`/analyze/`) | [DocPilot](https://github.com/HKUSTDial/DocPilot) | Investigates questions across long visual documents and follows evidence across pages | An answer with agent steps and navigable source evidence |
 | **Extract** (`/extract/`) | [DataMosaic](https://github.com/HKUSTDial/DataMosaic) | Collects entities, fields, and relationships from documents under a target structure | Structured records and a database to inspect or export |
 
 ## Installation
@@ -30,15 +30,15 @@ Clone DocSensaAI with its engine submodules:
 ```bash
 git clone --recurse-submodules https://github.com/SetonLiang/DocSensaAI.git
 cd DocSensaAI
-cp .local/DataMosaic/llm/.env.example .local/DataMosaic/llm/.env
+cp module/DataMosaic/llm/.env.example module/DataMosaic/llm/.env
 ```
 
-The DocPilot submodule is private and requires an SSH key with read access. If you cloned without submodules, run `git submodule update --init --recursive`. Set your DataMosaic model credentials in the untracked `.local/DataMosaic/llm/.env`; configure DocPilot's model in its web **Model Settings**. Do not commit credentials.
+Both engine submodules use public HTTPS repository URLs. If you cloned without submodules, run `git submodule update --init --recursive`. Set your DataMosaic model credentials in the untracked `module/DataMosaic/llm/.env`; configure DocPilot's model in its web **Model Settings**. Do not commit credentials.
 
 Choose a runtime:
 
 - **Docker:** Install Docker Engine and Compose. The containers build the engine and frontend dependencies; no host Python or Node.js environment is needed.
-- **Local script:** Install Python 3.11, Node.js 20.19+ (or 22.12+) with npm, `rsync`, and `curl`. Set up `.local/DocPilot/.venv` and `.local/DataMosaic/.venv`, and install both engines' frontend dependencies. Follow the [DocPilot installation and interactive demo guide](.local/DocPilot/README.md) and [DataMosaic quick start](.local/DataMosaic/README.md) for the engine-specific steps. The script expects these environments and `node_modules` directories to exist; it does not install them.
+- **Local script:** Install Python 3.11, Node.js 20.19+ (or 22.12+) with npm, `rsync`, and `curl`. Set up `module/DocPilot/.venv` and `module/DataMosaic/.venv`, and install both engines' frontend dependencies. Follow the [DocPilot installation and interactive demo guide](module/DocPilot/README.md) and [DataMosaic quick start](module/DataMosaic/README.md) for the engine-specific steps. The script expects these environments and `node_modules` directories to exist; it does not install them.
 
 For deployment details, including MinerU model preparation, see [deploy.md](deploy.md).
 
@@ -80,7 +80,7 @@ Pair the workflow with a strong multimodal LLM for high-quality document analysi
 2. Keep **Default** selected for the agentic workflow. Import a PDF into **Workspace**, wait until MinerU marks it **Ready**, then add it to the conversation.
 3. Ask your question. Follow the agent steps as the answer is produced, and click an evidence reference to locate it in the PDF viewer.
 
-For a direct multimodal question without the DocPilot pipeline, switch to the **Chat** agent and attach a PDF or image in the composer. Default-agent PDF preprocessing requires MinerU models; see the [DocPilot setup guide](.local/DocPilot/README.md) and [deployment notes](deploy.md) before the first real run.
+For a direct multimodal question without the DocPilot pipeline, switch to the **Chat** agent and attach a PDF or image in the composer. Default-agent PDF preprocessing requires MinerU models; see the [DocPilot setup guide](module/DocPilot/README.md) and [deployment notes](deploy.md) before the first real run.
 
 ## Extract: constraint-aware document-to-database/table
 
@@ -92,9 +92,9 @@ Use it when you need a reusable database—for example, consolidating companies,
 2. Under **Processing Method**, choose **Description** to specify the desired information in natural language, or **Schema** to define tables, fields, and relationships.
 3. Click **Begin Analysis**, follow the extraction and verification stages, then inspect the generated records and database. Export the result from the DataMosaic workspace if needed.
 
-The button is enabled only when at least one file is selected and the description or schema is valid. Configure DataMosaic's model credentials before running a task; see its [README](.local/DataMosaic/README.md) for supported formats and schema details.
+The button is enabled only when at least one file is selected and the description or schema is valid. Configure DataMosaic's model credentials before running a task; see its [README](module/DataMosaic/README.md) for supported formats and schema details.
 
-## Target project layout
+## Project layout
 
 ```text
 DocSensaAI/
@@ -106,7 +106,7 @@ DocSensaAI/
 ├── docker-compose.yml  # Web, API, and both engines
 ```
 
-This is the intended layout. The current checkout and startup commands still use `.local/DocPilot` and `.local/DataMosaic` until the submodule paths and build configuration are updated.
+The engines are pinned Git submodules under `module/`; their source code is maintained in their upstream repositories.
 
 Analyze and Extract currently retain separate uploaded files, histories, and results; switching between them does not transfer data automatically. Docker stores their runtime data in named volumes, including DocPilot's workspace, runs, and MinerU models, and DataMosaic's uploads, history, and outputs. `docker compose down` keeps those volumes; **do not use `docker compose down -v` if you want to keep your data**. For local development without Docker, see [deploy.md](deploy.md).
 

@@ -8,7 +8,7 @@ if (!root || !docpilotDist || !datamosaicBuild || !portalBuild) {
   throw new Error('Usage: node local-server.cjs ROOT DOCPILOT_DIST DATAMOSAIC_BUILD PORTAL_BUILD');
 }
 
-const fromDataMosaic = createRequire(join(root, '.local/DataMosaic/frontend/package.json'));
+const fromDataMosaic = createRequire(join(root, 'module/DataMosaic/frontend/package.json'));
 const serveStatic = fromDataMosaic('serve-static');
 const proxy = fromDataMosaic('http-proxy').createProxyServer({ changeOrigin: true, ws: true });
 const sites = {

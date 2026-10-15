@@ -1,6 +1,6 @@
 [submodule "DocPilot"]
-	path = .local/DocPilot
-	url = git@github.com:SetonLiang/DocPilot.git
+	path = module/DocPilot
+	url = https://github.com/HKUSTDial/DocPilot.git
 [submodule "DataMosaic"]
-	path = .local/DataMosaic
+	path = module/DataMosaic
 	url = https://github.com/HKUSTDial/DataMosaic.git

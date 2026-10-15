@@ -1,16 +1,16 @@
 FROM node:20-alpine AS docpilot-ui
 WORKDIR /app
-COPY .local/DocPilot/demo/chat/frontend/package*.json ./
+COPY module/DocPilot/demo/chat/frontend/package*.json ./
 RUN npm ci
-COPY .local/DocPilot/demo/chat/frontend/ ./
+COPY module/DocPilot/demo/chat/frontend/ ./
 COPY web/patch-docpilot-api.mjs /tmp/patch-docpilot-api.mjs
 RUN node /tmp/patch-docpilot-api.mjs /app/src/api.ts && npm run build -- --base=/analyze/
 
 FROM node:20-alpine AS datamosaic-ui
 WORKDIR /app
-COPY .local/DataMosaic/frontend/package*.json ./
+COPY module/DataMosaic/frontend/package*.json ./
 RUN npm ci
-COPY .local/DataMosaic/frontend/ ./
+COPY module/DataMosaic/frontend/ ./
 ENV PUBLIC_URL=/extract REACT_APP_WEBSOCKET_URL=/extract/ws
 RUN npm run build
 
