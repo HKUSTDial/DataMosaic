@@ -23,6 +23,16 @@ These capabilities are organized into task-oriented modules:
 | **Analyze** (`/analyze/`) | [DocPilot](https://github.com/HKUSTDial/DocPilot) | Investigates questions across long visual documents and follows evidence across pages | An answer with agent steps and navigable source evidence |
 | **Extract** (`/extract/`) | [DataMosaic](https://github.com/HKUSTDial/DataMosaic) | Collects entities, fields, and relationships from documents under a target structure | Structured records and a database to inspect or export |
 
+## Related Work
+
+This work is associated with three publications:
+
+[1] **Zhengxuan Zhang**, Zhuowen Liang, Jiazhuo Chen, Haixun Wang, and Nan Tang. *Document-to-Database: Extraction Meets Relational Semantics.* VLDB, 2026. [[PDF](https://www.vldb.org/pvldb/vol19/p2522-zhang.pdf)]
+
+[2] **Zhengxuan Zhang**, Zhuowen Liang, Haixun Wang, and Nan Tang. *DataMosaic: An Interactive Demonstration of Constraint-Driven Document-to-Database Construction.* VLDB Demo, 2026. [[PDF](https://www.vldb.org/pvldb/vol19/p4570-zhang.pdf)]
+
+[3] **Zhuowen Liang**, Xiaotian Lin, Yuyu Luo, Haixun Wang, and Nan Tang. *DocPILOT: Interactive Agent Orchestration and Training for Long Visual Document Understanding.* arXiv, 2026. [[PDF](https://arxiv.org/pdf/2610.21327)]
+
 ## Installation
 
 Clone DocSensaAI with its engine submodules:
