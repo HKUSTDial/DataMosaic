@@ -90,9 +90,9 @@ export default function UseCases() {
           <span className="case-domain">{selected.title} / Document intelligence</span>
           <h3>{selected.headline}</h3>
           <p className="case-description">{selected.description}</p>
-          <div className="case-capability"><span className="case-capability-label">Analyze</span><p>{selected.analyze}</p></div>
-          <div className="case-capability extract-capability"><span className="case-capability-label">Extract</span><p>{selected.extract}</p></div>
-          <div className="case-actions"><a href="/analyze/">Open Analyze <span aria-hidden="true">↗</span></a><a href="/extract/">Open Extract <span aria-hidden="true">↗</span></a></div>
+          <div className="case-capability"><span className="case-capability-label">DocMosaic</span><p>{selected.analyze}</p></div>
+          <div className="case-capability extract-capability"><span className="case-capability-label">DBMosaic</span><p>{selected.extract}</p></div>
+          <div className="case-actions"><a href="/analyze/">Open DocMosaic <span aria-hidden="true">↗</span></a><a href="/extract/">Open DBMosaic <span aria-hidden="true">↗</span></a></div>
         </div>
         <div className="case-preview" key={selected.id} role="group" aria-label={`${selected.title} illustrative document workflow`}>
           <div className="case-source">
@@ -113,8 +113,8 @@ export default function UseCases() {
           </div>
           <svg className="case-branches" viewBox="0 0 400 32" preserveAspectRatio="none" aria-hidden="true"><path d="M200 0v9M100 32v-11q0-12 12-12h176q12 0 12 12v11"/><circle cx="200" cy="9" r="3"/></svg>
           <div className="case-output-grid">
-            <div className="case-output case-analyze-output"><span className="case-output-label">Analyze <span aria-hidden="true">↗</span></span><p className="case-question">{selected.question}</p><p className="case-answer">{selected.answer}</p><span className="case-citation">Source evidence · p. {selected.page}</span></div>
-            <div className="case-output case-extract-output"><span className="case-output-label">Extract <span aria-hidden="true">{'{ }'}</span></span><dl className="case-record">{selected.fields.map(([field, value]) => <div key={field}><dt>{field}</dt><dd>{value}</dd></div>)}</dl><span className="case-citation">Structured record</span></div>
+            <div className="case-output case-analyze-output"><span className="case-output-label">DocMosaic <span aria-hidden="true">↗</span></span><p className="case-question">{selected.question}</p><p className="case-answer">{selected.answer}</p><span className="case-citation">Source evidence · p. {selected.page}</span></div>
+            <div className="case-output case-extract-output"><span className="case-output-label">DBMosaic <span aria-hidden="true">{'{ }'}</span></span><dl className="case-record">{selected.fields.map(([field, value]) => <div key={field}><dt>{field}</dt><dd>{value}</dd></div>)}</dl><span className="case-citation">Structured record</span></div>
           </div>
           <p className="case-example-label">Illustrative example</p>
         </div>

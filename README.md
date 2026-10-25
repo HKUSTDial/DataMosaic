@@ -1,16 +1,16 @@
-# DocSensaAI
+# DataMosaic
 
 [![Python](https://img.shields.io/badge/Python-%E2%89%A53.11-3776AB.svg)](https://www.python.org/)
 [![Interface](https://img.shields.io/badge/Interface-React%20%2B%20FastAPI%20%2B%20Flask-0F766E.svg)](./web/)
 
 <p align="center">
-  <img src="assets/system.png" alt="Overview of DocSensaAI system." width="100%" />
+  <img src="assets/system.png" alt="Overview of DataMosaic system." width="100%" />
 </p>
 
 
 **A task-driven Document AI system for turning information from complex data sources into answers and structured data.**
 
-Given a task **Q** and available sources, DocSensaAI is built around three complementary capabilities:
+Given a task **Q** and available sources, DataMosaic is built around three complementary capabilities:
 
 - **Agentic workflow orchestration:** decompose Q, choose the next operation, and refine the workflow as new evidence appears.
 - **Extraction from raw data:** locate and interpret information in source documents, including text, tables, and visual content.
@@ -18,10 +18,12 @@ Given a task **Q** and available sources, DocSensaAI is built around three compl
 
 These capabilities are organized into task-oriented modules:
 
+The homepage uses a top navigation bar: **Application → Extract / Chat** opens DBMosaic and DocPilot respectively; **Resource → Documentation / Research Paper** opens the repository and the site's `/research/` publication list. **Organization** opens HKUSTDial, and **Contact us** opens the repository's issue form. On smaller screens, navigation is available through the menu button. The research page groups the three publications below by year and provides PDF and code links; it supports direct access and refresh through the existing portal fallback.
+
 | Engine / Module | Repository | What it does | Output |
 | --- | --- | --- | --- |
 | **Analyze** (`/analyze/`) | [DocPilot](https://github.com/HKUSTDial/DocPilot) | Investigates questions across long visual documents and follows evidence across pages | An answer with agent steps and navigable source evidence |
-| **Extract** (`/extract/`) | [DataMosaic](https://github.com/HKUSTDial/DataMosaic) | Collects entities, fields, and relationships from documents under a target structure | Structured records and a database to inspect or export |
+| **Extract** (`/extract/`) | [DBMosaic](https://github.com/HKUSTDial/DBMosaic) | Collects entities, fields, and relationships from documents under a target structure | Structured records and a database to inspect or export |
 
 ## Related Work
 
@@ -35,20 +37,20 @@ This work is associated with three publications:
 
 ## Installation
 
-Clone DocSensaAI with its engine submodules:
+Clone DataMosaic with its engine submodules:
 
 ```bash
-git clone --recurse-submodules https://github.com/SetonLiang/DocSensaAI.git
-cd DocSensaAI
-cp module/DataMosaic/llm/.env.example module/DataMosaic/llm/.env
+git clone --recurse-submodules https://github.com/HKUSTDial/DataMosaic.git
+cd DataMosaic
+cp module/DBMosaic/llm/.env.example module/DBMosaic/llm/.env
 ```
 
-Both engine submodules use public HTTPS repository URLs. If you cloned without submodules, run `git submodule update --init --recursive`. Set your DataMosaic model credentials in the untracked `module/DataMosaic/llm/.env`; configure DocPilot's model in its web **Model Settings**. Do not commit credentials.
+Both engine submodules use public HTTPS repository URLs. If you cloned without submodules, run `git submodule update --init --recursive`. Set your DBMosaic model credentials in the untracked `module/DBMosaic/llm/.env`; configure DocPilot's model in its web **Model Settings**. Do not commit credentials.
 
 Choose a runtime:
 
 - **Docker:** Install Docker Engine and Compose. The containers build the engine and frontend dependencies; no host Python or Node.js environment is needed.
-- **Local script:** Install Python 3.11, Node.js 20.19+ (or 22.12+) with npm, `rsync`, and `curl`. Set up `module/DocPilot/.venv` and `module/DataMosaic/.venv`, and install both engines' frontend dependencies. Follow the [DocPilot installation and interactive demo guide](module/DocPilot/README.md) and [DataMosaic quick start](module/DataMosaic/README.md) for the engine-specific steps. The script expects these environments and `node_modules` directories to exist; it does not install them.
+- **Local script:** Install Python 3.11, Node.js 20.19+ (or 22.12+) with npm, `rsync`, and `curl`. Set up `module/DocPilot/.venv` and `module/DBMosaic/.venv`, and install both engines' frontend dependencies. Follow the [DocPilot installation and interactive demo guide](module/DocPilot/README.md) and [DBMosaic quick start](module/DBMosaic/README.md) for the engine-specific steps. The script expects these environments and `node_modules` directories to exist; it does not install them.
 
 For deployment details, including MinerU model preparation, see [deploy.md](deploy.md).
 
@@ -94,30 +96,32 @@ For a direct multimodal question without the DocPilot pipeline, switch to the **
 
 ## Extract: constraint-aware document-to-database/table
 
-**Extract** turns collections of raw documents into structured, relational data. Powered by DataMosaic, it uses a natural-language objective or an explicit schema to identify entities, attributes, and relationships, then runs an orchestrated **extraction → verification → repair** loop. Schema rules, foreign keys, and business constraints guide targeted corrections, so the result is more than a list of isolated fields.
+**Extract** turns collections of raw documents into structured, relational data. Powered by DBMosaic, it uses a natural-language objective or an explicit schema to identify entities, attributes, and relationships, then runs an orchestrated **extraction → verification → repair** loop. Schema rules, foreign keys, and business constraints guide targeted corrections, so the result is more than a list of isolated fields.
 
 Use it when you need a reusable database—for example, consolidating companies, reporting periods, revenue, and income across financial reports—and correctness depends on relationships across records as well as individual values.
 
 1. Open **Extract** from the home page. Upload source files to the file library and select the ones to process.
 2. Under **Processing Method**, choose **Description** to specify the desired information in natural language, or **Schema** to define tables, fields, and relationships.
-3. Click **Begin Analysis**, follow the extraction and verification stages, then inspect the generated records and database. Export the result from the DataMosaic workspace if needed.
+3. Click **Begin Analysis**, follow the extraction and verification stages, then inspect the generated records and database. Export the result from the DBMosaic workspace if needed.
 
-The button is enabled only when at least one file is selected and the description or schema is valid. Configure DataMosaic's model credentials before running a task; see its [README](module/DataMosaic/README.md) for supported formats and schema details.
+The button is enabled only when at least one file is selected and the description or schema is valid. Configure DBMosaic's model credentials before running a task; see its [README](module/DBMosaic/README.md) for supported formats and schema details.
 
 ## Project layout
 
 ```text
-DocSensaAI/
+DataMosaic/
 ├── web/                 # Unified entry page and reverse proxy
 ├── api/                 # Platform API
 ├── module/
 │   ├── DocPilot/        # Analyze engine (Git submodule)
-│   └── DataMosaic/      # Extract engine (Git submodule)
+│   └── DBMosaic/      # Extract engine (Git submodule)
 ├── docker-compose.yml  # Web, API, and both engines
 ```
 
 The engines are pinned Git submodules under `module/`; their source code is maintained in their upstream repositories.
 
-Analyze and Extract currently retain separate uploaded files, histories, and results; switching between them does not transfer data automatically. Docker stores their runtime data in named volumes, including DocPilot's workspace, runs, and MinerU models, and DataMosaic's uploads, history, and outputs. `docker compose down` keeps those volumes; **do not use `docker compose down -v` if you want to keep your data**. For local development without Docker, see [deploy.md](deploy.md).
+Analyze and Extract currently retain separate uploaded files, histories, and results; switching between them does not transfer data automatically. Docker stores their runtime data in named volumes, including DocPilot's workspace, runs, and MinerU models, and DBMosaic's uploads, history, and outputs. `docker compose down` keeps those volumes; **do not use `docker compose down -v` if you want to keep your data**. For local development without Docker, see [deploy.md](deploy.md).
 
-The default web bind address is `127.0.0.1:8080`. For access from another machine on a trusted network, set `DOCSENSA_WEB_BIND=0.0.0.0` in `.env` and protect the service with a firewall or authentication proxy. This entry point has no built-in user authentication and must not be exposed directly to the public Internet.
+The default web bind address is `127.0.0.1:8080`. For access from another machine on a trusted network, set `DATAMOSAIC_WEB_BIND=0.0.0.0` in `.env` and protect the service with a firewall or authentication proxy. This entry point has no built-in user authentication and must not be exposed directly to the public Internet.
+
+Naming: the platform uses `DATAMOSAIC_*` environment variables, the DBMosaic Extract engine uses `DBMOSAIC_*`, and DocPilot keeps `DOCPILOT_*`. Update any external shell exports or service configuration to these names. The `datamosaic` Compose service, Docker volume names, browser theme storage keys, and DataMosaic publication title are retained.

@@ -5,12 +5,12 @@ const { createRequire } = require('node:module');
 
 const [root, docpilotDist, datamosaicBuild, portalBuild] = process.argv.slice(2);
 if (!root || !docpilotDist || !datamosaicBuild || !portalBuild) {
-  throw new Error('Usage: node local-server.cjs ROOT DOCPILOT_DIST DATAMOSAIC_BUILD PORTAL_BUILD');
+  throw new Error('Usage: node local-server.cjs ROOT DOCPILOT_DIST DBMOSAIC_BUILD PORTAL_BUILD');
 }
 
-const fromDataMosaic = createRequire(join(root, 'module/DataMosaic/frontend/package.json'));
-const serveStatic = fromDataMosaic('serve-static');
-const proxy = fromDataMosaic('http-proxy').createProxyServer({ changeOrigin: true, ws: true });
+const fromDBMosaic = createRequire(join(root, 'module/DBMosaic/frontend/package.json'));
+const serveStatic = fromDBMosaic('serve-static');
+const proxy = fromDBMosaic('http-proxy').createProxyServer({ changeOrigin: true, ws: true });
 const sites = {
   '/analyze': { root: docpilotDist, serve: serveStatic(docpilotDist) },
   '/extract': { root: datamosaicBuild, serve: serveStatic(datamosaicBuild) },
@@ -77,7 +77,7 @@ server.on('upgrade', (request, socket, head) => {
   proxy.ws(request, socket, head, { target: 'ws://127.0.0.1:8765' });
 });
 
-const host = process.env.DOCSENSA_WEB_BIND || '127.0.0.1';
-const port = Number(process.env.DOCSENSA_WEB_PORT || 8080);
+const host = process.env.DATAMOSAIC_WEB_BIND || '127.0.0.1';
+const port = Number(process.env.DATAMOSAIC_WEB_PORT || 8080);
 server.on('error', error => { console.error(error.message); process.exitCode = 1; });
-server.listen(port, host, () => console.log(`DocSensaAI: http://${host}:${port}`));
+server.listen(port, host, () => console.log(`DataMosaic: http://${host}:${port}`));

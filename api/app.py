@@ -15,9 +15,9 @@ TASK_ID = re.compile(r"^[a-zA-Z0-9-]{1,100}$")
 
 
 def create_app(transport=None):
-    app = FastAPI(title="DocSensaAI API")
+    app = FastAPI(title="DataMosaic API")
     docpilot = os.getenv("DOCPILOT_URL", "http://docpilot:8008").rstrip("/")
-    datamosaic = os.getenv("DATAMOSAIC_URL", "http://datamosaic:5000").rstrip("/")
+    datamosaic = os.getenv("DBMOSAIC_URL", "http://datamosaic:5000").rstrip("/")
 
     def client():
         return httpx.AsyncClient(transport=transport, timeout=60, trust_env=False)
@@ -153,12 +153,12 @@ def create_app(transport=None):
                     f"{datamosaic}/api/doc2db/process",
                     json={"files": [path], "schema": "", "input_mode": "instruction",
                           "nl_prompt": instruction, "table_name": "extracted_data",
-                          "model": os.getenv("DATAMOSAIC_MODEL", "gpt-4o")},
+                          "model": os.getenv("DBMOSAIC_MODEL", "gpt-4o")},
                 )
                 started.raise_for_status()
                 return {"task_id": started.json()["task_id"], "status": "started"}
         except (httpx.HTTPError, KeyError, ValueError):
-            raise HTTPException(502, "Could not start extraction. Check DataMosaic logs.") from None
+            raise HTTPException(502, "Could not start extraction. Check DBMosaic logs.") from None
 
     @app.get("/api/extract/{task_id}")
     async def extract_status(task_id: str):
@@ -173,7 +173,7 @@ def create_app(transport=None):
                 body = response.json()
                 return {"task_id": task_id, "status": body.get("status", "unknown"),
                         "step": body.get("current_step", ""),
-                        "error": "Extraction failed. Check DataMosaic logs." if body.get("status") == "failed" else None}
+                        "error": "Extraction failed. Check DBMosaic logs." if body.get("status") == "failed" else None}
         except (httpx.HTTPError, ValueError):
             raise HTTPException(502, "Could not read extraction status.") from None
 

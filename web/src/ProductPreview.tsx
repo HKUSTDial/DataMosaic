@@ -9,7 +9,7 @@ export default function ProductPreview({ mode }: { mode: 'analyze' | 'extract' }
   const analyzing = mode === 'analyze';
 
   return <div className={`product-preview preview-${mode}`} role="img" aria-label={analyzing
-    ? 'Illustrative DocPilot orchestration: Navigate locates a map on page 7 and supporting text and a table on page 12; Focus inspects Iowa; Extract gathers evidence; Solve calculates the cost-per-GW decrease; verification grounds the final answer'
+    ? 'Illustrative DocMosaic orchestration: Navigate locates a map on page 7 and supporting text and a table on page 12; Focus inspects Iowa; Extract gathers evidence; Solve calculates the cost-per-GW decrease; verification grounds the final answer'
     : 'Illustrative constraint-aware extraction: read an invoice under schema constraints, verify required fields, numeric types and totals, fix an inconsistent total from 3200 to 3300, re-check and produce a validated record'}>
     <div className="product-workflow-heading"><strong>{analyzing ? 'Agent orchestration' : 'Constraint-aware extraction'}</strong><span>Illustrative workflow</span></div>
     <div className="product-scene">

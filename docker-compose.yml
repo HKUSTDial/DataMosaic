@@ -4,14 +4,14 @@ services:
       context: .
       dockerfile: web/Dockerfile
     ports:
-      - "${DOCSENSA_WEB_BIND:-127.0.0.1}:${DOCSENSA_WEB_PORT:-8080}:80"
+      - "${DATAMOSAIC_WEB_BIND:-127.0.0.1}:${DATAMOSAIC_WEB_PORT:-8080}:80"
 
   api:
     build: ./api
     env_file: .env
     environment:
       DOCPILOT_URL: http://docpilot:8008
-      DATAMOSAIC_URL: http://datamosaic:5000
+      DBMOSAIC_URL: http://datamosaic:5000
 
   docpilot:
     build: ./module/DocPilot
@@ -26,10 +26,10 @@ services:
       - docpilot_mineru_models:/home/docpilot/.mineru/models
 
   datamosaic:
-    build: ./module/DataMosaic
-    env_file: ./module/DataMosaic/llm/.env
+    build: ./module/DBMosaic
+    env_file: ./module/DBMosaic/llm/.env
     environment:
-      DATAMOSAIC_CORS_ORIGINS: ${DATAMOSAIC_CORS_ORIGINS}
+      DBMOSAIC_CORS_ORIGINS: ${DBMOSAIC_CORS_ORIGINS}
     expose:
       - "5000"
     volumes:

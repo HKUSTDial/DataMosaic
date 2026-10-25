@@ -12,7 +12,7 @@ export default function DemoDialog({ mode, onClose }: { mode: 'analyze' | 'extra
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoFailed, setVideoFailed] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const title = mode === 'analyze' ? 'Analyze' : 'Extract';
+  const title = mode === 'analyze' ? 'DocMosaic' : 'DBMosaic';
   const videoUrl = demoVideos[`../../assets/${mode}-demo.mp4`] ?? demoVideos[`../../assets/${mode}-demo.webm`];
 
   useEffect(() => {

@@ -24,10 +24,12 @@ class GatewayTests(unittest.IsolatedAsyncioTestCase):
             seen.append(str(request.url))
             return httpx.Response(200, json={"status": "ok"})
 
-        response = await self.request(downstream, "GET", "/api/health")
+        with patch.dict(os.environ, {"DBMOSAIC_URL": "http://extract-test:5100/"}):
+            response = await self.request(downstream, "GET", "/api/health")
         self.assertEqual(response.json(), {"status": "ok", "docpilot": True, "datamosaic": True})
         self.assertEqual(len(seen), 2)
         self.assertTrue(all(url.endswith("/api/health") for url in seen))
+        self.assertIn("http://extract-test:5100/api/health", seen)
 
     async def test_analyze_waits_for_ready_then_streams_answer_without_key(self):
         calls = []
@@ -72,6 +74,7 @@ class GatewayTests(unittest.IsolatedAsyncioTestCase):
                 self.assertEqual(body["files"], ["/app/backend/uploads/new.pdf"])
                 self.assertEqual(body["nl_prompt"], "Extract names")
                 self.assertEqual(body["input_mode"], "instruction")
+                self.assertEqual(body["model"], "renamed-model")
                 return httpx.Response(200, json={"task_id": "task-1"})
             if request.url.path == "/api/doc2db/status/task-1":
                 return httpx.Response(200, json={"status": "completed", "current_step": "done", "documents": ["/secret/path"]})
@@ -79,9 +82,10 @@ class GatewayTests(unittest.IsolatedAsyncioTestCase):
                 return httpx.Response(200, json={"rows": [{"name": "Alice"}]})
             return httpx.Response(404)
 
-        started = await self.request(downstream, "POST", "/api/extract",
-                                     files={"file": ("input.pdf", PDF, "application/pdf")},
-                                     data={"instruction": "Extract names"})
+        with patch.dict(os.environ, {"DBMOSAIC_MODEL": "renamed-model"}):
+            started = await self.request(downstream, "POST", "/api/extract",
+                                         files={"file": ("input.pdf", PDF, "application/pdf")},
+                                         data={"instruction": "Extract names"})
         self.assertEqual(started.json(), {"task_id": "task-1", "status": "started"})
         status = await self.request(downstream, "GET", "/api/extract/task-1")
         self.assertEqual(status.json()["status"], "completed")
