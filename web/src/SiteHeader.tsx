@@ -6,6 +6,9 @@ const dropdowns = [
     { label: 'DBMosaic', description: 'Schema-driven extraction with DBMosaic', href: '/extract/', icon: 'M5 4h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2ZM3 10h18M9 10v10M15 10v10M7 7h3' },
     { label: 'DocMosaic', description: 'Document Q&A with DocMosaic', href: '/analyze/', icon: 'M4 5.5A2.5 2.5 0 0 1 6.5 3H16l4 4v11.5a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 18.5zM15.5 3v4.5H20M8 11h8M8 15h5' },
   ] },
+  { id: 'ontology', label: 'Ontology', icon: 'M12 8v4M5 16v-4h14v4M9 2h6v6H9zM2 16h6v6H2zM16 16h6v6h-6z', links: [
+    { label: 'OntoMosaic-Text2SQL', description: 'Build and explore database knowledge from SQL examples', href: '/ontomosaic-text2sql', icon: 'M12 8v4M5 16v-4h14v4M9 2h6v6H9zM2 16h6v6H2zM16 16h6v6h-6z' },
+  ] },
   { id: 'resource', label: 'Resource', icon: 'M12 5v15M3 5c3-1.5 6-1.5 9 0 3-1.5 6-1.5 9 0v15c-3-1.5-6-1.5-9 0-3-1.5-6-1.5-9 0z', links: [
     { label: 'Documentation', description: 'Explore the repository and setup guides', href: repository, icon: 'M12 5v15M3 5c3-1.5 6-1.5 9 0 3-1.5 6-1.5 9 0v15c-3-1.5-6-1.5-9 0-3-1.5-6-1.5-9 0z' },
     { label: 'Research Paper', description: 'Read the research behind DataMosaic', href: '/research/', icon: 'M4 3h11l3 3v5M4 3v18h7M8 7h5M8 11h3M19 15a4 4 0 1 1-8 0 4 4 0 0 1 8 0Zm-1 3 3 3' },

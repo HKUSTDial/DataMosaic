@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import UseCases from './UseCases';
 import ProductPreview from './ProductPreview';
 import DemoDialog from './DemoDialog';
 import SiteHeader from './SiteHeader';
 import ResearchPage from './ResearchPage';
+const OntologyWorkbench = lazy(() => import('./features/ontology/OntologyWorkbench'));
 
 /* const previewSources = [
   { format: 'TXT', filename: 'notes.txt', kind: 'txt', icon: 'M8 10h8M8 14h8M8 18h5' },
@@ -30,7 +31,7 @@ function ServiceStatus({ url }: { url: string }) {
 
 export default function App() {
   const isResearchPage = /^\/research\/?$/.test(window.location.pathname);
-  const isText2SQLPage = /^\/ontomosaic-text2sql\/?$/.test(window.location.pathname);
+  const isText2SQLPage = /^\/(ontomosaic-text2sql|ontology)\/?$/.test(window.location.pathname);
   // const [previewPaused, setPreviewPaused] = useState(false);
   const [activeDemo, setActiveDemo] = useState<'analyze' | 'extract' | null>(null);
   const [darkMode, setDarkMode] = useState(() => document.documentElement.dataset.theme === 'dark');
@@ -50,8 +51,8 @@ export default function App() {
   return <div className="app-shell">
     <SiteHeader darkMode={darkMode} onToggleTheme={() => setDarkMode(value => !value)}/>
     <div className="page">
-      <main className={`content${isResearchPage ? ' research-content' : ''}`}>
-        {isText2SQLPage ? null : isResearchPage ? <ResearchPage/> : <>
+      <main className={`content${isResearchPage ? ' research-content' : ''}${isText2SQLPage ? ' ontology-content' : ''}`}>
+        {isText2SQLPage ? <Suspense fallback={<p role="status">Loading OntoMosaic-Text2SQL…</p>}><OntologyWorkbench/></Suspense> : isResearchPage ? <ResearchPage/> : <>
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-copy">
             <h1 id="hero-title">Unlock the intelligence in your documents. <em>Put it to work.</em></h1>

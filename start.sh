@@ -2,6 +2,22 @@
 set -Eeuo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [[ "${1:-}" == "--ontology-only" ]]; then
+  exec "$ROOT_DIR/scripts/start-ontology.sh"
+fi
+if [[ -f "$ROOT_DIR/.env" ]]; then
+  set -a
+  source "$ROOT_DIR/.env"
+  set +a
+fi
+ONTOLOGY_SOURCE="${ONTOLOGY_SOURCE:-$ROOT_DIR/module/Ontology-NL2SQL}"
+[[ "$ONTOLOGY_SOURCE" = /* ]] || ONTOLOGY_SOURCE="$ROOT_DIR/$ONTOLOGY_SOURCE"
+ONTOLOGY_PYTHON="${ONTOLOGY_PYTHON:-$ONTOLOGY_SOURCE/.venv/bin/python}"
+ENABLE_ONTOLOGY="${ENABLE_ONTOLOGY:-0}"
+if [[ "$ENABLE_ONTOLOGY" == "1" && ! -x "$ONTOLOGY_PYTHON" ]]; then
+  echo "Ontology Python missing: $ONTOLOGY_PYTHON. Install the web dependencies or set ENABLE_ONTOLOGY=0." >&2
+  exit 1
+fi
 DOCPILOT_DIR="$ROOT_DIR/module/DocPilot"
 DBMOSAIC_DIR="$ROOT_DIR/module/DBMosaic"
 LOG_DIR="$ROOT_DIR/logs/local"
@@ -40,7 +56,9 @@ done
   echo "Invalid DATAMOSAIC_WEB_PORT: $WEB_PORT" >&2; exit 1;
 }
 if command -v lsof >/dev/null; then
-  for port in 8001 8008 5000 8765 "$WEB_PORT"; do
+  PORTS=(8001 8008 5000 8765 "$WEB_PORT")
+  [[ "$ENABLE_ONTOLOGY" != "1" ]] || PORTS+=(8011)
+  for port in "${PORTS[@]}"; do
     if lsof -nP -iTCP:"$port" -sTCP:LISTEN >/dev/null 2>&1; then
       echo "Port $port is already in use; stop the existing service first." >&2
       exit 1
@@ -89,7 +107,7 @@ wait_healthy() {
     --app-dir demo/chat/backend --host 127.0.0.1 --port 8008
 ) >"$LOG_DIR/docpilot.log" 2>&1 &
 PIDS+=("$!")
-wait_healthy DocPilot http://127.0.0.1:8008/api/health "${PIDS[-1]}" "$LOG_DIR/docpilot.log"
+wait_healthy DocPilot http://127.0.0.1:8008/api/health "${PIDS[${#PIDS[@]}-1]}" "$LOG_DIR/docpilot.log"
 
 (
   cd "$DBMOSAIC_DIR"
@@ -99,7 +117,7 @@ wait_healthy DocPilot http://127.0.0.1:8008/api/health "${PIDS[-1]}" "$LOG_DIR/d
   exec "$DBMOSAIC_DIR/.venv/bin/python" backend/app.py
 ) >"$LOG_DIR/datamosaic.log" 2>&1 &
 PIDS+=("$!")
-wait_healthy DBMosaic http://127.0.0.1:5000/api/health "${PIDS[-1]}" "$LOG_DIR/datamosaic.log"
+wait_healthy DBMosaic http://127.0.0.1:5000/api/health "${PIDS[${#PIDS[@]}-1]}" "$LOG_DIR/datamosaic.log"
 
 (
   cd "$ROOT_DIR"
@@ -108,16 +126,37 @@ wait_healthy DBMosaic http://127.0.0.1:5000/api/health "${PIDS[-1]}" "$LOG_DIR/d
     --host 127.0.0.1 --port 8001
 ) >"$LOG_DIR/api.log" 2>&1 &
 PIDS+=("$!")
-wait_healthy 'Platform API' http://127.0.0.1:8001/api/health "${PIDS[-1]}" "$LOG_DIR/api.log"
+wait_healthy 'Platform API' http://127.0.0.1:8001/api/health "${PIDS[${#PIDS[@]}-1]}" "$LOG_DIR/api.log"
+
+# Optional ontology engine; keeps its SQLite files and model configuration in its source tree.
+if [[ "$ENABLE_ONTOLOGY" == "1" ]]; then
+  ONTOLOGY_SOURCE="$(cd "$ONTOLOGY_SOURCE" && pwd)"
+  (
+    cd "$ONTOLOGY_SOURCE"
+    export CORTEX_PROJECT_ROOT="$ONTOLOGY_SOURCE"
+    export PYTHONPATH="$ROOT_DIR/api:$ONTOLOGY_SOURCE/src${PYTHONPATH:+:$PYTHONPATH}"
+    exec "$ONTOLOGY_PYTHON" -m uvicorn portal_ontology:app \
+      --host 127.0.0.1 --port 8011 --workers 1
+  ) >"$LOG_DIR/ontology.log" 2>&1 &
+  PIDS+=("$!")
+  wait_healthy Ontology http://127.0.0.1:8011/api/health "${PIDS[${#PIDS[@]}-1]}" "$LOG_DIR/ontology.log"
+fi
 
 node "$ROOT_DIR/web/local-server.cjs" "$ROOT_DIR" \
   "$BUILD_DIR/docpilot/dist" "$BUILD_DIR/datamosaic/build" "$BUILD_DIR/portal" \
   >"$LOG_DIR/web.log" 2>&1 &
 PIDS+=("$!")
-wait_healthy 'Web portal' "http://127.0.0.1:$WEB_PORT/" "${PIDS[-1]}" "$LOG_DIR/web.log"
+wait_healthy 'Web portal' "http://127.0.0.1:$WEB_PORT/" "${PIDS[${#PIDS[@]}-1]}" "$LOG_DIR/web.log"
 
 echo "Open http://127.0.0.1:$WEB_PORT/ (Analyze: /analyze/, Extract: /extract/)"
 echo "Logs: $LOG_DIR · Press Ctrl+C to stop all local services."
-wait -n "${PIDS[@]}" || true
-echo "A service exited; stopping the rest. Check $LOG_DIR for details." >&2
-exit 1
+# macOS ships Bash 3.2, which has no wait -n.
+while true; do
+  for pid in "${PIDS[@]}"; do
+    if ! kill -0 "$pid" 2>/dev/null; then
+      echo "A service exited; stopping the rest. Check $LOG_DIR for details." >&2
+      exit 1
+    fi
+  done
+  sleep 1
+done

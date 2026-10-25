@@ -1,0 +1,21 @@
+# docker compose -f docker-compose.yml -f docker-compose.ontology.yml up --build
+services:
+  ontology:
+    build:
+      context: ${ONTOLOGY_SOURCE:-./module/Ontology-NL2SQL}
+      dockerfile: Dockerfile.web
+    env_file: ${ONTOLOGY_ENV_FILE:-./module/Ontology-NL2SQL/.env}
+    command: ["uvicorn", "portal_ontology:app", "--host", "0.0.0.0", "--port", "8011", "--workers", "1"]
+    expose:
+      - "8011"
+    volumes:
+      - ./api/portal_ontology.py:/app/portal_ontology.py:ro
+      - type: bind
+        source: ${ONTOLOGY_DATABASES:-./module/Ontology-NL2SQL/data/web_databases}
+        target: /data/databases
+        read_only: true
+        bind:
+          create_host_path: false
+      - ontology_runtime:/data/runtime
+volumes:
+  ontology_runtime:

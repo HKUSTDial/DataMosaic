@@ -8,9 +8,9 @@ RUN node /tmp/patch-docpilot-api.mjs /app/src/api.ts && npm run build -- --base=
 
 FROM node:20-alpine AS datamosaic-ui
 WORKDIR /app
-COPY module/DataMosaic/frontend/package*.json ./
+COPY module/DBMosaic/frontend/package*.json ./
 RUN npm ci
-COPY module/DataMosaic/frontend/ ./
+COPY module/DBMosaic/frontend/ ./
 ENV PUBLIC_URL=/extract REACT_APP_WEBSOCKET_URL=/extract/ws
 RUN npm run build
 

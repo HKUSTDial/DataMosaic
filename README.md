@@ -125,3 +125,9 @@ Analyze and Extract currently retain separate uploaded files, histories, and res
 The default web bind address is `127.0.0.1:8080`. For access from another machine on a trusted network, set `DATAMOSAIC_WEB_BIND=0.0.0.0` in `.env` and protect the service with a firewall or authentication proxy. This entry point has no built-in user authentication and must not be exposed directly to the public Internet.
 
 Naming: the platform uses `DATAMOSAIC_*` environment variables, the DBMosaic Extract engine uses `DBMOSAIC_*`, and DocPilot keeps `DOCPILOT_*`. Update any external shell exports or service configuration to these names. The `datamosaic` Compose service, Docker volume names, browser theme storage keys, and DataMosaic publication title are retained.
+
+## OntoMosaic-Text2SQL
+
+Open **`/ontomosaic-text2sql`** to import a SQLite database and question–SQL examples, build ontology knowledge with Cortex, and explore or export the resulting graph. The backend is maintained in [`module/Ontology-NL2SQL`](https://github.com/HKUSTDial/Ontology-NL2SQL), independently of the document engines.
+
+After installing the engine web dependencies, use `./start.sh --ontology-only` for independent development, or the full local/Docker stack for all modules. See [the integration guide](docs/ontomosaic-text2sql.md) for configuration, API paths, storage, current limits, and verification.
