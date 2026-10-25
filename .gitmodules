@@ -4,3 +4,6 @@
 [submodule "DBMosaic"]
 	path = module/DBMosaic
 	url = https://github.com/HKUSTDial/DBMosaic.git
+[submodule "module/Ontology-NL2SQL"]
+	path = module/Ontology-NL2SQL
+	url = https://github.com/HKUSTDial/Ontology-NL2SQL.git

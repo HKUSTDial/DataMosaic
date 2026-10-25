@@ -1,5 +1,7 @@
-/.env
-/.env.production
+# Local model and deployment credentials (templates are safe to share).
+.env
+.env.*
+!.env.example
 /data/
 /logs/
 /web/node_modules/

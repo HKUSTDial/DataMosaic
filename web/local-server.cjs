@@ -53,6 +53,8 @@ const server = http.createServer((request, response) => {
   } else if (pathname.startsWith('/analyze/api/') || pathname.startsWith('/analyze/uploads/')) {
     request.url = request.url.slice('/analyze'.length);
     proxy.web(request, response, { target: 'http://127.0.0.1:8008' });
+  } else if (pathname.startsWith('/ontomosaic-text2sql/api/') || pathname.startsWith('/ontology/api/')) {
+    proxy.web(request, response, { target: process.env.ONTOLOGY_URL || 'http://127.0.0.1:8011' });
   } else if (pathname.startsWith('/platform/api/')) {
     request.url = request.url.slice('/platform'.length);
     proxy.web(request, response, { target: 'http://127.0.0.1:8001' });
