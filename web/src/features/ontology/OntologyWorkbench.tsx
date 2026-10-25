@@ -45,7 +45,7 @@ export default function OntologyWorkbench(){
  }
  async function samples(){setBusy('samples');try{const r=await fetch(api.examples(route.db));if(!r.ok)throw new Error('Cannot load sample pairs');const text=(await r.text()).split('\n').filter(Boolean).slice(0,2).join('\n');await upload(new File([text+'\n'],`${route.db}.sample.jsonl`));}catch(e){setError(errorText(e));}finally{setBusy('');}}
  async function importPairs(){if(!input)return;setBusy('import');try{const r=await api.importPairs(input.id);setInput(r);setRun(null);}catch(e){setError(errorText(e));}finally{setBusy('');}}
- async function start(){if(!input)return;setBusy('train');setError('');try{const r=await api.train(input.id,crypto.randomUUID());setRun(r);setHistory(h=>[r,...h]);navigate({view:'build',run:r.id,graph:''});}catch(e){setError(errorText(e));}finally{setBusy('');}}
+ async function start(){if(!input)return;setBusy('train');setError('');try{const r=await api.train(input.id);setRun(r);setHistory(h=>[r,...h]);navigate({view:'build',run:r.id,graph:''});}catch(e){setError(errorText(e));}finally{setBusy('');}}
  async function openPreviousRun(previous:Run){
   if(previous.result){navigate({view:'graph',run:previous.mode==='live'?previous.id:'',graph:''});return;}
   if(!previous.import_id)return;

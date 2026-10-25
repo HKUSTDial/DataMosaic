@@ -11,6 +11,7 @@ The portal owns the React UI in `web/src/features/ontology/`; the Cortex engine 
 - This release provides ontology learning and graph exploration. It does not add an interactive natural-language-to-SQL query endpoint. Cortex's existing CLI retrieval/guidance workflows remain available in the engine.
 - Training uses a read-only database snapshot and per-run outputs. Existing graphs can be viewed independently; failed training never substitutes an archive as its result.
 - Engine configuration and model keys remain server-side. `/health` distinguishes HTTP availability from `training_ready`; viewing a graph or uploading a database does not require model credentials.
+- The portal's `api/portal_ontology.py` entrypoint serializes training submissions across all three API prefixes. Repeated request IDs reuse one run; a different request for an active database returns 409. Background training remains asynchronous. This protection requires the documented single API worker.
 
 ## Setup
 
@@ -48,8 +49,9 @@ For frontend hot reload, run the engine and Vite separately:
 
 ```bash
 # Terminal 1, portal root
-cd module/Ontology-NL2SQL
-.venv/bin/python -m uvicorn cortex.web.app:app --host 127.0.0.1 --port 8011 --workers 1
+CORTEX_PROJECT_ROOT="$PWD/module/Ontology-NL2SQL" \
+PYTHONPATH="$PWD/api:$PWD/module/Ontology-NL2SQL/src" \
+module/Ontology-NL2SQL/.venv/bin/python -m uvicorn portal_ontology:app --host 127.0.0.1 --port 8011 --workers 1
 # Terminal 2, portal root
 npm --prefix web run dev
 ```
@@ -58,13 +60,13 @@ Vite forwards both API prefixes to `ONTOLOGY_URL` (default http://127.0.0.1:8011
 
 ## Run the full stack
 
-After installing DocPilot and DBMosaic dependencies described in the root README:
+Ontology is disabled by default so existing DocPilot and DBMosaic installations continue to start without it. After installing the ontology dependencies, set `ENABLE_ONTOLOGY=1` in the portal `.env`, then run the full stack:
 
 ```bash
 ./start.sh
 ```
 
-The local gateway and Nginx forward the ontology API to port 8011. `ENABLE_ONTOLOGY=0` skips starting the engine in the local full-stack script. `ONTOLOGY_SOURCE` can point to another checkout; `ONTOLOGY_PYTHON` selects its interpreter. Local scripts load the portal `.env`. Relative source paths are resolved from the portal root. If overriding source, set database/model paths explicitly as needed.
+The local gateway and Nginx forward the ontology API to port 8011. `ENABLE_ONTOLOGY=0` skips starting the engine in the local full-stack script. All documented launch modes use the portal submission guard. `ONTOLOGY_SOURCE` can point to another checkout; `ONTOLOGY_PYTHON` selects its interpreter. Local scripts load the portal `.env`. Relative source paths are resolved from the portal root. If overriding source, set database/model paths explicitly as needed.
 
 For Docker, copy and configure both `.env` files, create the database directory, and run:
 
@@ -81,6 +83,8 @@ docker compose -f docker-compose.yml -f docker-compose.ontology.yml up --build -
 ```bash
 npm --prefix web run build
 node --test web/tests/ontology-proxy.test.mjs
+node --test web/tests/ontology-request-id.test.mjs
+module/Ontology-NL2SQL/.venv/bin/python -m unittest discover -s api/tests -v
 module/Ontology-NL2SQL/.venv/bin/python -m pytest \
   module/Ontology-NL2SQL/tests/test_web_workbench.py \
   module/Ontology-NL2SQL/tests/test_web_database_upload.py \

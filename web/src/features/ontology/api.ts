@@ -16,7 +16,10 @@ export const api={
   input:(id:string)=>request<InputFile>(`/imports/${id}`),
   pairs:(id:string,offset:number)=>request<{pairs:Pair[];total:number}>(`/imports/${id}/pairs?offset=${offset}&limit=5`),
   importPairs:(id:string)=>post<InputFile>('/imports',{file_id:id}),
-  train:(id:string,requestId:string)=>post<Run>('/sql-train',{import_id:id,request_id:requestId,mode:'live',case_limit:2}),
+  train:(id:string)=>{
+    const requestId=Array.from(crypto.getRandomValues(new Uint8Array(16)),byte=>byte.toString(16).padStart(2,'0')).join('');
+    return post<Run>('/sql-train',{import_id:id,request_id:requestId,mode:'live',case_limit:2});
+  },
   runs:(db:string)=>request<{runs:Run[]}>(`/runs?database_id=${encodeURIComponent(db)}`),
   run:(id:string)=>request<Run>(`/runs/${id}`),
   runGraph:(id:string)=>request<GraphData>(`/runs/${id}/graph`),
