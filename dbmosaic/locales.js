@@ -140,7 +140,7 @@
       if (original && Object.hasOwn(english, original)) attributeBindings.push({ element, attribute, original });
     });
   });
-  let language = 'zh';
+  let language = 'en';
   const t = (key, values = {}) => {
     let value = language === 'en' ? (english[key] ?? key) : key;
     Object.entries(values).forEach(([name, replacement]) => { value = value.replaceAll(`{${name}}`, replacement); });
@@ -165,7 +165,7 @@
   document.querySelectorAll('[data-language]').forEach(button => {
     button.addEventListener('click', () => setLanguage(button.dataset.language));
   });
-  let initial = 'zh';
-  try { initial = localStorage.getItem('datamosaic-language') || initial; } catch { /* Use Chinese by default. */ }
+  let initial = 'en';
+  try { initial = localStorage.getItem('datamosaic-language') || initial; } catch { /* Use English by default. */ }
   setLanguage(initial, false);
 })();
