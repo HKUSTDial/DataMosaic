@@ -39,7 +39,7 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                 assert page.locator('.overview-tile').count() == 16
                 assert page.locator('a[href^="/"]').evaluate_all('(links) => links.every(a => a.getAttribute("href").startsWith("/DataMosaic/"))')
                 assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1')
-                for name, route in (('DocMosaic', 'docmosaic'), ('DBMosaic', 'dbmosaic'), ('OntoMosaic-Text2SQL', 'ontomosaic-text2sql')):
+                for name in ('DocMosaic', 'OntoMosaic-Text2SQL'):
                     page.get_by_role('link', name=f'Open {name}', exact=True).first.click()
                     expect(page.get_by_role('dialog')).to_be_visible()
                     expect(page.locator('#demo-title')).to_have_text(f'{name} demo')
@@ -49,6 +49,11 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                     expect(page.get_by_role('dialog')).to_be_visible()
                     page.get_by_role('button', name='Close demo', exact=True).click()
                     expect(page).to_have_url(base)
+                page.get_by_role('link', name='Open DBMosaic', exact=True).first.click()
+                expect(page).to_have_url(base + 'dbmosaic/')
+                expect(page.locator('h1')).to_contain_text('可靠的数据')
+                page.wait_for_function('document.querySelector("#promo")?.naturalWidth > 0')
+                assert page.goto(base).status == 200
                 for route in ('ontomosaic-doc', 'ontomosaic-enterprise'):
                     assert page.goto(base + route + '?tab=1').status == 200
                     assert page.reload().status == 200

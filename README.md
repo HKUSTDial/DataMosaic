@@ -39,7 +39,7 @@ This work is associated with three publications:
 
 The portal can be published as a static preview at **https://hkustdial.github.io/DataMosaic/**. In the repository's **Settings → Pages → Build and deployment → Source**, select **GitHub Actions**. After the Pages workflow is pushed to `main`, **Actions → Deploy website to GitHub Pages → Run workflow** publishes it; later pushes affecting the website deploy automatically.
 
-The preview includes the homepage, animations, research page, module demos, and empty ontology placeholders. Module links open demos; document analysis, database extraction, and ontology training require the local deployment below. The workflow builds only the portal and needs neither engine submodules nor model credentials.
+The preview includes the homepage, animations, research page, the DBMosaic product page, module demos, and empty ontology placeholders. The DBMosaic card opens that product page. DocMosaic and OntoMosaic-Text2SQL links open demos. Document analysis, database extraction, and ontology training require the local deployment below. The workflow builds only the portal and needs neither engine submodules nor model credentials.
 
 To build and inspect the same preview locally:
 
