@@ -1,7 +1,8 @@
-import { copyFile, mkdir } from 'node:fs/promises';
+import { copyFile, mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
 const output = resolve(process.argv[2] || 'dist');
+await writeFile(resolve(output, '.nojekyll'), '');
 // Pages serves files directly; each portal route needs its own entry HTML.
 for (const route of ['research', 'docmosaic', 'dbmosaic', 'ontomosaic-doc', 'ontomosaic-text2sql', 'ontomosaic-enterprise', 'ontology']) {
   await mkdir(resolve(output, route), { recursive: true });

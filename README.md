@@ -37,9 +37,11 @@ This work is associated with three publications:
 
 ## Website preview on GitHub Pages
 
-The portal can be published as a static preview at **https://hkustdial.github.io/DataMosaic/**. In the repository's **Settings → Pages → Build and deployment → Source**, select **GitHub Actions**. After the Pages workflow is pushed to `main`, **Actions → Deploy website to GitHub Pages → Run workflow** publishes it; later pushes affecting the website deploy automatically.
+The portal can be published as a static preview at **https://hkustdial.github.io/DataMosaic/**. **Actions → Build website branch → Run workflow** builds the portal and updates the `gh-pages` branch. In **Settings → Pages → Build and deployment**, select **Deploy from a branch**, branch **gh-pages**, folder **/ (root)**, and save. GitHub then publishes that branch through its separate **pages build and deployment** workflow.
 
-The preview includes the homepage, animations, research page, module demos, and empty ontology placeholders. Module links open demos; document analysis, database extraction, and ontology training require the local deployment below. The workflow builds only the portal and needs neither engine submodules nor model credentials.
+Later pushes affecting the website rebuild `gh-pages` and explicitly request a Pages build, since pushes made with `GITHUB_TOKEN` do not trigger one automatically. No extra personal access token is needed. A successful **Build website branch** run confirms that the generated branch was updated; check **pages build and deployment** and the public URL to confirm publication. Branch publishing still uses GitHub Pages and can encounter service-side delays or timeouts.
+
+The preview includes the homepage, animations, research page, module demos, and empty ontology placeholders. Module links open demos; document analysis, database extraction, and ontology training require the local deployment below. The workflow builds only the portal and needs neither engine submodules nor model credentials. The generated branch contains the build output and `.nojekyll`, with no application source or engine submodules.
 
 To build and inspect the same preview locally:
 

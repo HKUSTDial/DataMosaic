@@ -18,6 +18,7 @@ class QuietHandler(SimpleHTTPRequestHandler):
 
 output = Path(sys.argv[1]).resolve()
 assert (output / 'index.html').is_file(), 'Pass the prepared Pages build directory'
+assert (output / '.nojekyll').is_file(), 'Branch publishing must bypass Jekyll'
 with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
     (Path(folder) / 'DataMosaic').symlink_to(output, target_is_directory=True)
     server = ThreadingHTTPServer(('127.0.0.1', 0), partial(QuietHandler, directory=folder))

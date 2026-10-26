@@ -1,4 +1,4 @@
-name: Deploy website to GitHub Pages
+name: Build website branch
 
 on:
   push:
@@ -10,20 +10,16 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
-  id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: website-branch
+  cancel-in-progress: false
 
 jobs:
-  deploy:
+  publish:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
@@ -35,6 +31,8 @@ jobs:
         id: pages
       - run: npm ci
         working-directory: web
+      - run: node --test tests/pages-publish.test.mjs
+        working-directory: web
       - name: Build static preview
         env:
           PAGES_BASE: ${{ steps.pages.outputs.base_path }}/
@@ -42,8 +40,23 @@ jobs:
           npm run build -- --mode pages --base="$PAGES_BASE"
           node scripts/prepare-pages.mjs
         working-directory: web
-      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
-        with:
-          path: web/dist
-      - uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5
-        id: deployment
+      - name: Update gh-pages branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY_URL: ${{ github.server_url }}/${{ github.repository }}.git
+        run: |
+          gh auth setup-git
+          bash web/scripts/publish-pages.sh web/dist "$REPOSITORY_URL"
+      - name: Request branch-based Pages build
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          source=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '[.build_type, .source.branch, .source.path] | join(" ")')
+          if [[ "$source" == "legacy gh-pages /" ]]; then
+            # GITHUB_TOKEN pushes do not trigger a Pages build by themselves.
+            gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds"
+            echo 'gh-pages updated and a Pages build requested. Check the separate pages build and deployment run for the deployment result.' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo '::notice::gh-pages is ready. Set Settings > Pages > Source to Deploy from a branch, select gh-pages / (root), and save.'
+            echo 'gh-pages updated. To publish it, select Deploy from a branch > gh-pages > / (root) in Settings > Pages and save.' >> "$GITHUB_STEP_SUMMARY"
+          fi
