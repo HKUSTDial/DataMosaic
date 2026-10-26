@@ -18,12 +18,12 @@ Given a task **Q** and available sources, DataMosaic is built around three compl
 
 These capabilities are organized into task-oriented modules:
 
-The homepage uses a top navigation bar: **Application → Extract / Chat** opens DBMosaic and DocPilot respectively; **Resource → Documentation / Research Paper** opens the repository and the site's `/research/` publication list. **Organization** opens HKUSTDial, and **Contact us** opens the repository's issue form. On smaller screens, navigation is available through the menu button. The research page groups the three publications below by year and provides PDF and code links; it supports direct access and refresh through the existing portal fallback.
+The homepage uses a top navigation bar: **Application → DBMosaic / DocMosaic** opens DBMosaic and DocPilot respectively; **Resource → Documentation / Research Paper** opens the repository and the site's `/research/` publication list. **Organization** opens HKUSTDial, and **Contact us** opens the repository's issue form. On smaller screens, navigation is available through the menu button. The research page groups the three publications below by year and provides PDF and code links; it supports direct access and refresh through the existing portal fallback.
 
 | Engine / Module | Repository | What it does | Output |
 | --- | --- | --- | --- |
-| **Analyze** (`/analyze/`) | [DocPilot](https://github.com/HKUSTDial/DocPilot) | Investigates questions across long visual documents and follows evidence across pages | An answer with agent steps and navigable source evidence |
-| **Extract** (`/extract/`) | [DBMosaic](https://github.com/HKUSTDial/DBMosaic) | Collects entities, fields, and relationships from documents under a target structure | Structured records and a database to inspect or export |
+| **DocMosaic** (`/docmosaic/`) | [DocPilot](https://github.com/HKUSTDial/DocPilot) | Investigates questions across long visual documents and follows evidence across pages | An answer with agent steps and navigable source evidence |
+| **DBMosaic** (`/dbmosaic/`) | [DBMosaic](https://github.com/HKUSTDial/DBMosaic) | Collects entities, fields, and relationships from documents under a target structure | Structured records and a database to inspect or export |
 
 ## Related Work
 
@@ -131,3 +131,5 @@ Naming: the platform uses `DATAMOSAIC_*` environment variables, the DBMosaic Ext
 Open **`/ontomosaic-text2sql`** to import a SQLite database and question–SQL examples, build ontology knowledge with Cortex, and explore or export the resulting graph. The backend is maintained in [`module/Ontology-NL2SQL`](https://github.com/HKUSTDial/Ontology-NL2SQL), independently of the document engines.
 
 After installing the engine web dependencies, use `./start.sh --ontology-only` for independent development, or the full local/Docker stack for all modules. See [the integration guide](docs/ontomosaic-text2sql.md) for configuration, API paths, storage, current limits, and verification.
+
+Module entry paths are `/docmosaic/` and `/dbmosaic/`. Legacy `/analyze/` and `/extract/` pages redirect to them; legacy API and WebSocket paths remain compatible. Rebuild and restart the web gateway after changing paths.

@@ -61,7 +61,11 @@ h1 em { display: block; color: #1e4863; font-style: normal; }
 @supports ((background-clip: text) or (-webkit-background-clip: text)) {
   .hero h1 em { background: linear-gradient(100deg, #235b9b, #6747a8 85%); background-clip: text; -webkit-background-clip: text; color: transparent; }
 }
-.hero-description { max-width: 680px; margin: 26px auto 30px; color: #536170; font-size: 18px; line-height: 1.7; text-wrap: pretty; }
+.hero-description { max-width: 1080px; margin: 26px auto 30px; color: #536170; font-size: 18px; line-height: 1.7; text-wrap: pretty; }
+.hero-ontology-description { display: block; }
+@media (min-width: 1100px) {
+  .hero-description { white-space: nowrap; }
+}
 .hero-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
 .hero-actions .button { min-height: 46px; padding: 0 22px; font-size: 13px; }
 .button { display: inline-flex; align-items: center; justify-content: center; gap: 22px; min-height: 42px; padding: 0 17px; border: 1px solid transparent; border-radius: 8px; font-size: 12px; font-weight: 740; text-decoration: none; transition: background .18s, border-color .18s, transform .18s; }
@@ -180,6 +184,7 @@ h1 em { display: block; color: #1e4863; font-style: normal; }
 .publication-links a:hover { background: var(--night-panel, #eaf0f7); }
 .publication-links svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .workflow-section, .ontology-section { margin-top: 52px; }
+.workflow-section { scroll-margin-top: 104px; }
 .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 23px; }
 .section-heading > div { min-width: 0; }
 .section-kicker { display: inline-flex; align-items: center; gap: 7px; margin: 0 0 9px; color: #416586; font-size: 10px; font-weight: 700; letter-spacing: .04em; }
@@ -246,11 +251,12 @@ h2 em { color: #1e4863; font-style: normal; }
 .extract .card-number { color: #8970aa; }
 .card-title { display: flex; align-items: center; gap: 9px; color: #22282f; font-size: 23px; font-weight: 710; letter-spacing: -.045em; line-height: 32px; }
 .card-description { max-width: 470px; margin-top: 11px; color: #536170; font-size: 12px; line-height: 1.65; }
+.product-demo { display: block; width: 100%; height: auto; aspect-ratio: 2 / 1; object-fit: contain; margin-top: 10px; border: 1px solid var(--night-border, #dde3ea); border-radius: 11px; background: #f8fafc; }
 .card-features { display: flex; flex-wrap: wrap; gap: 7px; margin-top: auto; padding-top: 20px; }
 .card-features span { padding: 6px 9px; border: 1px solid #e7ebf0; border-radius: 6px; color: #66717d; font-size: 10px; font-weight: 630; }
 .analyze .card-features span:first-child { border-color: #dce9f9; background: #eff6ff; color: #386b9e; }
-.analyze .card-features span:last-child { border-color: #d6eeea; background: #edf8f6; color: #276f68; }
-.extract .card-features span:first-child { border-color: #e5d8f3; background: #f4eefb; color: #6c49a8; }
+.analyze .card-features span:last-child, .ontology-section .card-features span:last-child { border-color: #d6eeea; background: #edf8f6; color: #276f68; }
+.extract .card-features span:first-child, .ontology-section .card-features span:first-child { border-color: #e5d8f3; background: #f4eefb; color: #6c49a8; }
 .extract .card-features span:last-child { border-color: #f1e3cf; background: #fff7ed; color: #8b6129; }
 
 .product-preview { --product-accent: #2563a6; --product-soft: #eaf4ff; --product-success: #28796e; --product-success-soft: #e8f5f1; --product-warning: #8b6129; --product-warning-soft: #fff7ed; --product-cycle: 9s; container-type: inline-size; width: 100%; margin-top: 24px; padding: 18px 14px 12px; border: 1px solid #c4dff5; border-radius: 11px; background: radial-gradient(ellipse at top left, #dcedff, #f5faff 70%); }
@@ -516,8 +522,8 @@ h2 em { color: #1e4863; font-style: normal; }
 :root[data-theme="dark"] .extract .card-number { color: var(--night-violet); }
 :root[data-theme="dark"] .card-features span { border-color: var(--night-border); background: var(--night-panel); color: var(--night-muted); }
 :root[data-theme="dark"] .analyze .card-features span:first-child { border-color: #355474; background: #213953; color: #b1d3f7; }
-:root[data-theme="dark"] .analyze .card-features span:last-child { border-color: #345f5b; background: #1b3736; color: #98d5cc; }
-:root[data-theme="dark"] .extract .card-features span:first-child { border-color: #55446c; background: #352a48; color: #d3baef; }
+:root[data-theme="dark"] .analyze .card-features span:last-child, :root[data-theme="dark"] .ontology-section .card-features span:last-child { border-color: #345f5b; background: #1b3736; color: #98d5cc; }
+:root[data-theme="dark"] .extract .card-features span:first-child, :root[data-theme="dark"] .ontology-section .card-features span:first-child { border-color: #55446c; background: #352a48; color: #d3baef; }
 :root[data-theme="dark"] .extract .card-features span:last-child { border-color: #66513a; background: #3a3022; color: #e3c39b; }
 :root[data-theme="dark"] .product-preview { --product-accent: #8cbef0; --product-soft: #213b56; --product-success: #98d5cc; --product-success-soft: #1b3736; --product-warning: #e3c39b; --product-warning-soft: #3a3022; border-color: #3d607e; background: radial-gradient(ellipse at top left, #214461, #1a2b3e 70%); }
 :root[data-theme="dark"] .preview-extract { --product-accent: #c4a4ef; --product-soft: #352749; border-color: #5b4877; background: radial-gradient(ellipse at top right, #3d2d59, #262237 70%); }

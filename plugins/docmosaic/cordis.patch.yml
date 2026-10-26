@@ -1,0 +1,3 @@
+- insert:
+    - id: datamosaic-docmosaic
+      name: '@datamosaic/dsh-docmosaic'

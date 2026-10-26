@@ -15,6 +15,6 @@ function replaceOnce(file, original, replacement) {
 replaceOnce(
   path,
   'const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "http://127.0.0.1:8008";',
-  'const API_BASE = import.meta.env.VITE_API_BASE_URL ?? `${window.location.origin}/analyze`;',
+  'const API_BASE = import.meta.env.VITE_API_BASE_URL ?? `${window.location.origin}/docmosaic`;',
 );
-replaceOnce(join(dirname(path), 'App.tsx'), 'src="/docpilot-logo.png"', 'src="/analyze/docpilot-logo.png"');
+replaceOnce(join(dirname(path), 'App.tsx'), 'src="/docpilot-logo.png"', 'src="/docmosaic/docpilot-logo.png"');

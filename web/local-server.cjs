@@ -12,8 +12,8 @@ const fromDBMosaic = createRequire(join(root, 'module/DBMosaic/frontend/package.
 const serveStatic = fromDBMosaic('serve-static');
 const proxy = fromDBMosaic('http-proxy').createProxyServer({ changeOrigin: true, ws: true });
 const sites = {
-  '/analyze': { root: docpilotDist, serve: serveStatic(docpilotDist) },
-  '/extract': { root: datamosaicBuild, serve: serveStatic(datamosaicBuild) },
+  '/docmosaic': { root: docpilotDist, serve: serveStatic(docpilotDist) },
+  '/dbmosaic': { root: datamosaicBuild, serve: serveStatic(datamosaicBuild) },
   '': { root: portalBuild, serve: serveStatic(portalBuild) },
 };
 for (const site of Object.values(sites)) {
@@ -48,22 +48,27 @@ function serve(site, prefix, request, response) {
 
 const server = http.createServer((request, response) => {
   const pathname = new URL(request.url, 'http://localhost').pathname;
-  if (pathname === '/analyze' || pathname === '/extract') {
+  if (pathname === '/docmosaic' || pathname === '/dbmosaic') {
     response.writeHead(308, { Location: `${pathname}/${new URL(request.url, 'http://localhost').search}` }).end();
-  } else if (pathname.startsWith('/analyze/api/') || pathname.startsWith('/analyze/uploads/')) {
-    request.url = request.url.slice('/analyze'.length);
+  } else if (/^\/(docmosaic|analyze)\/(api|uploads)\//.test(pathname)) {
+    request.url = request.url.replace(/^\/(docmosaic|analyze)/, '');
     proxy.web(request, response, { target: 'http://127.0.0.1:8008' });
   } else if (pathname.startsWith('/ontomosaic-text2sql/api/') || pathname.startsWith('/ontology/api/')) {
     proxy.web(request, response, { target: process.env.ONTOLOGY_URL || 'http://127.0.0.1:8011' });
   } else if (pathname.startsWith('/platform/api/')) {
     request.url = request.url.slice('/platform'.length);
     proxy.web(request, response, { target: 'http://127.0.0.1:8001' });
-  } else if (pathname.startsWith('/api/')) {
+  } else if (pathname.startsWith('/dbmosaic/api/') || pathname.startsWith('/api/')) {
+    if (pathname.startsWith('/dbmosaic/')) request.url = request.url.slice('/dbmosaic'.length);
     proxy.web(request, response, { target: 'http://127.0.0.1:5000' });
-  } else if (pathname.startsWith('/analyze/')) {
-    serve(sites['/analyze'], '/analyze', request, response);
-  } else if (pathname.startsWith('/extract/')) {
-    serve(sites['/extract'], '/extract', request, response);
+  } else if (pathname === '/analyze' || pathname.startsWith('/analyze/')) {
+    response.writeHead(308, { Location: `/docmosaic${pathname.slice('/analyze'.length) || '/'}${new URL(request.url, 'http://localhost').search}` }).end();
+  } else if (pathname === '/extract' || pathname.startsWith('/extract/')) {
+    response.writeHead(308, { Location: `/dbmosaic${pathname.slice('/extract'.length) || '/'}${new URL(request.url, 'http://localhost').search}` }).end();
+  } else if (pathname.startsWith('/docmosaic/')) {
+    serve(sites['/docmosaic'], '/docmosaic', request, response);
+  } else if (pathname.startsWith('/dbmosaic/')) {
+    serve(sites['/dbmosaic'], '/dbmosaic', request, response);
   } else {
     serve(sites[''], '', request, response);
   }
@@ -71,7 +76,7 @@ const server = http.createServer((request, response) => {
 
 server.on('upgrade', (request, socket, head) => {
   socket.on('error', () => socket.destroy());
-  if (new URL(request.url, 'http://localhost').pathname !== '/extract/ws') {
+  if (!['/dbmosaic/ws', '/extract/ws'].includes(new URL(request.url, 'http://localhost').pathname)) {
     socket.destroy();
     return;
   }

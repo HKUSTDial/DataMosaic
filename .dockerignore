@@ -7,6 +7,9 @@
 !assets/analyze-demo.webm
 !assets/extract-demo.mp4
 !assets/extract-demo.webm
+!assets/DBMosaic-demo.gif
+!assets/DocMosaic-demo.gif
+!assets/OntoMosaic-Text2SQL-demo.gif
 web/node_modules/
 web/dist/
 !module/

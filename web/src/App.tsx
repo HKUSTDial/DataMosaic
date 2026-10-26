@@ -1,10 +1,25 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import UseCases from './UseCases';
-import ProductPreview from './ProductPreview';
+import docMosaicDemo from '../../assets/DocMosaic-demo.gif';
+import dbMosaicDemo from '../../assets/DBMosaic-demo.gif';
+import ontoMosaicDemo from '../../assets/OntoMosaic-Text2SQL-demo.gif';
 import DemoDialog from './DemoDialog';
 import SiteHeader from './SiteHeader';
 import ResearchPage from './ResearchPage';
+import SystemOverview from './SystemOverview';
 const OntologyWorkbench = lazy(() => import('./features/ontology/OntologyWorkbench'));
+const ontologyPlaceholders = [
+  { name: 'OntoMosaic-Doc', href: '/ontomosaic-doc', number: '01' },
+  { name: 'OntoMosaic-Enterprise', href: '/ontomosaic-enterprise', number: '03' },
+];
+
+function OntologyPlaceholderCard({ item }: { item: typeof ontologyPlaceholders[number] }) {
+  return <article className="workflow-card">
+    <a className="card-main" href={item.href} aria-label={`Open ${item.name}`}>
+      <span className="card-header"><span className="card-title"><span className="card-number">{item.number}</span>{item.name} <span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 8v4M5 16v-4h14v4"/><rect x="9" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="16" width="6" height="6" rx="1.5"/><rect x="16" y="16" width="6" height="6" rx="1.5"/></svg></span></span></span>
+    </a>
+  </article>;
+}
 
 /* const previewSources = [
   { format: 'TXT', filename: 'notes.txt', kind: 'txt', icon: 'M8 10h8M8 14h8M8 18h5' },
@@ -32,12 +47,13 @@ function ServiceStatus({ url }: { url: string }) {
 export default function App() {
   const isResearchPage = /^\/research\/?$/.test(window.location.pathname);
   const isText2SQLPage = /^\/(ontomosaic-text2sql|ontology)\/?$/.test(window.location.pathname);
+  const ontologyPlaceholder = ontologyPlaceholders.find(item => item.href === window.location.pathname.replace(/\/$/, ''));
   // const [previewPaused, setPreviewPaused] = useState(false);
-  const [activeDemo, setActiveDemo] = useState<'analyze' | 'extract' | null>(null);
+  const [activeDemo, setActiveDemo] = useState<'analyze' | 'extract' | 'ontology' | null>(null);
   const [darkMode, setDarkMode] = useState(() => document.documentElement.dataset.theme === 'dark');
 
   useEffect(() => {
-    document.title = isText2SQLPage ? 'OntoMosaic-Text2SQL | DataMosaic' : isResearchPage ? 'Research Papers | DataMosaic' : 'DataMosaic';
+    document.title = ontologyPlaceholder ? `${ontologyPlaceholder.name} | DataMosaic` : isText2SQLPage ? 'OntoMosaic-Text2SQL | DataMosaic' : isResearchPage ? 'Research Papers | DataMosaic' : 'DataMosaic';
     const theme = darkMode ? 'dark' : 'light';
     document.documentElement.dataset.theme = theme;
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', darkMode ? '#111720' : '#f4f6f8');
@@ -46,20 +62,20 @@ export default function App() {
     } catch {
       // Theme switching remains available when browser storage is blocked.
     }
-  }, [darkMode, isResearchPage, isText2SQLPage]);
+  }, [darkMode, isResearchPage, isText2SQLPage, ontologyPlaceholder?.name]);
 
   return <div className="app-shell">
     <SiteHeader darkMode={darkMode} onToggleTheme={() => setDarkMode(value => !value)}/>
     <div className="page">
       <main className={`content${isResearchPage ? ' research-content' : ''}${isText2SQLPage ? ' ontology-content' : ''}`}>
-        {isText2SQLPage ? <Suspense fallback={<p role="status">Loading OntoMosaic-Text2SQL…</p>}><OntologyWorkbench/></Suspense> : isResearchPage ? <ResearchPage/> : <>
+        {ontologyPlaceholder ? null : isText2SQLPage ? <Suspense fallback={<p role="status">Loading OntoMosaic-Text2SQL…</p>}><OntologyWorkbench/></Suspense> : isResearchPage ? <ResearchPage/> : <>
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-copy">
             <h1 id="hero-title">Unlock the intelligence in your documents. <em>Put it to work.</em></h1>
-            <p className="hero-description">Ask questions, follow the evidence, or turn documents into structured data. Choose the workflow that fits the result you need.</p>
+            <p className="hero-description">Put your data to work with applications for exploration, analysis, and automation, <span className="hero-ontology-description">connected by OntoMosaic to turn concepts, relationships, and rules into reusable knowledge for every workflow.</span></p>
             <div className="hero-actions">
-              <a className="button button-primary" href="/analyze/">Open DocMosaic <span aria-hidden="true">↗</span></a>
-              <a className="button button-secondary" href="/extract/">Explore DBMosaic <span aria-hidden="true">↗</span></a>
+              <a className="button button-primary" href="#applications">Start for free <span aria-hidden="true">↗</span></a>
+              <a className="button button-secondary" href="https://github.com/HKUSTDial/DataMosaic" target="_blank" rel="noreferrer">Documentation <span aria-hidden="true">↗</span></a>
             </div>
           </div>
           {/* <div className="preview-sources" role="list" aria-label="Illustrative document formats">
@@ -113,29 +129,30 @@ export default function App() {
           </div> */}
         </section>
 
-        <section className="workflow-section" aria-labelledby="workflows-title">
+        <SystemOverview/>
+        <section className="workflow-section" id="applications" aria-labelledby="workflows-title">
           <div className="section-heading product-heading">
             <div><p className="section-kicker">Application Layer</p><h2 id="workflows-title">Put your documents <em>to work.</em></h2></div>
             <p>A growing collection of tools to understand documents, investigate evidence, and build structured data.</p>
           </div>
           <div className="workflow-grid">
             <article className="workflow-card analyze">
-              <a className="card-main" href="/analyze/" aria-label="Open DocMosaic">
-              <span className="card-header"><span className="card-title"><span className="card-number">01</span>DocMosaic <span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 3h11l3 3v5M4 3v18h7M8 7h5M8 11h3"/><circle cx="15" cy="15" r="4"/><path d="m18 18 3 3"/></svg></span></span><ServiceStatus url="/analyze/api/health"/></span>
+              <a className="card-main" href="/docmosaic/" aria-label="Open DocMosaic">
+              <span className="card-header"><span className="card-title"><span className="card-number">01</span>DocMosaic <span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 3h11l3 3v5M4 3v18h7M8 7h5M8 11h3"/><circle cx="15" cy="15" r="4"/><path d="m18 18 3 3"/></svg></span></span><ServiceStatus url="/docmosaic/api/health"/></span>
               <span className="card-description">Ask complex questions across text, tables, and figures. Inspect agent steps and trace answers back to source evidence.</span>
-              <ProductPreview mode="analyze"/>
+              <img className="product-demo" src={docMosaicDemo} alt="DocMosaic document analysis workflow" loading="lazy" decoding="async"/>
               <span className="card-features"><span>Document Q&amp;A</span><span>Evidence navigation</span></span>
               </a>
-              <div className="card-actions"><a href="/analyze/">Open DocMosaic <span aria-hidden="true">↗</span></a><button className="card-demo" type="button" onClick={() => setActiveDemo('analyze')} aria-label="Watch DocMosaic demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo</button></div>
+              <div className="card-actions"><a href="/docmosaic/">Open DocMosaic <span aria-hidden="true">↗</span></a><button className="card-demo" type="button" onClick={() => setActiveDemo('analyze')} aria-label="Watch DocMosaic demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo</button></div>
             </article>
             <article className="workflow-card extract">
-              <a className="card-main" href="/extract/" aria-label="Open DBMosaic">
-              <span className="card-header"><span className="card-title"><span className="card-number">02</span>DBMosaic <span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 4 16 4 16 0V5M4 12c0 4 16 4 16 0"/></svg></span></span><ServiceStatus url="/api/health"/></span>
+              <a className="card-main" href="/dbmosaic/" aria-label="Open DBMosaic">
+              <span className="card-header"><span className="card-title"><span className="card-number">02</span>DBMosaic <span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 4 16 4 16 0V5M4 12c0 4 16 4 16 0"/></svg></span></span><ServiceStatus url="/dbmosaic/api/health"/></span>
               <span className="card-description">Turn document content into schema-defined records. Review entities and relationships, then export structured results.</span>
-              <ProductPreview mode="extract"/>
+              <img className="product-demo" src={dbMosaicDemo} alt="DBMosaic document-to-database workflow" loading="lazy" decoding="async"/>
               <span className="card-features"><span>Schema-driven</span><span>Structured results</span></span>
               </a>
-              <div className="card-actions"><a href="/extract/">Open DBMosaic <span aria-hidden="true">↗</span></a><button className="card-demo" type="button" onClick={() => setActiveDemo('extract')} aria-label="Watch DBMosaic demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo</button></div>
+              <div className="card-actions"><a href="/dbmosaic/">Open DBMosaic <span aria-hidden="true">↗</span></a><button className="card-demo" type="button" onClick={() => setActiveDemo('extract')} aria-label="Watch DBMosaic demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo</button></div>
             </article>
             <article className="coming-soon-card">
               <div className="coming-soon-visual" aria-hidden="true"><span><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><path d="M17.5 14v7M14 17.5h7"/></svg></span><i></i><span><svg viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></svg></span></div>
@@ -148,12 +165,17 @@ export default function App() {
             <div><p className="section-kicker">Ontology Layer</p><h2 id="ontologies-title">Knowledge for <em>your workflows.</em></h2></div>
           </div>
           <div className="workflow-grid">
+            <OntologyPlaceholderCard item={ontologyPlaceholders[0]}/>
             <article className="workflow-card">
               <a className="card-main" href="/ontomosaic-text2sql" aria-label="Open OntoMosaic-Text2SQL">
-                <span className="card-header"><span className="card-title"><span className="card-number">01</span>OntoMosaic-Text2SQL <span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 8v4M5 16v-4h14v4"/><rect x="9" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="16" width="6" height="6" rx="1.5"/><rect x="16" y="16" width="6" height="6" rx="1.5"/></svg></span></span></span>
+                <span className="card-header"><span className="card-title"><span className="card-number">02</span>OntoMosaic-Text2SQL <span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 8v4M5 16v-4h14v4"/><rect x="9" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="16" width="6" height="6" rx="1.5"/><rect x="16" y="16" width="6" height="6" rx="1.5"/></svg></span></span><ServiceStatus url="/ontomosaic-text2sql/api/health"/></span>
+                <span className="card-description">Learn database knowledge from question–SQL examples. Explore concepts and relationships, then export the ontology graph.</span>
+                <img className="product-demo" src={ontoMosaicDemo} alt="OntoMosaic-Text2SQL ontology learning workflow" loading="lazy" decoding="async"/>
+                <span className="card-features"><span>SQL example learning</span><span>Ontology graph</span></span>
               </a>
-              <div className="card-actions"><a href="/ontomosaic-text2sql">Open OntoMosaic-Text2SQL <span aria-hidden="true">↗</span></a></div>
+              <div className="card-actions"><a href="/ontomosaic-text2sql">Open OntoMosaic-Text2SQL <span aria-hidden="true">↗</span></a><button className="card-demo" type="button" onClick={() => setActiveDemo('ontology')} aria-label="Watch OntoMosaic-Text2SQL demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo</button></div>
             </article>
+            <OntologyPlaceholderCard item={ontologyPlaceholders[1]}/>
             <article className="coming-soon-card">
               <div className="coming-soon-visual" aria-hidden="true"><span><svg viewBox="0 0 24 24"><path d="M12 8v4M5 16v-4h14v4"/><rect x="9" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="16" width="6" height="6" rx="1.5"/><rect x="16" y="16" width="6" height="6" rx="1.5"/></svg></span><i></i><span><svg viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></svg></span></div>
               <div className="coming-soon-copy"><div><h3>More ontologies coming soon</h3></div></div>

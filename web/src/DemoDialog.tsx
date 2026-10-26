@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import ProductPreview from './ProductPreview';
+import ontoMosaicDemo from '../../assets/OntoMosaic-Text2SQL-demo.gif';
 
 const demoVideos = import.meta.glob<string>('../../assets/*-demo.{mp4,webm}', {
   eager: true,
@@ -7,12 +8,12 @@ const demoVideos = import.meta.glob<string>('../../assets/*-demo.{mp4,webm}', {
   import: 'default',
 });
 
-export default function DemoDialog({ mode, onClose }: { mode: 'analyze' | 'extract'; onClose: () => void }) {
+export default function DemoDialog({ mode, onClose }: { mode: 'analyze' | 'extract' | 'ontology'; onClose: () => void }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoFailed, setVideoFailed] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const title = mode === 'analyze' ? 'DocMosaic' : 'DBMosaic';
+  const title = mode === 'ontology' ? 'OntoMosaic-Text2SQL' : mode === 'analyze' ? 'DocMosaic' : 'DBMosaic';
   const videoUrl = demoVideos[`../../assets/${mode}-demo.mp4`] ?? demoVideos[`../../assets/${mode}-demo.webm`];
 
   useEffect(() => {
@@ -45,7 +46,8 @@ export default function DemoDialog({ mode, onClose }: { mode: 'analyze' | 'extra
         </button>
       </div>
     </div>
-    {videoUrl && !videoFailed ? <video className="demo-video" ref={videoRef} src={videoUrl} controls playsInline preload="metadata" onError={() => setVideoFailed(true)} aria-label={`${title} product demonstration`}/>
+    {mode === 'ontology' ? <img className="demo-video" src={ontoMosaicDemo} alt="OntoMosaic-Text2SQL ontology learning workflow"/>
+      : videoUrl && !videoFailed ? <video className="demo-video" ref={videoRef} src={videoUrl} controls playsInline preload="metadata" onError={() => setVideoFailed(true)} aria-label={`${title} product demonstration`}/>
       : <div className="demo-placeholder">
         <span className="coming-soon-badge">{videoFailed ? 'Video unavailable' : 'Video coming soon'}</span>
         <ProductPreview mode={mode}/>
