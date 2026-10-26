@@ -1,3 +1,4 @@
+import { siteUrl } from './site';
 import datamosaicFramework from '../../assets/research/datamosaic-framework.png';
 import docpilotFramework from '../../assets/research/docpilot-framework.png';
 
@@ -31,7 +32,7 @@ const publications = [
 export default function ResearchPage() {
   return <>
     <header className="research-intro">
-      <a className="research-back" href="/">← Back to DataMosaic</a>
+      <a className="research-back" href={siteUrl('/')}>← Back to DataMosaic</a>
       <h1>Research <em>Papers</em></h1>
       <p className="research-description">† Equal contribution. * Corresponding author.</p>
     </header>

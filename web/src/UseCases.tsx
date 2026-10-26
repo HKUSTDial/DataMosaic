@@ -1,3 +1,4 @@
+import { siteUrl } from './site';
 import { useState, type KeyboardEvent } from 'react';
 
 const useCases = [
@@ -92,7 +93,7 @@ export default function UseCases() {
           <p className="case-description">{selected.description}</p>
           <div className="case-capability"><span className="case-capability-label">DocMosaic</span><p>{selected.analyze}</p></div>
           <div className="case-capability extract-capability"><span className="case-capability-label">DBMosaic</span><p>{selected.extract}</p></div>
-          <div className="case-actions"><a href="/docmosaic/">Open DocMosaic <span aria-hidden="true">↗</span></a><a href="/dbmosaic/">Open DBMosaic <span aria-hidden="true">↗</span></a></div>
+          <div className="case-actions"><a href={siteUrl('/docmosaic/')}>Open DocMosaic <span aria-hidden="true">↗</span></a><a href={siteUrl('/dbmosaic/')}>Open DBMosaic <span aria-hidden="true">↗</span></a></div>
         </div>
         <div className="case-preview" key={selected.id} role="group" aria-label={`${selected.title} illustrative document workflow`}>
           <div className="case-source">

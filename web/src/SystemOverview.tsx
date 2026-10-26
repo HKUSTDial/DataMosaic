@@ -1,3 +1,4 @@
+import { siteUrl } from './site';
 import { useEffect, useState } from 'react';
 import './SystemOverview.css';
 
@@ -54,7 +55,7 @@ function Tile({ app }: { app: AppTile }) {
     <strong>{app.name}</strong>{app.detail && <span className="overview-tile-detail">{app.detail}</span>}
   </>;
   return app.href
-    ? <a className={className} href={app.href} aria-label={`Explore ${app.name}${app.detail === 'Text2SQL' ? '-Text2SQL' : ''}`}>{content}</a>
+    ? <a className={className} href={siteUrl(app.href)} aria-label={`Explore ${app.name}${app.detail === 'Text2SQL' ? '-Text2SQL' : ''}`}>{content}</a>
     : <div className={className} role="img" aria-label={`${app.name}, future concept`}>{content}</div>;
 }
 

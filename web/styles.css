@@ -225,6 +225,7 @@ h2 em { color: #1e4863; font-style: normal; }
 .demo-dialog::backdrop { background: #15233570; backdrop-filter: blur(4px); }
 .demo-header { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex: none; padding: 14px 20px; border-bottom: 1px solid #e7ebf0; }
 .demo-header h2 { font-size: 18px; }
+.demo-preview-note { margin: 0; padding: 12px 20px; font-size: 14px; }
 .demo-controls { display: flex; align-items: center; gap: 4px; }
 .demo-control { display: grid; place-items: center; width: 32px; height: 32px; padding: 5px; flex: none; border: 0; border-radius: 7px; background: transparent; color: #66717d; cursor: pointer; }
 .demo-control:hover { background: #f0f3f7; color: #31567a; }

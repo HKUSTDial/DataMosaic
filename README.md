@@ -35,6 +35,24 @@ This work is associated with three publications:
 
 [3] **Zhuowen Liang**, Xiaotian Lin, Yuyu Luo, Haixun Wang, and Nan Tang. *DocPILOT: Interactive Agent Orchestration and Training for Long Visual Document Understanding.* arXiv, 2026. [[PDF](https://arxiv.org/pdf/2610.21327)]
 
+## Website preview on GitHub Pages
+
+The portal can be published as a static preview at **https://hkustdial.github.io/DataMosaic/**. In the repository's **Settings → Pages → Build and deployment → Source**, select **GitHub Actions**. After the Pages workflow is pushed to `main`, **Actions → Deploy website to GitHub Pages → Run workflow** publishes it; later pushes affecting the website deploy automatically.
+
+The preview includes the homepage, animations, research page, module demos, and empty ontology placeholders. Module links open demos; document analysis, database extraction, and ontology training require the local deployment below. The workflow builds only the portal and needs neither engine submodules nor model credentials.
+
+To build and inspect the same preview locally:
+
+```bash
+cd web
+npm ci
+npm run build -- --mode pages --base=/DataMosaic/
+node scripts/prepare-pages.mjs
+npm run preview
+```
+
+Open the printed preview address with `/DataMosaic/` appended. Use the ordinary `npm run build` or `start.sh` for the full application deployment.
+
 ## Installation
 
 Clone DataMosaic with its engine submodules:

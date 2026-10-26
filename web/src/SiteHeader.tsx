@@ -1,3 +1,4 @@
+import { siteUrl } from './site';
 import { useEffect, useRef, useState } from 'react';
 
 const repository = 'https://github.com/HKUSTDial/DataMosaic';
@@ -59,7 +60,7 @@ export default function SiteHeader({ darkMode, onToggleTheme }: { darkMode: bool
     if (!event.currentTarget.contains(event.relatedTarget)) closeNavigation();
   }}>
     <div className="site-header-inner">
-      <a className="brand" href="/" aria-label="DataMosaic home">
+      <a className="brand" href={siteUrl('/')} aria-label="DataMosaic home">
         <span className="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
         <span className="brand-name">Data<span>Mosaic</span></span>
       </a>
@@ -69,7 +70,7 @@ export default function SiteHeader({ darkMode, onToggleTheme }: { darkMode: bool
             <span className="header-nav-label"><svg className="header-nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d={group.icon}/></svg>{group.label}</span><svg className="header-nav-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>
           </button>
           <div className="header-dropdown" id={`nav-${group.id}-panel`} hidden={openMenu !== group.id}>
-            {group.links.map((link) => <a key={link.label} href={link.href} target={link.href.startsWith('https:') ? '_blank' : undefined} rel={link.href.startsWith('https:') ? 'noreferrer' : undefined} onClick={closeNavigation}>
+            {group.links.map((link) => <a key={link.label} href={siteUrl(link.href)} target={link.href.startsWith('https:') ? '_blank' : undefined} rel={link.href.startsWith('https:') ? 'noreferrer' : undefined} onClick={closeNavigation}>
               <span className="header-dropdown-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={link.icon}/></svg></span><span className="header-dropdown-copy"><strong>{link.label}</strong><small>{link.description}</small></span><span className="header-link-arrow" aria-hidden="true">↗</span>
             </a>)}
           </div>

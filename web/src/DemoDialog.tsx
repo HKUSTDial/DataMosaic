@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import ProductPreview from './ProductPreview';
 import ontoMosaicDemo from '../../assets/OntoMosaic-Text2SQL-demo.gif';
+import docMosaicDemo from '../../assets/DocMosaic-demo.gif';
+import dbMosaicDemo from '../../assets/DBMosaic-demo.gif';
+import { isPagesPreview } from './site';
 
 const demoVideos = import.meta.glob<string>('../../assets/*-demo.{mp4,webm}', {
   eager: true,
@@ -46,7 +49,9 @@ export default function DemoDialog({ mode, onClose }: { mode: 'analyze' | 'extra
         </button>
       </div>
     </div>
+    {isPagesPreview && <p className="demo-preview-note">Workflow preview. Run DataMosaic locally to use this application.</p>}
     {mode === 'ontology' ? <img className="demo-video" src={ontoMosaicDemo} alt="OntoMosaic-Text2SQL ontology learning workflow"/>
+      : isPagesPreview ? <img className="demo-video" src={mode === 'analyze' ? docMosaicDemo : dbMosaicDemo} alt={`${title} workflow preview`}/>
       : videoUrl && !videoFailed ? <video className="demo-video" ref={videoRef} src={videoUrl} controls playsInline preload="metadata" onError={() => setVideoFailed(true)} aria-label={`${title} product demonstration`}/>
       : <div className="demo-placeholder">
         <span className="coming-soon-badge">{videoFailed ? 'Video unavailable' : 'Video coming soon'}</span>
