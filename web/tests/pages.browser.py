@@ -43,7 +43,7 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
             page.on('response', lambda response: failures.append(response.url) if response.status >= 400 else None)
             page.on('requestfailed', record_failure)
             page.on('request', lambda request: api_requests.append(request.url) if '/api/' in request.url else None)
-            for width in (1440, 390):
+            for width in (1440, 1024, 390):
                 page.set_viewport_size({'width': width, 'height': 1100})
                 assert page.goto(base).status == 200
                 expect(page.locator('#hero-title')).to_have_text('Knowledge that evolves. Intelligence that scales.')
@@ -62,7 +62,7 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                     expect(page).to_have_url(base)
                 page.get_by_role('link', name='Open DBMosaic', exact=True).first.click()
                 expect(page).to_have_url(base + 'dbmosaic/')
-                expect(page.locator('h1')).to_contain_text('可靠的数据')
+                expect(page.locator('h1')).to_contain_text('dependable data.')
                 page.wait_for_function('document.querySelector("#promo")?.naturalWidth > 0')
                 assert page.goto(base).status == 200
                 for route in ('ontomosaic-doc', 'ontomosaic-enterprise'):
@@ -78,10 +78,10 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                 page.get_by_role('button', name='Switch to dark mode').click()
                 expect(page.locator('html')).to_have_attribute('data-theme', 'dark')
                 page.get_by_role('button', name='Switch to light mode').click()
-                if width < 860:
+                if page.get_by_role('button', name='Open navigation', exact=True).is_visible():
                     page.get_by_role('button', name='Open navigation', exact=True).click()
                 page.locator('#nav-resource').click()
-                page.get_by_role('link', name='Research Paper', exact=False).click()
+                page.get_by_role('link', name='Publications', exact=False).click()
                 expect(page.locator('main')).to_have_class('content research-content')
                 assert page.reload().status == 200
                 page.get_by_role('link', name='Back to DataMosaic', exact=False).click()

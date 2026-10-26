@@ -18,7 +18,7 @@ Given a task **Q** and available sources, DataMosaic is built around three compl
 
 These capabilities are organized into task-oriented modules:
 
-The homepage uses a top navigation bar: **Application → DBMosaic / DocMosaic** opens DBMosaic and DocPilot respectively; **Resource → Documentation / Research Paper** opens the repository and the site's `/research/` publication list. **Organization** opens HKUSTDial, and **Contact us** opens the repository's issue form. On smaller screens, navigation is available through the menu button. The research page groups the three publications below by year and provides PDF and code links; it supports direct access and refresh through the existing portal fallback.
+The homepage uses a top navigation bar: **Applications → DBMosaic / DocMosaic** opens DBMosaic and DocPilot respectively; **Ontologies** lists the OntoMosaic modules; **Resources → Documentation / Publications** opens the repository and the site's `/research/` publication list. **Organization** opens HKUSTDial, and **Contact us** opens the repository's issue form. On smaller screens, navigation is available through the menu button. The research page groups the three publications below by year and provides PDF and code links; it supports direct access and refresh through the existing portal fallback.
 
 | Engine / Module | Repository | What it does | Output |
 | --- | --- | --- | --- |

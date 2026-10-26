@@ -2,6 +2,7 @@
 python3 -P tests/ontology-placeholders.browser.py http://127.0.0.1:21680
 """
 import json
+import re
 import sys
 
 from playwright.sync_api import expect, sync_playwright
@@ -27,7 +28,8 @@ with sync_playwright() as p:
         page.goto(base)
         cards = page.locator('.ontology-section .workflow-card')
         assert cards.count() == 3
-        assert cards.locator('.card-main').evaluate_all('(es) => es.map(e => e.getAttribute("href"))') == [href for _, href in modules]
+        for index, (name, href) in enumerate(modules):
+            expect(cards.nth(index).get_by_role('link', name=f'Open {name}', exact=True).first).to_have_attribute('href', href)
         assert cards.locator('.card-number').all_text_contents() == ['01', '02', '03']
         doc = cards.nth(0)
         expect(doc.locator('.card-description')).to_have_text('Let a context graph lead retrieval across the enterprise. Follow concepts, relationships, and evidence from the question to a grounded answer.')
@@ -37,15 +39,25 @@ with sync_playwright() as p:
         expect(doc.locator('.service-status')).to_have_class('service-status bad')
         assert doc.evaluate('e => e.scrollWidth <= e.clientWidth + 1'), width
         enterprise = cards.nth(2)
-        assert enterprise.locator('.card-description, .product-demo, .card-features, .service-status, .card-actions').count() == 0
+        expect(enterprise.locator('.card-description')).to_contain_text('Turn business processes into a shared enterprise ontology.')
+        assert enterprise.locator('.card-features span').all_text_contents() == ['Process-to-ontology', 'Connected data sources']
+        animation = enterprise.locator('img.product-demo')
+        animation.scroll_into_view_if_needed()
+        expect(animation).to_have_attribute('src', re.compile(r'.*OntoMosaic-Enterprise-demo.*\.gif'))
+        page.wait_for_function('''() => {
+            const image = document.querySelector('.ontology-section .workflow-card:nth-child(3) img');
+            return image && image.complete && image.naturalWidth > 0;
+        }''')
+        expect(enterprise.locator('.service-status')).to_have_text('Unavailable')
         assert enterprise.evaluate('e => e.scrollWidth <= e.clientWidth + 1'), width
         assert cards.nth(1).locator('.product-demo').count() == 1
-        if width < 860:
+        mobile_navigation = page.get_by_role('button', name='Open navigation', exact=True).is_visible()
+        if mobile_navigation:
             page.get_by_role('button', name='Open navigation', exact=True).click()
         page.locator('#nav-ontology').click()
         assert page.locator('#nav-ontology-panel a').evaluate_all('(es) => es.map(e => e.getAttribute("href"))') == [href for _, href in modules]
         page.locator('#nav-ontology').click()
-        if width < 860:
+        if mobile_navigation:
             page.get_by_role('button', name='Close navigation', exact=True).click()
         for index in (0, 2):
             name, href = modules[index]

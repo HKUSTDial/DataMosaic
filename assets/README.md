@@ -1,11 +1,12 @@
 # Product demo assets
 
-Workflow cards display these animated GIFs:
+Workflow cards display these animations:
 
 - `DocMosaic-demo.gif`: the DocMosaic card.
 - `DBMosaic-demo.gif`: the DBMosaic card.
 - `OntoMosaic-Doc-demo.gif`: the OntoMosaic-Doc card.
 - `OntoMosaic-Text2SQL-demo.gif`: the OntoMosaic-Text2SQL card and its **Demo** dialog.
+- `OntoMosaic-Enterprise-demo.gif`: the OntoMosaic-Enterprise card, converted from `OntoMosaic-Enterprise-demo.mp4` with looping playback.
 
 The full animation is fitted inside a shared 2:1 frame without cropping.
 

@@ -4,6 +4,7 @@ import docMosaicDemo from '../../assets/DocMosaic-demo.gif';
 import dbMosaicDemo from '../../assets/DBMosaic-demo.gif';
 import ontoDocDemo from '../../assets/OntoMosaic-Doc-demo.gif';
 import ontoMosaicDemo from '../../assets/OntoMosaic-Text2SQL-demo.gif';
+import ontoEnterpriseDemo from '../../assets/OntoMosaic-Enterprise-demo.gif';
 import DemoDialog from './DemoDialog';
 import SiteHeader from './SiteHeader';
 import ResearchPage from './ResearchPage';
@@ -14,14 +15,6 @@ const ontologyPlaceholders = [
   { name: 'OntoMosaic-Doc', href: '/ontomosaic-doc', number: '01' },
   { name: 'OntoMosaic-Enterprise', href: '/ontomosaic-enterprise', number: '03' },
 ];
-
-function OntologyPlaceholderCard({ item }: { item: typeof ontologyPlaceholders[number] }) {
-  return <article className="workflow-card">
-    <a className="card-main" href={siteUrl(item.href)} aria-label={`Open ${item.name}`}>
-      <span className="card-header"><span className="card-title"><span className="card-number">{item.number}</span>{item.name} <span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 8v4M5 16v-4h14v4"/><rect x="9" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="16" width="6" height="6" rx="1.5"/><rect x="16" y="16" width="6" height="6" rx="1.5"/></svg></span></span></span>
-    </a>
-  </article>;
-}
 
 /* const previewSources = [
   { format: 'TXT', filename: 'notes.txt', kind: 'txt', icon: 'M8 10h8M8 14h8M8 18h5' },
@@ -83,11 +76,12 @@ export default function App() {
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-copy">
             <h1 id="hero-title">Knowledge that evolves. <em>Intelligence that scales.</em></h1>
-            <p className="hero-description">Put your data to work with applications for exploration, analysis, and automation, <span className="hero-ontology-description">connected by OntoMosaic to turn concepts, relationships, and rules into reusable knowledge for every workflow.</span></p>
+            <p className="hero-description">DataMosaic brings together expert guidance and insights drawn from documents, tables, and databases, turning them into reusable knowledge. <span className="hero-ontology-description">Connected through shared, evolving ontologies, this knowledge powers question answering, data analytics, and agentic workflows.</span></p>
             <div className="hero-actions">
               <a className="button button-primary" href="#applications">Start for free <span aria-hidden="true">↗</span></a>
               <a className="button button-secondary" href="https://github.com/HKUSTDial/DataMosaic" target="_blank" rel="noreferrer">Documentation <span aria-hidden="true">↗</span></a>
             </div>
+            <p className="hero-tagline"><span>Fast.</span> <span>Accurate.</span> <span>Cost-efficient.</span> <span>Built to scale.</span></p>
           </div>
           {/* <div className="preview-sources" role="list" aria-label="Illustrative document formats">
             {previewSources.map(source => <div className={`preview-source source-${source.kind}`} key={source.format} role="listitem" aria-label={source.kind === 'md' ? 'Markdown: README.md' : `${source.format}: ${source.filename}`}>
@@ -194,7 +188,15 @@ export default function App() {
               </a>
               <div className="card-actions"><a href={siteUrl('/ontomosaic-text2sql')}>Open OntoMosaic-Text2SQL <span aria-hidden="true">↗</span></a><button className="card-demo" type="button" onClick={() => setActiveDemo('ontology')} aria-label="Watch OntoMosaic-Text2SQL demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo</button></div>
             </article>
-            <OntologyPlaceholderCard item={ontologyPlaceholders[1]}/>
+            <article className="workflow-card">
+              <div className="card-main">
+                <span className="card-header"><span className="card-title"><span className="card-number">03</span>OntoMosaic-Enterprise <span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 8v4M5 16v-4h14v4"/><rect x="9" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="16" width="6" height="6" rx="1.5"/><rect x="16" y="16" width="6" height="6" rx="1.5"/></svg></span></span><span className="service-status bad" role="status">Unavailable</span></span>
+                <span className="card-description">Turn business processes into a shared enterprise ontology. Unify concepts and relationships, then connect them to databases, systems, and documents.</span>
+                <img className="product-demo" src={ontoEnterpriseDemo} alt="OntoMosaic-Enterprise process-to-ontology demonstration" loading="lazy" decoding="async"/>
+                <span className="card-features"><span>Process-to-ontology</span><span>Connected data sources</span></span>
+              </div>
+              <div className="card-actions"><a href={siteUrl('/ontomosaic-enterprise')}>Open OntoMosaic-Enterprise <span aria-hidden="true">↗</span></a></div>
+            </article>
             <article className="coming-soon-card">
               <div className="coming-soon-visual" aria-hidden="true"><span><svg viewBox="0 0 24 24"><path d="M12 8v4M5 16v-4h14v4"/><rect x="9" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="16" width="6" height="6" rx="1.5"/><rect x="16" y="16" width="6" height="6" rx="1.5"/></svg></span><i></i><span><svg viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></svg></span></div>
               <div className="coming-soon-copy"><div><h3>More ontologies coming soon</h3></div></div>
