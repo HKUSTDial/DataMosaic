@@ -26,4 +26,7 @@ FROM nginx:1.27-alpine
 COPY web/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=portal-ui /app/dist/ /usr/share/nginx/html/
 COPY --from=docpilot-ui /app/dist/ /usr/share/nginx/html/docmosaic/
+# The portal build includes the DBMosaic product page at /dbmosaic/.
+# The full deployment serves the engine UI at that same path.
+RUN rm -rf /usr/share/nginx/html/dbmosaic
 COPY --from=datamosaic-ui /app/build/ /usr/share/nginx/html/dbmosaic/

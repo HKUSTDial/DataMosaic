@@ -41,7 +41,7 @@ The portal can be published as a static preview at **https://hkustdial.github.io
 
 Later pushes affecting the website rebuild `gh-pages` and explicitly request a Pages build, since pushes made with `GITHUB_TOKEN` do not trigger one automatically. No extra personal access token is needed. A successful **Build website branch** run confirms that the generated branch was updated; check **pages build and deployment** and the public URL to confirm publication. Branch publishing still uses GitHub Pages and can encounter service-side delays or timeouts.
 
-The preview includes the homepage, animations, research page, module demos, and empty ontology placeholders. Module links open demos; document analysis, database extraction, and ontology training require the local deployment below. The workflow builds only the portal and needs neither engine submodules nor model credentials. The generated branch contains the build output and `.nojekyll`, with no application source or engine submodules.
+The preview includes the homepage, animations, research page, the DBMosaic product page, module demos, and empty ontology placeholders. The DBMosaic card opens that product page. DocMosaic and OntoMosaic-Text2SQL links open demos. Document analysis, database extraction, and ontology training require the local deployment below. The workflow builds only the portal and needs neither engine submodules nor model credentials. The generated branch contains the build output and `.nojekyll`, with no application source or engine submodules.
 
 To build and inspect the same preview locally:
 

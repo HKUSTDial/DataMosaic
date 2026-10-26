@@ -15,6 +15,12 @@ class QuietHandler(SimpleHTTPRequestHandler):
     def log_message(self, *args):
         pass
 
+    def copyfile(self, source, outputfile):
+        try:
+            super().copyfile(source, outputfile)
+        except (BrokenPipeError, ConnectionResetError):
+            pass  # Browsers cancel video preloads when navigating away.
+
 
 output = Path(sys.argv[1]).resolve()
 assert (output / 'index.html').is_file(), 'Pass the prepared Pages build directory'
@@ -29,9 +35,13 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
             browser = p.chromium.launch(headless=True)
             page = browser.new_page(viewport={'width': 1440, 'height': 1100})
             errors, failures, api_requests = [], [], []
+            def record_failure(request):
+                if request.resource_type == 'media' and request.failure == 'net::ERR_ABORTED':
+                    return  # Navigation intentionally cancels video preloads.
+                failures.append(request.url)
             page.on('pageerror', lambda error: errors.append(str(error)))
             page.on('response', lambda response: failures.append(response.url) if response.status >= 400 else None)
-            page.on('requestfailed', lambda request: failures.append(request.url))
+            page.on('requestfailed', record_failure)
             page.on('request', lambda request: api_requests.append(request.url) if '/api/' in request.url else None)
             for width in (1440, 390):
                 page.set_viewport_size({'width': width, 'height': 1100})
@@ -40,7 +50,7 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                 assert page.locator('.overview-tile').count() == 16
                 assert page.locator('a[href^="/"]').evaluate_all('(links) => links.every(a => a.getAttribute("href").startsWith("/DataMosaic/"))')
                 assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1')
-                for name, route in (('DocMosaic', 'docmosaic'), ('DBMosaic', 'dbmosaic'), ('OntoMosaic-Text2SQL', 'ontomosaic-text2sql')):
+                for name in ('DocMosaic', 'OntoMosaic-Text2SQL'):
                     page.get_by_role('link', name=f'Open {name}', exact=True).first.click()
                     expect(page.get_by_role('dialog')).to_be_visible()
                     expect(page.locator('#demo-title')).to_have_text(f'{name} demo')
@@ -50,6 +60,11 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                     expect(page.get_by_role('dialog')).to_be_visible()
                     page.get_by_role('button', name='Close demo', exact=True).click()
                     expect(page).to_have_url(base)
+                page.get_by_role('link', name='Open DBMosaic', exact=True).first.click()
+                expect(page).to_have_url(base + 'dbmosaic/')
+                expect(page.locator('h1')).to_contain_text('可靠的数据')
+                page.wait_for_function('document.querySelector("#promo")?.naturalWidth > 0')
+                assert page.goto(base).status == 200
                 for route in ('ontomosaic-doc', 'ontomosaic-enterprise'):
                     assert page.goto(base + route + '?tab=1').status == 200
                     assert page.reload().status == 200
