@@ -4,7 +4,8 @@ Workflow cards display these animated GIFs:
 
 - `DocMosaic-demo.gif`: the DocMosaic card.
 - `DBMosaic-demo.gif`: the DBMosaic card.
-- `OntoMosaic-Text2SQL-demo.gif`: the ontology card and its **Demo** dialog.
+- `OntoMosaic-Doc-demo.gif`: the OntoMosaic-Doc card.
+- `OntoMosaic-Text2SQL-demo.gif`: the OntoMosaic-Text2SQL card and its **Demo** dialog.
 
 The full animation is fitted inside a shared 2:1 frame without cropping.
 

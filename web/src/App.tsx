@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import UseCases from './UseCases';
 import docMosaicDemo from '../../assets/DocMosaic-demo.gif';
 import dbMosaicDemo from '../../assets/DBMosaic-demo.gif';
+import ontoDocDemo from '../../assets/OntoMosaic-Doc-demo.gif';
 import ontoMosaicDemo from '../../assets/OntoMosaic-Text2SQL-demo.gif';
 import DemoDialog from './DemoDialog';
 import SiteHeader from './SiteHeader';
@@ -175,7 +176,15 @@ export default function App() {
             <div><p className="section-kicker">Ontology Layer</p><h2 id="ontologies-title">Knowledge for <em>your workflows.</em></h2></div>
           </div>
           <div className="workflow-grid">
-            <OntologyPlaceholderCard item={ontologyPlaceholders[0]}/>
+            <article className="workflow-card">
+              <a className="card-main" href={siteUrl('/ontomosaic-doc')} aria-label="Open OntoMosaic-Doc">
+                <span className="card-header"><span className="card-title"><span className="card-number">01</span>OntoMosaic-Doc <span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 8v4M5 16v-4h14v4"/><rect x="9" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="16" width="6" height="6" rx="1.5"/><rect x="16" y="16" width="6" height="6" rx="1.5"/></svg></span></span><span className="service-status bad" role="status">Unavailable</span></span>
+                <span className="card-description">Let a context graph lead retrieval across the enterprise. Follow concepts, relationships, and evidence from the question to a grounded answer.</span>
+                <img className="product-demo" src={ontoDocDemo} alt="OntoMosaic-Doc context graph retrieval" loading="lazy" decoding="async"/>
+                <span className="card-features"><span>Context graph</span><span>Enterprise retrieval</span></span>
+              </a>
+              <div className="card-actions"><a href={siteUrl('/ontomosaic-doc')}>Open OntoMosaic-Doc <span aria-hidden="true">↗</span></a></div>
+            </article>
             <article className="workflow-card">
               <a className="card-main" href={siteUrl('/ontomosaic-text2sql')} aria-label="Open OntoMosaic-Text2SQL">
                 <span className="card-header"><span className="card-title"><span className="card-number">02</span>OntoMosaic-Text2SQL <span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 8v4M5 16v-4h14v4"/><rect x="9" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="16" width="6" height="6" rx="1.5"/><rect x="16" y="16" width="6" height="6" rx="1.5"/></svg></span></span><ServiceStatus url="/ontomosaic-text2sql/api/health"/></span>

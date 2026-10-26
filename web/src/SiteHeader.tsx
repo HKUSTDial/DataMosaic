@@ -8,7 +8,7 @@ const dropdowns = [
     { label: 'DocMosaic', description: 'Document Q&A with DocMosaic', href: '/docmosaic/', icon: 'M4 5.5A2.5 2.5 0 0 1 6.5 3H16l4 4v11.5a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 18.5zM15.5 3v4.5H20M8 11h8M8 15h5' },
   ] },
   { id: 'ontology', label: 'Ontology', icon: 'M12 8v4M5 16v-4h14v4M9 2h6v6H9zM2 16h6v6H2zM16 16h6v6h-6z', links: [
-    { label: 'OntoMosaic-Doc', description: 'Document ontology · coming soon', href: '/ontomosaic-doc', icon: 'M12 8v4M5 16v-4h14v4M9 2h6v6H9zM2 16h6v6H2zM16 16h6v6h-6z' },
+    { label: 'OntoMosaic-Doc', description: 'Context-graph retrieval across the enterprise', href: '/ontomosaic-doc', icon: 'M12 8v4M5 16v-4h14v4M9 2h6v6H9zM2 16h6v6H2zM16 16h6v6h-6z' },
     { label: 'OntoMosaic-Text2SQL', description: 'Build and explore database knowledge from SQL examples', href: '/ontomosaic-text2sql', icon: 'M12 8v4M5 16v-4h14v4M9 2h6v6H9zM2 16h6v6H2zM16 16h6v6h-6z' },
     { label: 'OntoMosaic-Enterprise', description: 'Enterprise ontology · coming soon', href: '/ontomosaic-enterprise', icon: 'M12 8v4M5 16v-4h14v4M9 2h6v6H9zM2 16h6v6H2zM16 16h6v6h-6z' },
   ] },

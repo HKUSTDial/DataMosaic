@@ -29,10 +29,16 @@ with sync_playwright() as p:
         assert cards.count() == 3
         assert cards.locator('.card-main').evaluate_all('(es) => es.map(e => e.getAttribute("href"))') == [href for _, href in modules]
         assert cards.locator('.card-number').all_text_contents() == ['01', '02', '03']
-        for index in (0, 2):
-            card = cards.nth(index)
-            assert card.locator('.card-description, .product-demo, .card-features, .service-status, .card-actions').count() == 0
-            assert card.evaluate('e => e.scrollWidth <= e.clientWidth + 1'), (width, index)
+        doc = cards.nth(0)
+        expect(doc.locator('.card-description')).to_have_text('Let a context graph lead retrieval across the enterprise. Follow concepts, relationships, and evidence from the question to a grounded answer.')
+        assert doc.locator('.product-demo').get_attribute('src')
+        assert doc.locator('.card-features span').all_text_contents() == ['Context graph', 'Enterprise retrieval']
+        expect(doc.locator('.service-status')).to_have_text('Unavailable')
+        expect(doc.locator('.service-status')).to_have_class('service-status bad')
+        assert doc.evaluate('e => e.scrollWidth <= e.clientWidth + 1'), width
+        enterprise = cards.nth(2)
+        assert enterprise.locator('.card-description, .product-demo, .card-features, .service-status, .card-actions').count() == 0
+        assert enterprise.evaluate('e => e.scrollWidth <= e.clientWidth + 1'), width
         assert cards.nth(1).locator('.product-demo').count() == 1
         if width < 860:
             page.get_by_role('button', name='Open navigation', exact=True).click()
@@ -43,7 +49,7 @@ with sync_playwright() as p:
             page.get_by_role('button', name='Close navigation', exact=True).click()
         for index in (0, 2):
             name, href = modules[index]
-            cards.nth(index).get_by_role('link', name=f'Open {name}', exact=True).click()
+            cards.nth(index).get_by_role('link', name=f'Open {name}', exact=True).first.click()
             expect(page).to_have_url(base + href)
             expect(page).to_have_title(f'{name} | DataMosaic')
             assert page.locator('main').inner_html().strip() == ''
