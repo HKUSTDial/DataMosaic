@@ -261,9 +261,8 @@ html[lang="en"] .chips li b { display: none; }
 }
 
 .hero-copy h1 { margin-bottom: 18px; }
-.lede.hero-slogans { display: flex; flex-direction: column; gap: 3px; width: fit-content; max-width: 100%; margin: 0; padding: 1px 0 1px 14px; border-left: 3px solid #b7b3e6; color: #5c6578; font-size: 13px; font-weight: 650; letter-spacing: .08em; line-height: 1.55; }
+.lede.hero-slogans { display: flex; flex-direction: column; gap: 2px; margin-top: 4px; letter-spacing: .03em; line-height: 1.7; }
 .lede.hero-slogans span { display: block; }
-html[lang="zh-CN"] .lede.hero-slogans { font-size: 16px; font-weight: 500; letter-spacing: .04em; line-height: 1.7; }
 .product-film { padding-block: 72px 84px; border-bottom: 1px solid var(--line); background: #f4f7fc; }
 .product-film h2 { margin-bottom: 28px; }
 @media(max-width:600px) {
