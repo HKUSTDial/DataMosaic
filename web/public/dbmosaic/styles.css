@@ -261,9 +261,6 @@ html[lang="en"] .chips li b { display: none; }
   .animation-controls button { font-size: 9px; }
 }
 
-.hero-copy h1 { margin-bottom: 18px; }
-.lede.hero-slogans { display: flex; flex-direction: column; gap: 2px; margin-top: 4px; letter-spacing: .03em; line-height: 1.7; }
-.lede.hero-slogans span { display: block; }
 .product-film { padding-block: 72px 84px; border-bottom: 1px solid var(--line); background: #f4f7fc; }
 .product-film h2 { margin-bottom: 28px; }
 @media(max-width:600px) {
