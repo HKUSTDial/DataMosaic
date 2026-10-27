@@ -256,3 +256,12 @@ html[lang="en"] .chips li b { display: none; }
   .animation-controls { padding-inline: 14px; font-size: 9px; }
   .animation-controls button { font-size: 9px; }
 }
+
+.product-film { padding-block: 72px 84px; border-bottom: 1px solid var(--line); background: #f4f7fc; }
+.product-film .section-intro { max-width: 640px; margin-bottom: 28px; }
+@media (max-width: 850px) {
+  .product-film { padding-block: 56px 64px; }
+}
+@media (max-width: 600px) {
+  .product-film { padding-block: 44px 48px; }
+}
