@@ -1,0 +1,91 @@
+.nq-workspace{color:var(--ow-ink)}.nq-context{display:flex;gap:16px;align-items:end;flex-wrap:wrap;margin:4px 0 20px}.nq-context label,.nq-version,.nq-graph-picker label{display:grid;gap:6px;font-size:11px;color:var(--ow-muted)}.nq-context select{min-width:180px;max-width:300px}.nq-muted{font-size:11px;color:var(--ow-muted);line-height:1.65}.nq-layout{display:grid;grid-template-columns:170px minmax(320px,1.1fr) minmax(360px,1fr);border:1px solid var(--ow-line);border-radius:12px;background:var(--ow-panel);align-items:start;min-height:650px}.nq-history{padding:16px 10px;align-self:stretch;background:var(--ow-soft);border-right:1px solid var(--ow-line);border-radius:12px 0 0 12px}.nq-history h3{font-size:11px;margin:20px 5px 10px;color:var(--ow-muted)}.nq-history>button:not(.ow-button){display:block;width:100%;font:inherit;font-size:12px;text-align:left;overflow-wrap:anywhere;border:0;border-radius:6px;background:none;color:var(--ow-ink);padding:10px 8px;cursor:pointer}.nq-history>button.selected{background:var(--ow-tint);color:var(--ow-accent)}.nq-history small{display:block;color:var(--ow-muted);font-size:10px;margin-top:5px}.nq-conversation{min-width:0;padding:20px}.nq-conversation-head,.nq-evidence-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.nq-conversation-head h2{font-size:17px}.nq-welcome{padding:30px 0}.nq-welcome p{color:var(--ow-muted)}.nq-user{background:var(--ow-tint);color:var(--ow-ink);padding:13px 15px;border-radius:12px 12px 3px 12px;max-width:95%;margin:25px 0 20px auto;white-space:pre-wrap;overflow-wrap:anywhere;cursor:pointer}.nq-turn{padding-bottom:12px;border-bottom:1px solid var(--ow-line)}.nq-agent-name{display:flex;align-items:center;justify-content:space-between;gap:8px;color:var(--ow-accent);font-weight:650}.nq-agent-name button{font-size:10px;padding:4px 7px;min-height:28px}.nq-status{color:var(--ow-muted);font-size:11px;margin:10px 0 14px}.nq-clarification{background:var(--ow-soft);border:1px solid var(--ow-line);border-radius:9px;padding:15px;margin:14px 0}.nq-kicker{font-size:10px;color:var(--ow-accent);margin-bottom:9px}.nq-clarification fieldset{min-width:0;border:0;padding:0;margin:0 0 18px}.nq-clarification legend{font-size:14px;font-weight:600;line-height:1.65;padding:0}.nq-option{display:flex;align-items:flex-start;gap:9px;padding:10px 11px;border:1px solid var(--ow-line);border-radius:7px;background:var(--ow-panel);margin:7px 0;line-height:1.6;cursor:pointer}.nq-option input{margin-top:4px;accent-color:var(--ow-accent)}.nq-clarification textarea,.nq-composer textarea{width:100%;min-height:75px;resize:vertical;font:inherit;border:1px solid var(--ow-line);border-radius:8px;padding:10px;color:var(--ow-ink);background:var(--ow-panel);margin:8px 0}.nq-composer{margin-top:22px;border:1px solid var(--ow-line);border-radius:10px;padding:13px}.nq-composer>label{font-size:11px;color:var(--ow-muted)}.nq-composer .ow-actions{justify-content:space-between}.nq-confirmed{padding-left:11px;border-left:2px solid var(--ow-line);margin:14px 0;font-size:11px}.nq-confirmed strong{font-weight:500}.nq-confirmed p{color:var(--ow-success);margin:6px 0}.nq-answer{white-space:pre-wrap;overflow-wrap:anywhere}.nq-result{border:1px solid var(--ow-line);border-radius:8px;padding:12px;margin:15px 0}.nq-table-wrap{overflow:auto;max-height:350px;margin-top:9px}.nq-activity{font-size:10px;color:var(--ow-muted);margin-top:16px}.nq-activity>div{display:flex;gap:10px;margin:7px 0}.nq-activity pre{white-space:pre-wrap;overflow-wrap:anywhere}.nq-activity summary{cursor:pointer}.nq-evidence{min-width:0;border-left:1px solid var(--ow-line);align-self:stretch}.nq-evidence-head{padding:19px 15px}.nq-evidence h3{font-size:13px}.nq-tabs{padding:0 15px;border-bottom:1px solid var(--ow-line);gap:20px}.nq-tabs button{font-size:11px;padding-bottom:10px}.nq-evidence-body{padding:15px;overflow-wrap:anywhere}.nq-graph-picker{display:flex;align-items:end;gap:10px;justify-content:space-between;margin-bottom:12px}.nq-guidance,.nq-sql{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--ow-soft);border:1px solid var(--ow-line);border-radius:8px;padding:13px;font:11px/1.85 ui-monospace,monospace}.nq-sql mark{background:var(--ow-tint);color:var(--ow-accent);outline:1px solid var(--ow-accent);border-radius:2px}.nq-node-links{border-top:1px solid var(--ow-line);margin-top:13px;padding-top:10px}.nq-node-links h4{margin:0;font-size:13px}.nq-node-links .ow-button{font:10px ui-monospace,monospace;margin:4px;white-space:normal;text-align:left}.nq-projection{font-size:10px;padding:10px 0;border-bottom:1px solid var(--ow-line);line-height:1.8}.nq-binding-list{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}.nq-binding-list .ow-button{font:10px ui-monospace,monospace;white-space:normal;text-align:left}.og-container.og-compact .og-view{display:grid;grid-template-columns:minmax(0,1fr);height:420px;min-height:300px}.og-compact .og-filters{display:none}.og-compact .og-detail{display:none}.og-compact .og-toolbar{padding:8px;gap:8px}.og-compact .og-toolbar>span{font-size:11px}.og-compact .og-footer{display:none}.og-compact .og-canvas-hint{font-size:9px}.og-compact .og-toolbar .ow-button{font-size:10px}.nq-context select:focus-visible,.nq-workspace textarea:focus-visible,.nq-workspace button:focus-visible{outline:3px solid var(--ow-accent);outline-offset:2px}
+@media(min-width:1600px){.nq-layout{grid-template-columns:190px minmax(420px,1fr) minmax(500px,1.05fr)}}
+@media(max-width:1150px){.nq-layout{grid-template-columns:minmax(310px,1fr) minmax(330px,1fr)}.nq-history{grid-column:1/-1;border-right:0;border-bottom:1px solid var(--ow-line);border-radius:12px 12px 0 0;display:flex;gap:8px;flex-wrap:wrap;align-items:center}.nq-history h3{margin:0}.nq-history>button:not(.ow-button){width:auto;max-width:200px}.nq-history small{display:none}}
+@media(max-width:760px){.nq-layout{display:block}.nq-evidence{border-left:0;border-top:1px solid var(--ow-line)}.nq-conversation{padding:15px}.nq-context label{width:100%}.nq-context select{max-width:100%;width:100%}.nq-graph-picker{align-items:start;flex-direction:column}.nq-history>button:not(.ow-button){max-width:130px}.nq-workspace textarea{font-size:16px}.og-container.og-compact .og-view{height:340px}}
+
+.nq-sql-token{display:inline;border:0;background:transparent;color:inherit;padding:0;font:inherit;cursor:pointer;text-decoration:underline;text-decoration-color:var(--ow-line);text-underline-offset:3px}.nq-sql-token:hover,.nq-sql-token[aria-pressed=true]{background:var(--ow-tint);color:var(--ow-accent);outline:1px solid var(--ow-accent);border-radius:2px}.nq-option .ow-button{margin-left:auto;flex-shrink:0;font-size:10px;min-height:25px;padding:3px 5px}
+
+.nq-node-picker{display:grid;gap:6px;font-size:11px;color:var(--ow-muted);margin:0 0 12px}.nq-node-picker select{width:100%;min-width:0}
+
+@media(min-width:761px){.nq-evidence{position:sticky;top:100px;align-self:start;max-height:calc(100vh - 116px);overflow:auto}}
+
+/* Conversation navigation uses separate action and history groups at every width. */
+.ontology-workbench .nq-history{display:block;padding:18px 12px}
+.ontology-workbench .nq-history-toolbar{padding:0 2px 20px;border-bottom:1px solid var(--ow-line)}
+.ontology-workbench .nq-history-toolbar .ow-button{font-family:inherit;font-size:13px;font-weight:500;padding:9px 12px}
+.ontology-workbench .nq-history-heading{margin:20px 8px 12px;font-size:11px;font-weight:500;letter-spacing:.04em;color:var(--ow-muted)}
+.nq-session-list{display:grid;gap:6px;min-width:0}
+.ontology-workbench .nq-history .nq-session{display:block;width:100%;min-width:0;max-width:none;text-align:left;font-family:inherit;border:0;border-radius:8px;padding:11px 10px;background:transparent;color:var(--ow-ink);cursor:pointer}
+.ontology-workbench .nq-history .nq-session:hover{background:var(--ow-tint)}
+.ontology-workbench .nq-history .nq-session.selected{background:var(--ow-tint);color:var(--ow-accent)}
+.nq-session-title{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-family:inherit;font-size:13px;font-weight:500;line-height:1.65;letter-spacing:0;word-break:normal;overflow-wrap:break-word}
+.ontology-workbench .nq-history .nq-session small{display:block;margin-top:7px;font-family:inherit;font-size:10px;font-weight:400;line-height:1.5;color:var(--ow-muted)}
+.nq-history-empty{margin:0 8px;color:var(--ow-muted);font-size:12px}
+.nq-sql-usages{margin-top:20px}
+.ontology-workbench .nq-sql-usages h4{font-size:13px;margin:0 0 8px}
+.nq-sql-usage{padding:12px 0;border-top:1px solid var(--ow-line)}
+.nq-usage-label{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:8px;color:var(--ow-muted);font-size:11px}
+.nq-usage-label code{font:11px ui-monospace,monospace;color:var(--ow-ink)}
+.nq-usage-link{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;border:1px solid var(--ow-line);border-radius:7px;padding:10px 12px;background:var(--ow-soft);color:var(--ow-ink);text-align:left;cursor:pointer}
+.nq-usage-link:hover{background:var(--ow-tint);border-color:var(--ow-accent)}
+.nq-usage-link code{font:12px/1.65 ui-monospace,monospace;overflow-wrap:anywhere}
+.nq-usage-link span{font-family:inherit;font-size:11px;line-height:1.5;color:var(--ow-accent);white-space:nowrap}
+@media(min-width:761px) and (max-width:1150px){.ontology-workbench .nq-history{display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;align-items:start}.ontology-workbench .nq-history-toolbar{padding:0 24px 0 0;border-bottom:0;border-right:1px solid var(--ow-line);align-self:stretch}.ontology-workbench .nq-history-heading{margin:0 0 10px}.nq-session-list{grid-template-columns:repeat(auto-fill,minmax(190px,1fr))}}
+
+.nq-earlier-tasks{margin:14px 0 0;color:var(--ow-muted);font-size:11px}
+.nq-earlier-tasks summary{cursor:pointer}
+.nq-earlier-tasks .ow-button{display:block;white-space:normal;text-align:left;margin-top:8px;font-size:11px}
+
+.nq-user-label{display:block;font-size:10px;color:var(--ow-muted);margin-bottom:5px}
+
+/* Knowledge uses reading typography; only field names use monospace. */
+.nq-guidance-sections>h4{margin:20px 0 12px;font-size:13px;font-weight:600}
+.nq-guidance-decisions{border-left:2px solid var(--ow-line);padding-left:12px;margin-bottom:26px}
+.nq-guidance-decisions p{display:flex;gap:8px;font-size:12px;line-height:1.8;margin:10px 0;color:var(--ow-ink)}
+.nq-guidance-decisions p>span{color:var(--ow-accent);flex-shrink:0}
+.nq-knowledge-section-title{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.nq-knowledge-section-title h4{font-size:14px;font-weight:600;margin:0}
+.nq-knowledge-section-title>span{font-size:11px;color:var(--ow-muted)}
+.nq-knowledge-intro{font-size:11px;line-height:1.6;color:var(--ow-muted);margin:7px 0 16px}
+.nq-knowledge-list{border-top:1px solid var(--ow-line)}
+.nq-knowledge-node{padding:18px 0;border-bottom:1px solid var(--ow-line)}
+.nq-knowledge-heading{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ontology-workbench .nq-knowledge-heading h5{font-family:inherit;font-size:14px;font-weight:600;line-height:1.5;margin:0;color:var(--ow-ink);overflow-wrap:anywhere}
+.nq-knowledge-type{font-size:10px;line-height:1.7;padding:1px 6px;border-radius:4px;background:var(--ow-soft);color:var(--ow-muted)}
+.nq-knowledge-open{margin-left:auto;display:flex;gap:5px;align-items:center;border:0;background:transparent;font:inherit;font-size:11px;color:var(--ow-accent);cursor:pointer;padding:5px 0 5px 5px;white-space:nowrap}
+.nq-knowledge-open:hover{text-decoration:underline;text-underline-offset:3px}
+.nq-knowledge-description,.nq-knowledge-action{font-family:inherit;font-size:12px;line-height:1.8;margin:9px 0 0;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--ow-ink)}
+.nq-knowledge-description{color:var(--ow-muted)}
+.nq-knowledge-fields{display:grid;gap:7px;margin-top:13px}
+.nq-knowledge-fields>span{font-size:10px;color:var(--ow-muted)}
+.nq-knowledge-fields>div{display:flex;flex-wrap:wrap;gap:6px}
+.nq-knowledge-fields code,.nq-knowledge-expression{font:11px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--ow-soft);color:var(--ow-accent);border:1px solid var(--ow-line);border-radius:4px;padding:3px 7px;overflow-wrap:anywhere}
+.nq-knowledge-expression{display:block;margin-top:10px;white-space:pre-wrap}
+.nq-guidance-sections summary{cursor:pointer;font-size:11px;color:var(--ow-muted)}
+.nq-knowledge-detail{margin-top:12px}.nq-knowledge-detail p{font-size:11px;line-height:1.8;color:var(--ow-muted);margin:8px 0}
+.nq-knowledge-sources{margin:20px 0}.nq-source-node{display:flex;gap:12px;align-items:baseline;justify-content:space-between;width:100%;padding:10px 0;border:0;border-bottom:1px solid var(--ow-line);background:transparent;color:var(--ow-ink);font:inherit;font-size:12px;cursor:pointer;text-align:left}.nq-source-node>span:last-child{color:var(--ow-accent);font-size:11px;white-space:nowrap}
+
+/* Compact widths keep conversation navigation on the left instead of reordering it above chat. */
+.nq-layout{position:relative;isolation:isolate}
+.nq-history-rail,.nq-history-close{display:none}
+@media(max-width:1150px){
+ .nq-layout{display:grid;grid-template-columns:44px minmax(0,1fr) minmax(0,1fr);gap:0}
+ .nq-history-rail{display:block;grid-column:1;grid-row:1 / span 2;align-self:stretch;background:var(--ow-soft);border-right:1px solid var(--ow-line);border-radius:12px 0 0 12px}
+ .nq-history-toggle{display:flex;align-items:center;justify-content:center;width:32px;height:34px;margin:16px 5px;border:1px solid var(--ow-line);border-radius:7px;background:var(--ow-panel);color:var(--ow-accent);cursor:pointer}
+ .nq-history-toggle:hover{background:var(--ow-tint)}
+ .ontology-workbench .nq-history{display:none;position:absolute;inset:0 auto 0 0;width:min(280px,calc(100% - 32px));max-height:calc(100dvh - 40px);overflow:auto;grid-column:auto;grid-row:auto;padding:18px 12px;border-radius:12px 0 0 12px;border-right:1px solid var(--ow-line);border-bottom:0;background:var(--ow-panel);z-index:31;box-shadow:8px 0 28px #00000014}
+ .ontology-workbench .nq-history-open .nq-history{display:block}
+ .nq-history-backdrop{position:absolute;inset:0;border:0;border-radius:12px;background:#101f3538;z-index:30;cursor:pointer}
+ .ontology-workbench .nq-history-toolbar{display:flex;align-items:center;gap:10px;padding:0 2px 20px;border-right:0;border-bottom:1px solid var(--ow-line)}
+ .nq-history-close{display:block;order:2;margin-left:auto;border:0;background:transparent;color:var(--ow-muted);font-family:inherit;font-size:24px;line-height:1;width:30px;height:30px;cursor:pointer}
+ .ontology-workbench .nq-history-heading{margin:20px 8px 12px}
+ .nq-session-list{display:grid;grid-template-columns:minmax(0,1fr)}
+ .nq-conversation{grid-column:2;grid-row:1}
+ .nq-evidence{grid-column:3;grid-row:1}
+}
+@media(max-width:760px){
+ .nq-layout{grid-template-columns:44px minmax(0,1fr)}
+ .nq-evidence{grid-column:2;grid-row:2}
+ .nq-conversation-head{flex-wrap:wrap;justify-content:flex-start}
+ .nq-conversation-head h2{font-size:16px;margin:0}
+}
