@@ -19,6 +19,8 @@
     '从文档': 'From documents ',
     '到': 'to ',
     '数据库': 'databases',
+    '文档进入。知识输出。': 'DOCUMENTS IN. KNOWLEDGE OUT.',
+    '文档进入。数据库输出。': 'DOCUMENTS IN. DATABASE OUT.',
     '观看系统演示': 'Watch the demo',
     '快速开始': 'Get started',
     '开源研究': 'Open research',
