@@ -8,7 +8,7 @@ const publications = [
     authors: 'Zhengxuan Zhang, Zhuowen Liang, Jiazhuo Chen, Haixun Wang, and Nan Tang.',
     venue: 'VLDB',
     framework: datamosaicFramework,
-    pdf: 'https://www.vldb.org/pvldb/vol19/p2522-zhang.pdf',
+    pdf: 'https://www.vldb.org/pvldb/vol19/p2522-tang.pdf',
     code: 'https://github.com/HKUSTDial/DBMosaic',
   },
   {

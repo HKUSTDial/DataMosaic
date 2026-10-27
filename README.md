@@ -29,7 +29,7 @@ The homepage uses a top navigation bar: **Applications → DBMosaic / DocMosaic*
 
 This work is associated with three publications:
 
-[1] **Zhengxuan Zhang**, Zhuowen Liang, Jiazhuo Chen, Haixun Wang, and Nan Tang. *Document-to-Database: Extraction Meets Relational Semantics.* VLDB, 2026. [[PDF](https://www.vldb.org/pvldb/vol19/p2522-zhang.pdf)]
+[1] **Zhengxuan Zhang**, Zhuowen Liang, Jiazhuo Chen, Haixun Wang, and Nan Tang. *Document-to-Database: Extraction Meets Relational Semantics.* VLDB, 2026. [[PDF](https://www.vldb.org/pvldb/vol19/p2522-tang.pdf)]
 
 [2] **Zhengxuan Zhang**, Zhuowen Liang, Haixun Wang, and Nan Tang. *DataMosaic: An Interactive Demonstration of Constraint-Driven Document-to-Database Construction.* VLDB Demo, 2026. [[PDF](https://www.vldb.org/pvldb/vol19/p4570-zhang.pdf)]
 
