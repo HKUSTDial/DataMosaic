@@ -1,11 +1,11 @@
 (() => {
   // Translate text nodes, not HTML, so links, code and event handlers stay intact.
   const english = {
-    'DataMosaic · 从文档到数据库': 'DataMosaic · From documents to databases',
-    'DataMosaic 把非结构化文档做成守得住关系约束的数据库。抽取、校验、修复形成闭环。VLDB 2026。': 'DataMosaic turns unstructured documents into databases that respect relational constraints. A closed loop of extraction, verification and repair. VLDB 2026.',
+    'DBMosaic · 从文档到数据库': 'DBMosaic · From documents to databases',
+    'DBMosaic 把非结构化文档做成守得住关系约束的数据库。抽取、校验、修复形成闭环。VLDB 2026。': 'DBMosaic turns unstructured documents into databases that respect relational constraints. A closed loop of extraction, verification and repair. VLDB 2026.',
     '跳到正文': 'Skip to content',
-    'DataMosaic 品牌动画': 'DataMosaic brand animation',
-    'DataMosaic：让文档中的信息汇聚为结构化数据': 'DataMosaic: bringing information from documents into structured data',
+    'DBMosaic 品牌动画': 'DBMosaic brand animation',
+    'DBMosaic：让文档中的信息汇聚为结构化数据': 'DBMosaic: bringing information from documents into structured data',
     'DBMosaic 首页': 'DBMosaic home',
     '导航': 'Menu',
     '打开导航': 'Open navigation',
@@ -32,7 +32,11 @@
     '概念示意 / RELATIONAL DATABASE': 'CONCEPT / RELATIONAL DATABASE',
     '模式感知': 'Schema-guided extraction',
     '交互可控': 'Interactive control',
-    '探索核心能力': 'Explore capabilities',
+    '观看产品短片': 'Watch the product film',
+    '先看产品。': 'See the product. ',
+    '二十秒就够。': 'Twenty seconds is enough.',
+    '这支短片讲 DBMosaic 怎样把文档收成一份守得住约束的数据库。界面里一步步怎么点，留在后面的演示。': 'This short film shows how DBMosaic turns documents into a database that holds its constraints. The step-by-step interface walkthrough stays in the demo below.',
+    'DBMosaic 产品介绍': 'DBMosaic product introduction',
     '向下探索': 'Explore',
     '不止抽取。': 'Beyond extraction. ',
     '更让数据成立。': 'Built for integrity.',
