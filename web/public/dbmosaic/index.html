@@ -20,6 +20,7 @@
       </div>
       <button class="menu-toggle" aria-label="打开导航" aria-expanded="false" aria-controls="main-nav" type="button"><span class="menu-label">导航</span><span aria-hidden="true">☰</span></button>
       <nav class="nav" id="main-nav" aria-label="主导航">
+        <a class="nav-home" href="../" aria-label="返回 DataMosaic 主页">← DataMosaic</a>
         <a href="#features">核心能力</a><a href="#pipeline">工作原理</a><a href="#papers">研究论文</a><a href="#demo">演示</a>
         <a class="nav-cta" href="https://github.com/HKUSTDial/DBMosaic" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
       </nav>
@@ -31,8 +32,8 @@
       <div class="hero-grid wrap">
         <div class="hero-copy">
           <a class="announcement" href="#papers"><span class="status-dot"></span> VLDB 2026 <span class="announcement-divider"></span> 让抽取遇见关系语义 <span aria-hidden="true">↗</span></a>
-          <p class="eyebrow">DOCUMENTS IN. KNOWLEDGE OUT.</p>
-          <h1>让文档里的知识，<br>成为<span class="accent">可靠的数据。</span></h1>
+          <p class="eyebrow">DOCUMENTS IN. DATABASE OUT.</p>
+          <h1>从文档<br>到<span class="accent">数据库</span></h1>
           <p class="lede">从非结构化文档到关系数据库。DBMosaic 将抽取、校验与修复连接成闭环，让每一条记录有据可循，让每一段关系经得起检验。</p>
           <div class="hero-links">
             <a class="btn btn-primary" href="#demo"><span class="play-icon" aria-hidden="true">▶</span> 观看系统演示 <span aria-hidden="true">↗</span></a>
@@ -55,8 +56,7 @@
     <section class="product-film" id="film">
       <div class="wrap">
         <p class="kicker"><span>FILM /</span> PRODUCT</p>
-        <h2>先看产品。<span class="muted-heading">二十秒就够。</span></h2>
-        <p class="section-intro">这支短片讲 DBMosaic 怎样把文档收成一份守得住约束的数据库。界面里一步步怎么点，留在后面的演示。</p>
+        <h2>把文档做成数据库</h2>
         <figure class="player">
           <figcaption class="player-chrome"><span><i></i><i></i><i></i></span><span>DBMosaic / Product film</span><span>FILM</span></figcaption>
           <video controls playsinline preload="metadata" width="1920" height="1080" aria-label="DBMosaic 产品介绍">
@@ -144,7 +144,7 @@
     <section class="theater" id="demo">
       <div class="wrap">
         <p class="kicker"><span>03 /</span> SEE IT IN ACTION</p>
-        <h2>从第一份文档，<br>到可用的数据库。</h2>
+        <h2>从文档，<br>到可用的数据库。</h2>
         <p class="section-intro">下面这段大约一分多钟，对应界面里的一次完整操作：选文档、给模式、看闭环、查结果。</p>
         <ol class="steps">
           <li>在文档库里选中这次要处理的文件。</li>
@@ -297,7 +297,7 @@ python llm_evaluate.py --dataset FinanceDB --case case1 --model gpt-4o</pre>
   <footer>
     <div class="wrap">
       <span>DBMosaic · VLDB 2026 · <a href="https://github.com/HKUSTDial/DBMosaic">github.com/HKUSTDial/DBMosaic</a></span>
-      <span>From documents to dependable data. <a class="back-top" href="#about" aria-label="返回顶部">↑</a></span>
+      <span>From documents to databases. <a class="back-top" href="#about" aria-label="返回顶部">↑</a></span>
     </div>
   </footer>
 

@@ -163,6 +163,8 @@ footer a:hover { color: #36416e; }
 
 .wordmark { order: 1; }
 .nav { order: 2; margin-left: auto; gap: 24px; }
+.nav a.nav-home { border: 1px solid #ccd1da; border-radius: 6px; padding: 7px 14px; background: #fff; color: #39404c; white-space: nowrap; }
+.nav a.nav-home:hover { background: #e4e7f2; color: #24293d; }
 .language-switch { order: 3; display: inline-flex; padding: 3px; gap: 2px; border: 1px solid #d0d6df; border-radius: 7px; background: #fff; flex-shrink: 0; }
 .language-switch button { border: 0; border-radius: 4px; background: transparent; color: #66748b; font: 11px/1.5 var(--sans); padding: 5px 8px; min-height: 28px; }
 .language-switch button[aria-pressed="true"] { background: #e5e8f2; color: #2c3558; font-weight: 600; }
@@ -258,7 +260,10 @@ html[lang="en"] .chips li b { display: none; }
 }
 
 .product-film { padding-block: 72px 84px; border-bottom: 1px solid var(--line); background: #f4f7fc; }
-.product-film .section-intro { max-width: 640px; margin-bottom: 28px; }
+.product-film h2 { margin-bottom: 28px; }
+@media(max-width:980px) {
+  .nav .nav-home { margin-bottom: 8px; }
+}
 @media (max-width: 850px) {
   .product-film { padding-block: 56px 64px; }
 }
