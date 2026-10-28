@@ -261,16 +261,75 @@ html[lang="en"] .chips li b { display: none; }
   .animation-controls button { font-size: 9px; }
 }
 
-.product-film { padding-block: 72px 84px; border-bottom: 1px solid var(--line); background: #f4f7fc; }
-.product-film h2 { margin-bottom: 28px; }
+.hero-film { padding: 16px 0 0; }
+.hero-film .animation-heading { padding-bottom: 12px; }
+.hero-film video { display: block; width: 100%; height: auto; background: #12151c; }
+.hero-film .animation-controls { padding-block: 10px 12px; }
+.arch { margin: 0 0 28px; border: 1px solid #e1e6f0; border-radius: 14px; background: #fff; overflow: hidden; }
+.arch-band { display: grid; grid-template-columns: 52px minmax(0, 1fr); border-bottom: 1px solid #e3e8f1; }
+.arch-band:last-child { border-bottom: 0; }
+.arch-band:nth-child(2) { background: #f6f7fb; }
+.arch-rail { display: grid; place-items: center; border-right: 1px solid #e3e8f1; background: #eef1f8; color: #3d4660; font-size: 13px; font-weight: 650; letter-spacing: .12em; writing-mode: vertical-rl; }
+.arch-input { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; padding: 22px 28px; }
+.arch-input > div { display: flex; flex-direction: column; align-items: center; gap: 8px; color: #4f5b93; text-align: center; }
+.arch-input svg { width: 46px; height: 34px; }
+.arch-input span, .arch-output span { color: #2c3444; font-size: 15px; font-weight: 650; }
+.arch-core { display: grid; grid-template-columns: 78px minmax(0, 1fr) 196px; grid-template-rows: auto auto; column-gap: 18px; row-gap: 8px; align-items: start; padding: 16px 18px 14px 14px; }
+.arch-orch { grid-column: 1; grid-row: 1; align-self: stretch; display: grid; place-items: center; border: 1.5px solid #c5cedd; border-radius: 12px; background: #fff; color: #2f3850; }
+.arch-orch span { writing-mode: vertical-rl; letter-spacing: .14em; font-size: 14px; font-weight: 650; }
+.arch-flow { grid-column: 2; grid-row: 1; position: relative; display: grid; grid-template-rows: 58px 18px 58px 18px 58px 18px 58px; margin-left: 22px; }
+.arch-flow::before { content: ""; position: absolute; left: -20px; top: 29px; bottom: 29px; width: 12px; border: 1.5px dashed #8b97b0; border-right: 0; border-radius: 10px 0 0 10px; }
+.arch-flow::after { content: ""; position: absolute; left: -9px; top: 25px; border-top: 4px solid transparent; border-bottom: 4px solid transparent; border-left: 6px solid #8b97b0; }
+.arch-box { position: relative; display: grid; place-items: center; padding: 6px 12px; border: 1.5px solid #c5cedd; border-radius: 12px; background: #fff; color: #2f3850; font-size: 14px; font-weight: 650; text-align: center; line-height: 1.25; }
+.arch-box::after { content: ""; position: absolute; right: -5px; top: 50%; width: 8px; height: 8px; border: 1.5px solid #8b97ad; border-radius: 50%; background: #fff; transform: translateY(-50%); }
+.arch-down { justify-self: center; width: 1.5px; height: 18px; background: #7d8aa3; position: relative; }
+.arch-down::after { content: ""; position: absolute; left: 50%; bottom: -1px; transform: translateX(-50%); border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid #7d8aa3; }
+.arch-service-box { grid-column: 3; grid-row: 1; display: grid; grid-template-rows: 58px 18px 58px 18px 58px 18px 58px; align-items: center; padding: 0 12px 0 8px; border: 1.5px dashed #b7c0d2; border-radius: 12px; background: #fbfcfe; }
+.arch-slot { display: flex; align-items: center; gap: 8px; min-width: 0; color: #5c6788; }
+.arch-slot:nth-child(1) { grid-row: 1; }
+.arch-slot:nth-child(2) { grid-row: 3; }
+.arch-slot:nth-child(3) { grid-row: 5; }
+.arch-slot:nth-child(4) { grid-row: 7; }
+.arch-slot::before { content: ""; width: 22px; height: 1.5px; margin-left: -20px; background: #8b97ad; flex: none; }
+.arch-slot b { font: 11px/1 var(--mono); letter-spacing: .04em; color: #516079; }
+.arch-slot svg { width: 28px; height: 28px; flex: none; }
+.arch-service-label { grid-column: 3; grid-row: 2; margin: 0; text-align: center; color: #5c6780; font-size: 13px; font-weight: 650; }
+.arch-output { display: flex; align-items: center; justify-content: center; gap: 16px; padding: 22px 20px; color: #3a4678; }
+.arch-output svg { width: 52px; height: 36px; }
+.pub-list { margin: 8px 0 0; padding-left: 1.25em; display: grid; gap: 18px; }
+.pub-list li { padding-left: 4px; color: #8b95a8; }
+.pub-list a { color: #2c3444; font-family: Georgia, "Times New Roman", serif; font-size: 18px; line-height: 1.45; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: #c5cedd; }
+.pub-list a:hover { color: #434e7a; text-decoration-color: #434e7a; }
+.pub-meta { display: block; margin-top: 4px; color: #6c7a90; font-family: var(--sans); font-size: 13px; line-height: 1.55; }
 @media(max-width:600px) {
   .topbar .nav { top: 100%; }
   .nav a.home-key { align-self: flex-start; margin: 2px 11px 6px; padding: 0; }
   a.home-key svg { width: 16px; height: 16px; }
 }
 @media (max-width: 850px) {
-  .product-film { padding-block: 56px 64px; }
+  .arch-core { grid-template-columns: 64px minmax(0, 1fr); }
+  .arch-service-box, .arch-service-label { grid-column: 1 / -1; }
+  .arch-service-box { grid-row: 2; grid-template-rows: repeat(4, 42px); gap: 8px; height: auto; margin-top: 8px; padding: 12px 14px; }
+  .arch-slot:nth-child(1) { grid-row: 1; }
+  .arch-slot:nth-child(2) { grid-row: 2; }
+  .arch-slot:nth-child(3) { grid-row: 3; }
+  .arch-slot:nth-child(4) { grid-row: 4; }
+  .arch-service-label { grid-row: 3; }
+  .arch-slot::before { display: none; }
+  .pub-list a { font-size: 16px; }
+  .pub-meta { font-size: 12px; }
 }
 @media (max-width: 600px) {
-  .product-film { padding-block: 44px 48px; }
+  .hero-film { padding-top: 12px; }
+  .arch-band { grid-template-columns: 1fr; }
+  .arch-rail { writing-mode: horizontal-tb; letter-spacing: .08em; border-right: 0; border-bottom: 1px solid #e3e8f1; min-height: 36px; font-size: 12px; }
+  .arch-input { grid-template-columns: 1fr; gap: 14px; padding: 16px; }
+  .arch-input > div { flex-direction: row; justify-content: flex-start; gap: 12px; }
+  .arch-core { grid-template-columns: 1fr; grid-template-rows: auto; padding: 12px; }
+  .arch-orch { grid-column: 1; grid-row: 1; min-height: 42px; align-self: stretch; }
+  .arch-orch span { writing-mode: horizontal-tb; letter-spacing: .08em; }
+  .arch-flow { grid-column: 1; grid-row: 2; margin-left: 18px; }
+  .arch-box { font-size: 13px; }
+  .arch-service-box { grid-column: 1; grid-row: 3; }
+  .arch-service-label { grid-column: 1; grid-row: 4; }
 }
