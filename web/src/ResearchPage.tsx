@@ -3,6 +3,8 @@ import datamosaicFramework from '../../assets/research/datamosaic-framework.png'
 import docpilotFramework from '../../assets/research/docpilot-framework.png';
 import litecostFramework from '../../assets/research/litecost-framework.png';
 import cycleieFramework from '../../assets/research/cycleie-framework.jpg';
+import dtbenchImage from '../../assets/benchmarks/dtbench.jpg';
+import doc2dbImage from '../../assets/benchmarks/doc2db-bench.png';
 
 const publications: {
   title: string;
@@ -50,6 +52,22 @@ const publications: {
     venue: 'EMNLP Findings',
     framework: cycleieFramework,
     pdf: 'https://aclanthology.org/2026.findings-emnlp.418.pdf',
+  },
+  {
+    title: 'Beyond Tables: Doc2DB-Bench for Relationally Faithful Document-to-Database Construction.',
+    authors: 'Zhuowen Liang, Zhengxuan Zhang, Jiayang Wang, Jiazhuo Chen, and Nan Tang.',
+    venue: 'arXiv',
+    framework: doc2dbImage,
+    pdf: 'https://arxiv.org/pdf/2608.08459',
+    code: 'https://github.com/SetonLiang/Doc2DB-Bench',
+  },
+  {
+    title: 'DTBench: A Synthetic Benchmark for Document-to-Table Extraction.',
+    authors: 'Yuxiang Guo, Zhuoran Du, Nan Tang, Kezheng Tang, Congcong Ge, and Yunjun Gao.',
+    venue: 'KDD',
+    framework: dtbenchImage,
+    pdf: 'https://arxiv.org/pdf/2602.13812',
+    code: 'https://github.com/ZJU-DAILY/DTBench',
   },
 ];
 
