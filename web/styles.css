@@ -202,6 +202,7 @@ h1 em { display: block; color: #1e4863; font-style: normal; }
 .publication-year p { margin: 0; color: var(--night-muted, #738195); font-size: 11px; }
 .publication-list { list-style: none; margin: 0; padding: 0; }
 .publication-list > li { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr); align-items: center; gap: 32px; padding: 32px 0; border-bottom: 1px solid var(--night-border, #dde3ea); }
+.publication-list > li:not(:has(.publication-figure)) { grid-template-columns: minmax(0, 1fr); }
 .publication-list > li:first-child { padding-top: 0; }
 .publication-figure { display: flex; align-items: center; justify-content: center; aspect-ratio: 16 / 9; padding: 12px; border: 1px solid var(--night-border, #dde3ea); border-radius: 12px; background: #fff; overflow: hidden; transition: border-color .2s, box-shadow .2s; }
 .publication-figure:hover { border-color: var(--night-accent, #315fa3); box-shadow: 0 8px 24px #17325212; }

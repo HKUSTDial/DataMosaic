@@ -6,7 +6,7 @@
   <title>DBMosaic · 从文档到数据库</title>
   <meta name="description" content="DBMosaic 把非结构化文档做成守得住关系约束的数据库。抽取、校验、修复形成闭环。VLDB 2026。">
   <link rel="icon" type="image/svg+xml" href="logo.svg">
-  <link rel="stylesheet" href="styles.css?v=12">
+  <link rel="stylesheet" href="styles.css?v=15">
 </head>
 <body>
   <a class="skip" href="#about">跳到正文</a>
@@ -23,7 +23,7 @@
       <button class="menu-toggle" aria-label="打开导航" aria-expanded="false" aria-controls="main-nav" type="button"><span class="menu-label">导航</span><span aria-hidden="true">☰</span></button>
       <nav class="nav" id="main-nav" aria-label="主导航">
         <a class="home-key" href="../" aria-label="返回 DataMosaic 主页"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 3.1 2.8 11.2h2.1V20c0 .7.6 1.3 1.3 1.3h4.3v-5.6h2.9V21.3h4.4c.7 0 1.3-.6 1.3-1.3v-8.8h2.1L12 3.1Z"/></svg></a>
-        <a href="#features">核心能力</a><a href="#pipeline">工作原理</a><a href="#papers">研究论文</a><a href="#demo">演示</a>
+        <a href="#system">工作原理</a><a href="#demo">演示</a><a href="../research/">研究论文</a>
         <a class="nav-cta" href="https://github.com/HKUSTDial/DBMosaic" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
       </nav>
     </div>
@@ -33,7 +33,7 @@
     <section class="hero" id="about">
       <div class="hero-grid wrap">
         <div class="hero-copy">
-          <a class="announcement" href="#papers"><span class="status-dot"></span> VLDB 2026 <span class="announcement-divider"></span> 让抽取遇见关系语义 <span aria-hidden="true">↗</span></a>
+          <a class="announcement" href="../research/"><span class="status-dot"></span> VLDB 2026 <span class="announcement-divider"></span> 让抽取遇见关系语义 <span aria-hidden="true">↗</span></a>
           <h1>从文档<br>到<span class="accent">数据库</span></h1>
           <p class="lede">从非结构化文档到关系数据库。DBMosaic 将抽取、校验与修复连接成闭环，让每一条记录有据可循，让每一段关系经得起检验。</p>
           <div class="hero-links">
@@ -50,94 +50,55 @@
           <figcaption class="animation-controls"><span>DBMosaic / Product film</span></figcaption>
         </figure>
       </div>
-      <div class="hero-strip wrap"><span>BUILT FOR RELATIONAL INTEGRITY</span><div><b>Schema-aware</b><span>模式感知</span></div><div><b>Constraint-driven</b><span>约束驱动</span></div><div><b>Human-in-the-loop</b><span>交互可控</span></div><a href="#features" aria-label="核心能力">向下探索 <span aria-hidden="true">↓</span></a></div>
+      <div class="hero-strip wrap"><span>BUILT FOR RELATIONAL INTEGRITY</span><div><b>Schema-aware</b><span>模式感知</span></div><div><b>Constraint-driven</b><span>约束驱动</span></div><div><b>Human-in-the-loop</b><span>交互可控</span></div><a href="#system" aria-label="工作原理">向下探索 <span aria-hidden="true">↓</span></a></div>
     </section>
 
-    <section class="block wrap" id="features">
-      <p class="kicker"><span>01 /</span> CAPABILITIES</p>
-      <h2>不止抽取。<span class="muted-heading">更让数据成立。</span></h2>
-      <p class="section-intro">输入是文档，加上一份带约束的 ER 模式。输出不是一段被塞进表里的文本，而是一份结构成立的数据库。</p>
-      <div class="cards">
+    <section class="block wrap" id="system">
+      <p class="kicker"><span>01 /</span> HOW IT WORKS</p>
+      <h2>五个智能体，<span class="muted-heading">跑完同一条闭环。</span></h2>
+      <p class="section-intro">文档、模式和约束一起进入。编排器调度实体抽取、关系抽取、约束校验和数据修复；违规只回到出错的部分，直到数据库满足约束。</p>
+      <div class="cards agent-cards">
         <article>
-          <p class="idx">01</p>
-          <h3>按模式抽取</h3>
-          <p>模式里写着完整性约束和业务约束。抽取出的记录要能放进这套结构，而不是先生成、再指望它对得上。</p>
+          <div class="card-top">
+            <p class="idx">01</p>
+            <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 3.2v4.4M12 16.4v4.4M3.2 12h4.4M16.4 12h4.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="3.2" r="1.35" fill="currentColor"/><circle cx="12" cy="20.8" r="1.35" fill="currentColor"/><circle cx="3.2" cy="12" r="1.35" fill="currentColor"/><circle cx="20.8" cy="12" r="1.35" fill="currentColor"/></svg></span>
+          </div>
+          <h3>编排器</h3>
+          <p>按信号调度另外四个智能体，留下每一轮快照，直到交出最终数据库。</p>
         </article>
         <article>
-          <p class="idx">02</p>
-          <h3>闭环修正</h3>
-          <p>抽取、校验、修复循环执行。外键断裂这类违规被标出来之后，只对出错的部分重新抽取。</p>
+          <div class="card-top">
+            <p class="idx">02</p>
+            <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5h8.2L18.5 8v12.5H6z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3.5V8h4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8.5 12.2h7" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/><path d="M8.5 16h4.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </div>
+          <h3>实体抽取</h3>
+          <p>对照模式，从文档里找出实体和属性，写成能放进表里的记录。</p>
         </article>
         <article>
-          <p class="idx">03</p>
-          <h3>语义一致性</h3>
-          <p>文档里本来就含糊的地方，和可以改回来的抽取错误，是两件事。不是每一处不一致都该被强行修平。</p>
+          <div class="card-top">
+            <p class="idx">03</p>
+            <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6.2" cy="12" r="3.1" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="17.8" cy="12" r="3.1" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9.3 12h5.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+          </div>
+          <h3>关系抽取</h3>
+          <p>在实体之间补上模式要求的关系，让外键和引用对得上。</p>
         </article>
         <article>
-          <p class="idx">04</p>
-          <h3>可插拔约束</h3>
-          <p>第三方抽取器、领域校验器和自定义修复算子，通过 MCP（Multi-Constraint-Plugin）注册表接进来。</p>
+          <div class="card-top">
+            <p class="idx">04</p>
+            <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3.5" width="16" height="17" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 8.8h8M8 12.4h5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M8 16.2 9.7 17.9 13.2 14.2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+          <h3>约束校验</h3>
+          <p>用 MCP 插件检查结构、类型、取值、引用和时间，把违规标出来。</p>
         </article>
         <article>
-          <p class="idx">05</p>
-          <h3>全栈界面</h3>
-          <p>在界面里上传文档，用表单或自然语言定义模式，看着智能体循环跑完，再检查并导出得到的数据库。</p>
+          <div class="card-top">
+            <p class="idx">05</p>
+            <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 8h8.5M4.5 12h6M4.5 16h4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M16.2 7.2A4.1 4.1 0 1 1 14.6 13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M16.2 4.6v3.3h3.3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+          <h3>数据修复</h3>
+          <p>只对违规涉及的部分重新抽取，不把整批文档重跑一遍。</p>
         </article>
       </div>
-    </section>
-
-    <section class="block wrap" id="pipeline">
-      <p class="kicker"><span>02 /</span> HOW IT WORKS</p>
-      <h2>每一步，<span class="muted-heading">都有约束可循。</span></h2>
-      <p class="section-intro">编排器按信号推动整条链路。校验报出的违规进入修复，修复后再回到记忆里的快照，直到得到最终的数据库实例。</p>
-      <figure class="arch" aria-label="从文档、模式和约束出发，经编排器驱动抽取、校验与修复，得到满足约束的数据库">
-        <div class="arch-band">
-          <div class="arch-rail">输入</div>
-          <div class="arch-input">
-            <div>
-              <svg viewBox="0 0 28 32" aria-hidden="true"><path d="M7 3h10l6 6v20H7z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M17 3v6h6M10 16h8M10 20h8M10 24h5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-              <span>文档 F</span>
-            </div>
-            <div>
-              <svg viewBox="0 0 48 32" aria-hidden="true"><rect x="2" y="6" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="30" y="2" width="16" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="30" y="20" width="16" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M16 11h14M38 12v8" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
-              <span>模式 E</span>
-            </div>
-            <div>
-              <svg viewBox="0 0 40 32" aria-hidden="true"><circle cx="20" cy="16" r="4.5" fill="currentColor"/><circle cx="6" cy="7" r="2.6" fill="currentColor"/><circle cx="34" cy="7" r="2.6" fill="currentColor"/><circle cx="6" cy="25" r="2.6" fill="currentColor"/><circle cx="34" cy="25" r="2.6" fill="currentColor"/><path d="M8.4 8.6 16.2 13M31.6 8.6 23.8 13M8.4 23.4 16.2 19M31.6 23.4 23.8 19" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
-              <span>约束 Σ</span>
-            </div>
-          </div>
-        </div>
-        <div class="arch-band">
-          <div class="arch-rail">DBMosaic</div>
-          <div class="arch-core">
-            <div class="arch-orch"><span>编排器</span></div>
-            <div class="arch-flow">
-              <div class="arch-box">实体抽取</div>
-              <div class="arch-down" aria-hidden="true"></div>
-              <div class="arch-box">关系抽取</div>
-              <div class="arch-down" aria-hidden="true"></div>
-              <div class="arch-box">约束校验</div>
-              <div class="arch-down" aria-hidden="true"></div>
-              <div class="arch-box">数据修复</div>
-            </div>
-            <div class="arch-service-box">
-              <div class="arch-slot"><b>API</b><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="8" y="11" width="16" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="13.2" cy="17" r="1.2" fill="currentColor"/><circle cx="18.8" cy="17" r="1.2" fill="currentColor"/><path d="M16 11V7.5M12.5 24v2.2M19.5 24v2.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
-              <div class="arch-slot"><b>API</b><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="8" y="11" width="16" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="13.2" cy="17" r="1.2" fill="currentColor"/><circle cx="18.8" cy="17" r="1.2" fill="currentColor"/><path d="M16 11V7.5M11 15.5h-2.4M23.4 18.5H21" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
-              <div class="arch-slot"><b>MCP</b><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="6" y="8" width="20" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.5 14 17l-3 2.5M16.5 19.5h5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              <div class="arch-slot"><b>MCP</b><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="6" y="8" width="20" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 13.5h8M12 17.5h5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M20 20.5l2.2 2.2 3-3.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            </div>
-            <p class="arch-service-label">接口服务</p>
-          </div>
-        </div>
-        <div class="arch-band">
-          <div class="arch-rail">输出</div>
-          <div class="arch-output">
-            <svg viewBox="0 0 44 32" aria-hidden="true"><ellipse cx="22" cy="8" rx="13" ry="5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9 8v8c0 2.8 5.8 5 13 5s13-2.2 13-5V8M9 16v8c0 2.8 5.8 5 13 5s13-2.2 13-5v-8" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
-            <span>数据库 D |= Σ</span>
-          </div>
-        </div>
-      </figure>
       <ul class="chips" aria-label="校验插件">
         <li><b>structure</b>结构</li>
         <li><b>type</b>类型</li>
@@ -154,7 +115,7 @@
 
     <section class="theater" id="demo">
       <div class="wrap">
-        <p class="kicker"><span>03 /</span> SEE IT IN ACTION</p>
+        <p class="kicker"><span>02 /</span> SEE IT IN ACTION</p>
         <h2>从文档，<br>到可用的数据库。</h2>
         <p class="section-intro">下面这段大约一分多钟，对应界面里的一次完整操作：选文档、给模式、看闭环、查结果。</p>
         <ol class="steps">
@@ -173,35 +134,8 @@
       </div>
     </section>
 
-    <section class="block wrap" id="papers">
-      <p class="kicker"><span>04 /</span> THE RESEARCH</p>
-      <h2>以研究为基石。</h2>
-      <ul class="pub-list">
-        <li>
-          <a href="https://www.vldb.org/pvldb/vol19/p2522-tang.pdf" target="_blank" rel="noopener noreferrer" lang="en">Document-to-Database: Extraction Meets Relational Semantics</a>
-          <span class="pub-meta" lang="en">Zhengxuan Zhang, Zhuowen Liang, Jiazhuo Chen, Haixun Wang, Nan Tang. VLDB 2026.</span>
-        </li>
-        <li>
-          <a href="https://www.vldb.org/pvldb/vol19/p4570-zhang.pdf" target="_blank" rel="noopener noreferrer" lang="en">DataMosaic: An Interactive Demonstration of Constraint-Driven Document-to-Database Construction</a>
-          <span class="pub-meta" lang="en">Zhengxuan Zhang, Zhuowen Liang, Haixun Wang, Nan Tang. VLDB 2026 Demo.</span>
-        </li>
-        <li>
-          <a href="https://arxiv.org/abs/2603.29232" target="_blank" rel="noopener noreferrer" lang="en">Long-Document QA with Chain-of-Structured-Thought and Fine-Tuned SLMs</a>
-          <span class="pub-meta" lang="en">Zhuowen Liang, Xiaotian Lin, Zhengxuan Zhang, Yuyu Luo, Haixun Wang, Nan Tang. ICLR 2026.</span>
-        </li>
-        <li>
-          <a href="https://aclanthology.org/2026.findings-emnlp.418/" target="_blank" rel="noopener noreferrer" lang="en">CycleIE: Robust Document Information Extraction through Iterative Verification and Refinement</a>
-          <span class="pub-meta" lang="en">Zhengxuan Zhang, Yin Wu, Zhuowen Liang, Haixun Wang, Yuyu Luo, Nan Tang. Findings of EMNLP 2026.</span>
-        </li>
-        <li>
-          <a href="https://dl.acm.org/doi/10.1145/3770855.3817516" target="_blank" rel="noopener noreferrer" lang="en">DTBench: A Synthetic Benchmark for Document-to-Table Extraction</a>
-          <span class="pub-meta" lang="en">Yuxiang Guo, Zhuoran Du, Nan Tang, Kezheng Tang, Congcong Ge, Yunjun Gao. KDD 2026.</span>
-        </li>
-      </ul>
-    </section>
-
     <section class="block wrap" id="start">
-      <p class="kicker"><span>05 /</span> QUICK START</p>
+      <p class="kicker"><span>03 /</span> QUICK START</p>
       <h2>在本机跑起来</h2>
       <p class="section-intro">需要 Python 3.8+、Node.js 18+，以及一把大模型密钥：OpenAI 兼容接口、DeepSeek，或通义千问 / DashScope。以下命令在 <code>DataMosaic</code> 目录中执行。</p>
       <ol class="timeline">
@@ -254,7 +188,7 @@ cd frontend &amp;&amp; npm install &amp;&amp; npm start</pre>
     </section>
 
     <section class="block wrap" id="eval">
-      <p class="kicker"><span>06 /</span> EVALUATION</p>
+      <p class="kicker"><span>04 /</span> EVALUATION</p>
       <h2>四个数据集上的评测</h2>
       <p class="section-intro">全系统评测和只调用大模型的基线是两条命令。指标是 Precision、Recall、F1，以及 0–100 的 LLM-Score。对照结果写在仓库的 <code>results.md</code>。</p>
       <ul class="sets">
@@ -291,7 +225,7 @@ python llm_evaluate.py --dataset FinanceDB --case case1 --model gpt-4o</pre>
   </footer>
 
   <div class="toast" role="status" aria-live="polite"></div>
-  <script src="locales.js?v=7" defer></script>
+  <script src="locales.js?v=8" defer></script>
   <script src="script.js?v=5" defer></script>
 </body>
 </html>
