@@ -8,7 +8,7 @@ The portal owns the React UI in `web/src/features/ontology/`; the Cortex engine 
 - `/ontomosaic-text2sql/api/*` is the public HTTP API. The engine also accepts `/ontology/api/*` and its direct `/api/*` for existing clients. This keeps the DBMosaic `/api/*` namespace independent in the unified gateway.
 - The browser imports SQLite databases and question–SQL JSONL, previews schemas/rows, explicitly imports pairs, starts real Cortex training, polls persisted tasks and explores their generated graphs. Build IDs persist in the URL for refresh recovery.
 - Each web build currently processes **at most the first two imported examples**. This is shown in the workbench. Direct API clients can set `case_limit` to another positive integer or `null` for all examples.
-- This release provides ontology learning and graph exploration. It does not add an interactive natural-language-to-SQL query endpoint. Cortex's existing CLI retrieval/guidance workflows remain available in the engine.
+- The **Ask database** workspace runs an interactive NL2SQL agent against the bound SQLite snapshot. It retrieves ontology context, asks graph-grounded clarification questions, persists answers and resumes the task, then validates and executes a read-only SQL query. Relevant nodes, task guidance and SQL references can be inspected together. Existing CLI retrieval/guidance workflows remain available.
 - Training uses a read-only database snapshot and per-run outputs. Existing graphs can be viewed independently; failed training never substitutes an archive as its result.
 - Engine configuration and model keys remain server-side. `/health` distinguishes HTTP availability from `training_ready`; viewing a graph or uploading a database does not require model credentials.
 - The portal's `api/portal_ontology.py` entrypoint serializes training submissions across all three API prefixes. Repeated request IDs reuse one run; a different request for an active database returns 409. Background training remains asynchronous. This protection requires the documented single API worker.
@@ -93,3 +93,9 @@ bash -n start.sh scripts/start-ontology.sh
 ```
 
 Commit and push engine changes inside the submodule first. Then commit its new Git reference together with portal UI/config changes in the parent repository. A fresh `--recurse-submodules` clone should reproduce the same source versions. The original local checkout can continue independently; changes there are not automatically synchronized into this snapshot.
+
+## Interactive query workspace
+
+Query sessions use `/ontomosaic-text2sql/api/nl2sql`: ontology sources, session history, task snapshots, clarification answers, retry/cancel, activity and server-sent events. A session fixes its database and ontology snapshots; runtime sessions, answers and databases remain local and are not shipped in Git.
+
+The graph defaults to explicitly relevant nodes and existing edges between them, with full context available for inspection. Guidance presents task-scoped node definitions; unresolved inline variants remain in node details and are not expanded into SQL instructions. Narrow layouts keep session navigation in a collapsible left drawer. Baseline experiment code is unchanged.
