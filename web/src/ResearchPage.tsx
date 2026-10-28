@@ -2,7 +2,7 @@ import { siteUrl } from './site';
 import datamosaicFramework from '../../assets/research/datamosaic-framework.png';
 import docpilotFramework from '../../assets/research/docpilot-framework.png';
 import litecostFramework from '../../assets/research/litecost-framework.png';
-import dtbenchImage from '../../assets/benchmarks/dtbench.jpg';
+import cycleieFramework from '../../assets/research/cycleie-framework.jpg';
 
 const publications: {
   title: string;
@@ -48,15 +48,8 @@ const publications: {
     title: 'CycleIE: Robust Document Information Extraction through Iterative Verification and Refinement.',
     authors: 'Zhengxuan Zhang, Yin Wu, Zhuowen Liang, Haixun Wang, Yuyu Luo, and Nan Tang.',
     venue: 'EMNLP Findings',
+    framework: cycleieFramework,
     pdf: 'https://aclanthology.org/2026.findings-emnlp.418.pdf',
-  },
-  {
-    title: 'DTBench: A Synthetic Benchmark for Document-to-Table Extraction.',
-    authors: 'Yuxiang Guo, Zhuoran Du, Nan Tang, Kezheng Tang, Congcong Ge, and Yunjun Gao.',
-    venue: 'KDD',
-    framework: dtbenchImage,
-    pdf: 'https://arxiv.org/pdf/2602.13812',
-    code: 'https://github.com/ZJU-DAILY/DTBench',
   },
 ];
 
