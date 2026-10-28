@@ -9,12 +9,20 @@ import ontoEnterpriseDemo from '../../assets/OntoMosaic-Enterprise-demo.gif';
 import DemoDialog from './DemoDialog';
 import SiteHeader from './SiteHeader';
 import ResearchPage from './ResearchPage';
+import MembersPage from './MembersPage';
+import ToolsPage from './ToolsPage';
+import BenchmarksPage from './BenchmarksPage';
 import SystemOverview from './SystemOverview';
 import { isPagesPreview, pagePath, siteUrl } from './site';
 const OntologyWorkbench = lazy(() => import('./features/ontology/OntologyWorkbench'));
 const ontologyPlaceholders = [
   { name: 'OntoMosaic-Doc', href: '/ontomosaic-doc', number: '01' },
   { name: 'OntoMosaic-Enterprise', href: '/ontomosaic-enterprise', number: '03' },
+];
+const informationPages = [
+  { path: '/members', title: 'Members' },
+  { path: '/tools', title: 'Tools' },
+  { path: '/benchmarks', title: 'Benchmarks' },
 ];
 
 /* const previewSources = [
@@ -45,6 +53,7 @@ function ServiceStatus({ url }: { url: string }) {
 export default function App() {
   const path = pagePath();
   const isResearchPage = /^\/research\/?$/.test(path);
+  const informationPage = informationPages.find(page => page.path === path.replace(/\/$/, ''));
   const isText2SQLPage = !isPagesPreview && /^\/(ontomosaic-text2sql|ontology)\/?$/.test(path);
   const ontologyPlaceholder = ontologyPlaceholders.find(item => item.href === path.replace(/\/$/, ''));
   const previewRoutes: Record<string, 'analyze' | 'extract' | 'ontology'> = {
@@ -58,7 +67,7 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(() => document.documentElement.dataset.theme === 'dark');
 
   useEffect(() => {
-    document.title = ontologyPlaceholder ? `${ontologyPlaceholder.name} | DataMosaic` : previewTitle ? `${previewTitle} | DataMosaic` : isText2SQLPage ? 'OntoMosaic-Text2SQL | DataMosaic' : isResearchPage ? 'Research Papers | DataMosaic' : 'DataMosaic';
+    document.title = informationPage ? `${informationPage.title} | DataMosaic` : ontologyPlaceholder ? `${ontologyPlaceholder.name} | DataMosaic` : previewTitle ? `${previewTitle} | DataMosaic` : isText2SQLPage ? 'OntoMosaic-Text2SQL | DataMosaic' : isResearchPage ? 'Research Papers | DataMosaic' : 'DataMosaic';
     const theme = darkMode ? 'dark' : 'light';
     document.documentElement.dataset.theme = theme;
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', darkMode ? '#111720' : '#f4f6f8');
@@ -67,16 +76,16 @@ export default function App() {
     } catch {
       // Theme switching remains available when browser storage is blocked.
     }
-  }, [darkMode, isResearchPage, isText2SQLPage, ontologyPlaceholder?.name, previewTitle]);
+  }, [darkMode, isResearchPage, isText2SQLPage, ontologyPlaceholder?.name, previewTitle, informationPage?.title]);
 
   return <div className="app-shell">
     <SiteHeader darkMode={darkMode} onToggleTheme={() => setDarkMode(value => !value)}/>
     <div className="page">
-      <main className={`content${isResearchPage ? ' research-content' : ''}${isText2SQLPage ? ' ontology-content' : ''}`}>
-        {ontologyPlaceholder ? null : isText2SQLPage ? <Suspense fallback={<p role="status">Loading OntoMosaic-Text2SQL…</p>}><OntologyWorkbench/></Suspense> : isResearchPage ? <ResearchPage/> : <>
+      <main className={`content${isResearchPage || informationPage ? ' research-content' : ''}${isText2SQLPage ? ' ontology-content' : ''}`}>
+        {informationPage?.path === '/members' ? <MembersPage/> : informationPage?.path === '/tools' ? <ToolsPage/> : informationPage?.path === '/benchmarks' ? <BenchmarksPage/> : ontologyPlaceholder ? null : isText2SQLPage ? <Suspense fallback={<p role="status">Loading OntoMosaic-Text2SQL…</p>}><OntologyWorkbench/></Suspense> : isResearchPage ? <ResearchPage/> : <>
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-copy">
-            <h1 id="hero-title">Knowledge that evolves. <em>Intelligence that scales.</em></h1>
+            <h1 id="hero-title">Powerful reasoning where it matters. <em>Reusable intelligence everywhere</em></h1>
             <p className="hero-description">DataMosaic brings together expert guidance and insights drawn from documents, tables, and databases, turning them into reusable knowledge. <span className="hero-ontology-description">Connected through shared, evolving ontologies, this knowledge powers question answering, data analytics, and agentic workflows.</span></p>
             <div className="hero-actions">
               <a className="button button-primary" href="#applications">Start for free <span aria-hidden="true">↗</span></a>
@@ -138,8 +147,8 @@ export default function App() {
         <SystemOverview/>
         <section className="workflow-section" id="applications" aria-labelledby="workflows-title">
           <div className="section-heading product-heading">
-            <div><p className="section-kicker">Application Layer</p><h2 id="workflows-title">Put your documents <em>to work.</em></h2></div>
-            <p>A growing collection of tools to understand documents, investigate evidence, and build structured data.</p>
+            <div><p className="section-kicker">Application Layer</p><h2 id="workflows-title">Answer. Extract. <em>Act.</em></h2></div>
+            <p className="application-description">Agentic applications that answer questions, investigate evidence, extract structured data, <span>and automate work across documents, tables, and databases.</span></p>
           </div>
           <div className="workflow-grid">
             <article className="workflow-card analyze">
@@ -176,7 +185,7 @@ export default function App() {
         </section>
         <section className="ontology-section" aria-labelledby="ontologies-title">
           <div className="section-heading product-heading">
-            <div><p className="section-kicker">Ontology Layer</p><h2 id="ontologies-title">Knowledge for <em>your workflows.</em></h2></div>
+            <div><p className="section-kicker">Ontology Layer</p><h2 id="ontologies-title">Make intelligence <em>reusable.</em></h2></div>
           </div>
           <div className="workflow-grid">
             <article className="workflow-card">
