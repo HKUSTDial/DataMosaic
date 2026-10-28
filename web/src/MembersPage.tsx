@@ -7,12 +7,12 @@ import yuxiangLuoPortrait from '../../assets/members/yuxiang-luo.png';
 import zechaoChenPortrait from '../../assets/members/zechao-chen.png';
 import { siteUrl } from './site';
 
-const faculty = [
+const leaders = [
   {
     name: 'Nan Tang',
     portrait: nanTangPortrait,
     homepage: 'https://nantang.github.io/',
-    description: 'Associate Professor of Data Science and Analytics at HKUST (Guangzhou).',
+    description: 'Associate Professor of Data Science and Analytics at HKUST (Guangzhou). ACM Distinguished Member.',
     scholar: 'https://scholar.google.com/citations?user=poXWlycAAAAJ',
     linkedin: 'https://www.linkedin.com/in/nan-tang-0695135',
   },
@@ -20,7 +20,7 @@ const faculty = [
     name: 'Haixun Wang',
     portrait: haixunWangPortrait,
     homepage: 'https://haixun.github.io/',
-    description: 'VP Engineering and Head of AI at EvenUp; Affiliate Professor at the University of Washington.',
+    description: 'VP Engineering and Head of AI at EvenUp; Affiliate Professor at the University of Washington. ACM Fellow.',
     scholar: 'https://scholar.google.com/citations?user=Q1mcglAAAAAJ&hl=en',
     linkedin: 'https://www.linkedin.com/in/haixun/',
   },
@@ -36,10 +36,10 @@ const students = [
 export default function MembersPage() {
   return <>
     <a className="research-back" href={siteUrl('/')}>← Back to DataMosaic</a>
-    <section className="members-section" aria-labelledby="faculty-title">
-      <h2 id="faculty-title">Faculty</h2>
+    <section className="members-section" aria-labelledby="leaders-title">
+      <h2 id="leaders-title">Leaders</h2>
       <div className="members-grid">
-        {faculty.map(member => <article className="member-card" key={member.name} aria-label={member.name}>
+        {leaders.map(member => <article className="member-card" key={member.name} aria-label={member.name}>
           <img className="member-photo" src={member.portrait} alt={member.name} width="280" height="350" decoding="async"/>
           <div className="member-info">
             <h3><a href={member.homepage} target="_blank" rel="noreferrer">{member.name}</a></h3>

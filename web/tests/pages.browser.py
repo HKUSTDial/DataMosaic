@@ -76,15 +76,15 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                     page.locator(f'#nav-{group}').click()
                     page.locator(f'#nav-{group}-panel').get_by_role('link', name=label, exact=False).click()
                     expect(page).to_have_url(base + route + '/')
-                    expect(page.get_by_role('heading', name='Faculty' if route == 'members' else label, exact=True)).to_be_visible()
+                    expect(page.get_by_role('heading', name='Leaders' if route == 'members' else label, exact=True)).to_be_visible()
                     assert page.reload().status == 200
                     expect(page).to_have_title(f'{label} | DataMosaic')
                     assert page.goto(base + route + '/?tab=1').status == 200
-                    expect(page.get_by_role('heading', name='Faculty' if route == 'members' else label, exact=True)).to_be_visible()
+                    expect(page.get_by_role('heading', name='Leaders' if route == 'members' else label, exact=True)).to_be_visible()
                     if route == 'members':
                         expect(page.get_by_role('heading', name='Members', exact=True)).to_have_count(0)
                         expect(page.locator('.research-intro')).to_have_count(0)
-                        expect(page.get_by_role('heading', name='Faculty', exact=True)).to_be_visible()
+                        expect(page.get_by_role('heading', name='Leaders', exact=True)).to_be_visible()
                         assert page.locator('.member-card').count() == 7
                         for name, homepage, scholar_id, linkedin in (
                             ('Nan Tang', 'https://nantang.github.io/', 'poXWlycAAAAJ', 'https://www.linkedin.com/in/nan-tang-0695135'),
