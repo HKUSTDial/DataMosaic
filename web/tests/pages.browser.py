@@ -200,6 +200,42 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                 assert page.reload().status == 200
                 page.get_by_role('link', name='Back to DataMosaic', exact=False).click()
                 expect(page).to_have_url(base)
+            touch = browser.new_context(**p.devices['iPhone 13'])
+            mobile = touch.new_page()
+            mobile.on('pageerror', lambda error: errors.append(str(error)))
+            for group, label, route in (
+                ('application', 'DBMosaic', 'dbmosaic/'),
+                ('application', 'DocMosaic', 'docmosaic/'),
+                ('ontology', 'OntoMosaic-Doc', 'ontomosaic-doc/'),
+                ('ontology', 'OntoMosaic-Text2SQL', 'ontomosaic-text2sql/'),
+                ('ontology', 'OntoMosaic-Enterprise', 'ontomosaic-enterprise/'),
+                ('resource', 'Tools', 'tools/'),
+                ('resource', 'Benchmarks', 'benchmarks/'),
+                ('resource', 'Publications', 'research/'),
+                ('organization', 'Members', 'members/'),
+            ):
+                mobile.goto(base)
+                mobile.get_by_role('button', name='Open navigation', exact=True).tap()
+                expect(mobile.locator('#nav-application')).to_be_focused()
+                # Reproduce a touch blur with no next focus target before the click arrives.
+                mobile.evaluate('document.activeElement.blur()')
+                expect(mobile.locator('#primary-navigation')).to_be_visible()
+                trigger = mobile.locator(f'#nav-{group}')
+                trigger.tap()
+                trigger.focus()
+                mobile.evaluate('document.activeElement.blur()')
+                panel = mobile.locator(f'#nav-{group}-panel')
+                expect(panel).to_be_visible()
+                panel.get_by_role('link', name=label, exact=False).tap()
+                expect(mobile).to_have_url(base + route)
+            mobile.goto(base)
+            mobile.get_by_role('button', name='Open navigation', exact=True).tap()
+            mobile.touchscreen.tap(2, 400)  # Outside the menu's 14px inset, without hitting a link.
+            expect(mobile.locator('#primary-navigation')).to_be_hidden()
+            mobile.get_by_role('button', name='Open navigation', exact=True).tap()
+            mobile.locator('.hero-actions a').first.focus()
+            expect(mobile.locator('#primary-navigation')).to_be_hidden()
+            touch.close()
             assert not errors, errors
             assert not failures, failures
             assert not api_requests, api_requests

@@ -62,7 +62,8 @@ export default function SiteHeader({ darkMode, onToggleTheme }: { darkMode: bool
   }, [openMenu, mobileOpen]);
 
   return <header className="site-header" ref={headerRef} onBlur={(event) => {
-    if (!event.currentTarget.contains(event.relatedTarget)) closeNavigation();
+    // Touch interactions can blur without focusing the tapped control; let its click finish.
+    if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget)) closeNavigation();
   }}>
     <div className="site-header-inner">
       <a className="brand" href={siteUrl('/')} aria-label="DataMosaic home">
