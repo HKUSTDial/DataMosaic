@@ -28,7 +28,7 @@ const faculty = [
 const students = [
   { name: 'Zhuowen Liang', portrait: zhuowenLiangPortrait, homepage: 'https://setonliang.github.io/', scholar: 'https://scholar.google.com/citations?hl=zh-CN&user=cjXF-ZIAAAAJ' },
   { name: 'Zhengxuan Zhang', portrait: zhengxuanZhangPortrait, homepage: 'https://scholar.google.com/citations?user=ABHvH94AAAAJ', scholar: 'https://scholar.google.com/citations?user=ABHvH94AAAAJ' },
-  { name: 'Zechao Chen', portrait: zechaoChenPortrait, homepage: 'https://blog.ackth.cc/about' },
+  { name: 'Zechao Chen', portrait: zechaoChenPortrait, homepage: 'https://blog.ackth.cc/about', scholar: 'https://scholar.google.com/citations?hl=zh-CN&user=6d4h1zMAAAAJ' },
   { name: 'Chenyu Yang', portrait: chenyuYangPortrait, homepage: 'https://scholar.google.com/citations?hl=zh-CN&user=4NOsk-gAAAAJ', scholar: 'https://scholar.google.com/citations?hl=zh-CN&user=4NOsk-gAAAAJ' },
   { name: 'Yuxiang Luo', portrait: yuxiangLuoPortrait, homepage: 'https://scholar.google.com/citations?hl=zh-CN&user=SwBmffAAAAAJ', scholar: 'https://scholar.google.com/citations?hl=zh-CN&user=SwBmffAAAAAJ' },
 ];
