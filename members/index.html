@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f6f8">
+    <script>
+      try {
+        const savedTheme = localStorage.getItem('docsensaai-theme');
+        document.documentElement.dataset.theme = savedTheme === 'dark' || savedTheme === 'light'
+          ? savedTheme : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      } catch {
+        document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+    </script>
+    <meta name="description" content="Analyze documents with DocPilot or extract structured data with DBMosaic in one DataMosaic workspace.">
+    <title>DataMosaic</title>
+    <script type="module" crossorigin src="/DataMosaic/assets/index-BhVKcwz3.js"></script>
+    <link rel="stylesheet" crossorigin href="/DataMosaic/assets/index-BeJ14EWO.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
