@@ -1,6 +1,7 @@
 import { siteUrl } from './site';
 import datamosaicFramework from '../../assets/research/datamosaic-framework.png';
 import docpilotFramework from '../../assets/research/docpilot-framework.png';
+import litecostFramework from '../../assets/research/litecost-framework.png';
 
 const publications = [
   {
@@ -26,6 +27,14 @@ const publications = [
     framework: docpilotFramework,
     pdf: 'https://arxiv.org/pdf/2610.21327',
     code: 'https://github.com/HKUSTDial/DocPilot',
+  },
+  {
+    title: 'Long-Document QA with Chain-of-Structured-Thought and Fine-Tuned SLMs.',
+    authors: 'Zhuowen Liang, Xiaotian Lin, Zhengxuan Zhang, Yuyu Luo, Haixun Wang, and Nan Tang.',
+    venue: 'ICLR',
+    framework: litecostFramework,
+    pdf: 'https://arxiv.org/pdf/2603.29232',
+    code: 'https://github.com/HKUSTDial/LiteCoST',
   },
 ];
 
