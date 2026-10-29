@@ -1,0 +1,91 @@
+WEBVTT
+
+00:00:00.450 --> 00:00:02.711
+Meet StructMosaic.
+
+00:00:02.721 --> 00:00:08.713
+Turn a question about your documents into structured evidence and an analysis you can follow.
+
+00:00:10.200 --> 00:00:14.162
+Start by uploading the documents you want to analyze.
+
+00:00:14.172 --> 00:00:18.863
+Select the files for this conversation and enable Mosaic mode.
+
+00:00:20.367 --> 00:00:23.285
+Type your question, then send it.
+
+00:00:23.295 --> 00:00:28.359
+For example: which company has the most cash and cash equivalents?
+
+00:00:29.867 --> 00:00:35.800
+After you send the question, the automatic pipeline begins with question decomposition.
+
+00:00:35.810 --> 00:00:42.830
+The system breaks the question into sub-tasks: find each company's cash balance, normalize the units,
+
+00:00:42.840 --> 00:00:44.715
+and compare the values.
+
+00:00:46.200 --> 00:00:50.832
+The system automatically selects the structure for each sub-question.
+
+00:00:50.842 --> 00:00:57.134
+Tables compare values, graphs connect entities, and trees organize hierarchies.
+
+00:00:57.144 --> 00:00:59.299
+No clicks are needed.
+
+00:00:59.309 --> 00:01:02.324
+This comparison calls for a table.
+
+00:01:03.825 --> 00:01:09.256
+The system automatically retrieves relevant passages from the selected documents.
+
+00:01:09.266 --> 00:01:14.704
+It focuses on cash and cash equivalents, while keeping track of each source.
+
+00:01:16.200 --> 00:01:22.636
+The system automatically extracts company names, amounts, and units into a shared table.
+
+00:01:22.646 --> 00:01:27.337
+It normalizes the units so every value can be compared in dollars.
+
+00:01:28.825 --> 00:01:35.145
+The system automatically compares the five normalized amounts and selects the maximum value.
+
+00:01:35.155 --> 00:01:41.341
+In this illustrative example, GSE System has the most cash and cash equivalents.
+
+00:01:42.825 --> 00:01:46.813
+Review the selected evidence and intermediate results.
+
+00:01:46.823 --> 00:01:53.055
+Check the metric, the reporting period, and the units against the original documents before accepting
+
+00:01:53.065 --> 00:01:53.898
+the answer.
+
+00:01:55.367 --> 00:02:01.880
+For a relationship question, the system automatically selects a graph and traces the connections.
+
+00:02:01.890 --> 00:02:06.800
+Here, the path from Doctor Harris to Doctor Lee takes three hops.
+
+00:02:08.283 --> 00:02:13.212
+For a hierarchy question, the system automatically selects a tree.
+
+00:02:13.222 --> 00:02:19.859
+It organizes the document into sections and follows the relevant branches to the supporting evidence.
+
+00:02:21.325 --> 00:02:24.694
+Upload your documents and ask a question.
+
+00:02:24.704 --> 00:02:30.969
+StructMosaic automatically decomposes the question, selects structures, retrieves evidence, extracts
+
+00:02:30.979 --> 00:02:34.733
+information, and reasons over the results.
+
+00:02:34.743 --> 00:02:38.235
+Review the answer and its supporting evidence.
