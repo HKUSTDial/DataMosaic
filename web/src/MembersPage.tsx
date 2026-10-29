@@ -14,7 +14,7 @@ const leaders = [
     name: 'Nan Tang',
     portrait: nanTangPortrait,
     homepage: 'https://nantang.github.io/',
-    description: 'Associate Professor\nAssociate Dean, Information Hub\u00a0@\u00a0HKUST(GZ)\nACM Distinguished Member',
+    description: <>Associate Professor{'\n'}Associate Dean, <span style={{ display: 'inline-block', maxWidth: '100%', verticalAlign: 'top', whiteSpace: 'normal' }}>Information Hub&nbsp;@&nbsp;HKUST(GZ)</span>{'\n'}ACM Distinguished Member</>,
     scholar: 'https://scholar.google.com/citations?user=poXWlycAAAAJ',
     linkedin: 'https://www.linkedin.com/in/nan-tang-0695135',
   },
