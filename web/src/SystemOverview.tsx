@@ -2,74 +2,30 @@ import { siteUrl } from './site';
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import './SystemOverview.css';
 
+const icons = {
+  document: 'M6 3h8l4 4v14H6zM14 3v5h4M9 12h6M9 16h4',
+  database: 'M4 5c0-4 16-4 16 0s-16 4-16 0v14c0 4 16 4 16 0V5M4 12c0 4 16 4 16 0',
+  structure: 'M9 3h6v6H9zM4 16h5v5H4zM15 16h5v5h-5zM12 9v4M6.5 16v-3h11v3',
+  table: 'M3 4h18v16H3zM3 10h18M9 10v10M15 10v10',
+  answer: 'M4 4h16v13H9l-5 4V4ZM8 9h8M8 13h5',
+  workflow: 'M3 3h6v6H3zM15 15h6v6h-6zM6 9v9h9M15 6h6M18 3v6',
+  graph: 'M12 4 4 19h16L12 4Zm0 0v9M4 19l8-6 8 6',
+};
 const applications = [
-  { name: 'DocMosaic', detail: 'Agentic document understanding', kind: 'document', tone: 'blue', href: '/docmosaic/' },
-  { name: 'DBMosaic', detail: 'Documents to databases', kind: 'database', tone: 'violet', href: '/dbmosaic/' },
-  { name: 'StructMosaic', detail: 'Tables. Graphs. Trees.', kind: 'structure', tone: 'cyan' },
-];
+  {name:'Document understanding', icon:'document', tone:'blue', href:'/docmosaic/'},
+  {name:'Relational extraction', icon:'database', tone:'violet', href:'/dbmosaic/'},
+  {name:'Adaptive structuring', icon:'structure', tone:'cyan'},
+] as const;
 const ontologies = [
-  { name: 'OntoMosaic-Doc', detail: 'Context graph retrieval', kind: 'graph', tone: 'blue', href: '/ontomosaic-doc' },
-  { name: 'OntoMosaic-Text2SQL', detail: 'Learn from SQL examples', kind: 'graph', tone: 'violet', href: '/ontomosaic-text2sql' },
-  { name: 'OntoMosaic-Enterprise', detail: 'Connect processes & data', kind: 'graph', tone: 'teal', href: '/ontomosaic-enterprise' },
+  {name:'Context retrieval', tone:'blue', href:'/ontomosaic-doc'},
+  {name:'SQL learning', tone:'violet', href:'/ontomosaic-text2sql'},
+  {name:'Business semantics', tone:'teal', href:'/ontomosaic-enterprise'},
 ];
-type Module = { name: string; detail: string; kind: string; tone: string; href?: string };
-
-function ModuleArt({ kind }: { kind: string }) {
-  return <svg className={`overview-art overview-motion overview-art-${kind}`} viewBox="0 0 220 90" aria-hidden="true">
-    {kind === 'document' ? <>
-      <g className="overview-art-muted"><rect x="30" y="11" width="51" height="66" rx="7" transform="rotate(-9 55 44)"/><rect x="42" y="8" width="51" height="66" rx="7"/></g>
-      <rect className="overview-art-glass" x="53" y="13" width="51" height="66" rx="7"/><path className="overview-art-muted" d="M64 27h27M64 35h19M64 51h27M64 59h23M64 67h15"/>
-      <path className="overview-art-signal overview-motion" d="M104 45h30"/><rect className="overview-art-glass" x="136" y="23" width="62" height="43" rx="10"/>
-      <path className="overview-art-accent overview-motion" d="m148 44 5 5 10-12M171 38h16M171 47h11"/>
-      <rect className="overview-scan overview-motion" x="59" y="39" width="39" height="7" rx="2"/>
-    </> : kind === 'database' ? <>
-      <g className="overview-art-muted"><path d="M34 25h39l22 20M34 65h39l22-20M163 45h25"/><rect x="20" y="17" width="26" height="16" rx="4"/><rect x="20" y="57" width="26" height="16" rx="4"/><rect x="174" y="33" width="27" height="25" rx="4"/><path d="M174 42h27M183 42v16M192 42v16"/></g>
-      <path className="overview-art-glass" d="M95 23v43c0 16 67 16 67 0V23"/><ellipse className="overview-art-accent overview-motion" cx="128.5" cy="23" rx="33.5" ry="11"/>
-      <path className="overview-art-accent overview-motion" d="M95 44c0 16 67 16 67 0M95 64c0 16 67 16 67 0"/>
-      <path className="overview-art-signal overview-motion" d="M46 25h27l22 20M46 65h27l22-20"/>
-    </> : kind === 'structure' ? <>
-      <rect className="overview-art-glass" x="92" y="2" width="36" height="23" rx="6"/>
-      <path className="overview-art-accent overview-motion" d="m99 13 3 3 5-6M112 10h9M112 16h6"/>
-      <path className="overview-art-muted" d="M110 25v18M38 43v-5q0-5 5-5h134q5 0 5 5v5"/>
-      <path className="overview-art-signal overview-motion" d="M110 25v8H43q-5 0-5 5v5M110 33h67q5 0 5 5v5"/>
-      <g className="overview-structure-choice overview-motion">
-        <rect className="overview-art-glass" x="12" y="43" width="52" height="37" rx="6"/>
-        <path d="M21 51h34v21H21zM21 58h34M21 65h34M32 58v14M43 58v14"/>
-      </g>
-      <g className="overview-structure-choice overview-motion">
-        <rect className="overview-art-glass" x="84" y="43" width="52" height="37" rx="6"/>
-        <path d="M110 55v7M98 68v-6h24v6"/><rect x="106" y="50" width="8" height="6" rx="1"/><rect x="94" y="68" width="8" height="6" rx="1"/><rect x="118" y="68" width="8" height="6" rx="1"/>
-      </g>
-      <g className="overview-structure-choice overview-motion">
-        <rect className="overview-art-glass" x="156" y="43" width="52" height="37" rx="6"/>
-        <path d="m170 62 12-10 13 18-25-8 8 10 17-2"/><circle cx="170" cy="62" r="3"/><circle cx="182" cy="52" r="3"/><circle cx="195" cy="70" r="3"/><circle cx="178" cy="72" r="3"/>
-      </g>
-    </> : <>
-      <path className="overview-art-muted" d="M110 15 46 43l18 29 46-21 47 21 22-29-69-28v36M46 43l64 8 69-8M64 72h93"/>
-      <path className="overview-art-signal overview-motion" d="M46 43 110 15l69 28-22 29-47-21-46 21"/>
-      {[[110,15],[46,43],[179,43],[64,72],[110,51],[157,72]].map(([x,y], i) => <g key={i} className="overview-node overview-motion" style={{ '--node-order': i } as CSSProperties}>
-        <circle className="overview-node-halo" cx={x} cy={y} r="10"/>
-        <circle cx={x} cy={y} r={i===0 ? 5 : 4}/>
-      </g>)}
-    </>}
-  </svg>;
-}
-
-function Tile({ module, index }: { module: Module; index: number }) {
-  const ontology = module.name.startsWith('OntoMosaic-');
-  const props = { className: `overview-tile overview-motion overview-tone-${module.tone}`, style: { '--stage-delay': `${ontology ? 12.96 + index * 2.4 : 2.4 + index * 2.88}s` } as CSSProperties };
-  const content = <>
-    <span className="overview-card-light overview-motion" aria-hidden="true"/>
-    <ModuleArt kind={module.kind}/>
-    <span className="overview-tile-copy">
-      <strong>{ontology ? <><span className="overview-name-prefix">OntoMosaic-</span>{module.name.slice(11)}</> : module.name}</strong>
-      <span className="overview-tile-detail">{module.detail}</span>
-    </span>
-    {module.href && <span className="overview-tile-arrow" aria-hidden="true">↗</span>}
-  </>;
-  return module.href
-    ? <a {...props} href={siteUrl(module.href)} aria-label={`Explore ${module.name}`}>{content}</a>
-    : <div {...props} aria-label={module.name}>{content}</div>;
+const nodes = [[150,45],[80,85],[222,85],[55,145],[150,130],[248,150],[100,195],[204,200]];
+const graphPath = 'M150 45 80 85 55 145 100 195 150 130 204 200 248 150 222 85 150 45v85L80 85M55 145l95-15 98 20M222 85l-72 45';
+const captions = ['Connect your data.', 'Put applications to work.', 'Learn shared knowledge.', 'Reuse it everywhere.'];
+function Icon({kind}:{kind:keyof typeof icons}) {
+  return <svg viewBox="0 0 24 24" aria-hidden="true"><path d={icons[kind]}/></svg>;
 }
 
 export default function SystemOverview() {
@@ -82,9 +38,8 @@ export default function SystemOverview() {
     preference.addEventListener('change', handleChange);
     return () => preference.removeEventListener('change', handleChange);
   }, []);
-
   useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), {threshold: 0.15});
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting && entry.intersectionRatio >= .15), {threshold: .15});
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
@@ -93,47 +48,67 @@ export default function SystemOverview() {
     <header className="overview-heading">
       <div><p className="overview-eyebrow"><span aria-hidden="true">✦</span> THE DATAMOSAIC ECOSYSTEM</p><h2 id="system-overview-title">More than documents.<br/><em>A world of possibilities.</em></h2></div>
       <p>Purpose-built applications.<br/>A growing layer of knowledge.<br/><strong>All in one mosaic.</strong></p>
-      <button className="overview-toggle" type="button" onClick={() => setPlaying(value => !value)} aria-label={playing ? 'Pause system animation' : 'Play system animation'} title={playing ? 'Pause animation' : 'Play animation'}><svg viewBox="0 0 16 16" aria-hidden="true">{playing ? <path d="M5 3v10M11 3v10"/> : <path d="m5 3 8 5-8 5Z"/>}</svg></button>
+      <button className="overview-toggle" type="button" onClick={() => setPlaying(v => !v)} aria-label={playing ? 'Pause system animation' : 'Play system animation'}><svg viewBox="0 0 16 16" aria-hidden="true"><path d={playing ? 'M5 3v10M11 3v10' : 'm5 3 8 5-8 5Z'}/></svg></button>
     </header>
-    <div className="overview-scene" role="group" aria-label="Documents, tables and databases connect to three applications and three OntoMosaic modules through shared, evolving knowledge.">
-      <div className="overview-aurora overview-motion" aria-hidden="true"/>
-      <div className="overview-grid" aria-hidden="true"/>
-      <aside className="overview-sources" aria-label="Data sources">
-        <p className="overview-source-label">YOUR DATA</p>
-        <div className="overview-source-stack">
-          {['Documents', 'Tables', 'Databases'].map((name,i) => <div className={`overview-source overview-source-${i} overview-motion`} key={name}>
-            <svg viewBox="0 0 24 24" aria-hidden="true">{i===0 ? <path d="M6 3h8l4 4v14H6zM14 3v5h4M9 12h6M9 16h6"/> : i===1 ? <path d="M3 4h18v16H3zM3 10h18M9 10v10M15 10v10"/> : <><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 4 16 4 16 0V5M4 12c0 4 16 4 16 0"/></>}</svg>
-            <span>{name}</span><i aria-hidden="true"/>
-          </div>)}
+    <div className="overview-scene" role="group" aria-label="Data powers applications. OntoMosaic turns experience into shared knowledge that applications can reuse.">
+      <section className="overview-shelf overview-applications" aria-labelledby="overview-apps-title">
+        <h3 id="overview-apps-title" className="overview-layer-label">APPLICATION LAYER</h3>
+        <div className="overview-app-dock">
+          {applications.map((app,i) => {
+            const content = <><span className={`overview-app-icon overview-motion overview-tone-${app.tone}`} style={{'--item':i} as CSSProperties}><Icon kind={app.icon}/><i className="overview-icon-shine overview-motion"/></span><strong>{app.name}</strong></>;
+            return 'href' in app ? <a className="overview-tile" key={app.name} href={siteUrl(app.href)} aria-label={`Explore ${app.name}`}>{content}</a> : <div className="overview-tile" key={app.name}>{content}</div>;
+          })}
         </div>
-        <p className="overview-source-note">Different formats.<br/>Connected possibilities.</p>
-        <div className="overview-intake" aria-hidden="true"><i className="overview-motion"/></div>
-      </aside>
-      <div className="overview-engine">
-        <section className="overview-shelf overview-applications" aria-labelledby="overview-apps-title">
-          <div className="overview-shelf-heading"><h3 id="overview-apps-title"><span/> APPLICATION LAYER</h3><span>Answer. Extract. Act.</span></div>
-          <div className="overview-catalog">{applications.map((module,index) => <Tile key={module.name} module={module} index={index}/>)}</div>
-        </section>
-        <div className="overview-exchange">
-          <svg className="overview-connections" viewBox="0 0 900 100" preserveAspectRatio="none" aria-hidden="true">
-            <g className="overview-connection-track"><path d="M150 0v20Q150 50 180 50h540q30 0 30-30V0M450 0v100M150 100V80q0-30 30-30h540q30 0 30 30v20"/></g>
-            {[150,450,750].map((x,i) => <g key={x} style={{'--stage-delay':`${i * 2.4}s`, '--app-delay':`${3.3 + i * 2.88}s`} as CSSProperties}>
-              <path className="overview-connection-flow overview-from-app overview-motion" pathLength="1" d={`M${x} 0${x===450?'V50':`V20Q${x} 50 ${x===150?180:720} 50H450`}`}/>
-              <path className="overview-connection-flow overview-transfer overview-motion" pathLength="1" d={`M450 50H${x===150?180:x===750?720:450}${x===450?'V100':`Q${x} 50 ${x} 80V100`}`}/>
-              <path className="overview-connection-flow overview-return overview-motion" pathLength="1" d={`M450 50H${x===150?180:x===750?720:450}${x===450?'V0':`Q${x} 50 ${x} 20V0`}`}/>
+        <span className="overview-dock-caption">Agentic applications for your data</span>
+      </section>
+      <div className="overview-stage">
+        <svg className="overview-routes" viewBox="0 0 1000 350" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="overview-route-gradient"><stop stopColor="#7794b4"/><stop offset=".5" stopColor="#a394bc"/><stop offset="1" stopColor="#7eaaa5"/></linearGradient></defs>
+          <path className="overview-route-track" d="M180 175H820M500 0V105M500 245V350M820 200v75q0 30-30 30H210q-30 0-30-30v-75"/>
+          <path className="overview-route-in overview-motion" pathLength="1" d="M180 175H500V0"/>
+          <path className="overview-route-learn overview-motion" pathLength="1" d="M500 0V175"/>
+          <path className="overview-route-out overview-motion" pathLength="1" d="M500 175H820"/>
+          <path className="overview-route-reuse overview-motion" pathLength="1" d="M820 200v75q0 30-30 30H500V0"/>
+        </svg>
+        <svg className="overview-routes overview-routes-mobile" viewBox="0 0 300 420" preserveAspectRatio="none" aria-hidden="true">
+          <path className="overview-route-track" d="M150 0v420M150 390h120V10H150"/>
+          <path className="overview-route-in overview-motion" pathLength="1" d="M150 0v150"/>
+          <path className="overview-route-learn overview-motion" pathLength="1" d="M150 60v150"/>
+          <path className="overview-route-out overview-motion" pathLength="1" d="M150 250v170"/>
+          <path className="overview-route-reuse overview-motion" pathLength="1" d="M150 390h100q20 0 20-20V30q0-20-20-20H150"/>
+        </svg>
+        <div className="overview-data" aria-label="Data sources">
+          <span className="overview-small-label">YOUR INFORMATION</span>
+          <div className="overview-data-stack overview-motion" aria-hidden="true">
+            <div className="overview-paper overview-paper-back"><span className="overview-paper-caption">DATA</span><div className="overview-paper-cells">{Array.from({length:12},(_,i)=><i key={i}/>)}</div></div>
+            <div className="overview-paper overview-paper-middle"><span className="overview-paper-caption">REPORT</span><div className="overview-paper-bars"><i/><i/><i/><i/></div><i/><i/></div>
+            <div className="overview-paper overview-paper-front"><b className="overview-paper-monogram">D<span>↗</span></b><i/><i/><i/><div className="overview-paper-highlight"><i/><i/><i/></div><span className="overview-paper-scan overview-motion"/></div>
+          </div>
+          <p>Text · Tables · Figures</p>
+        </div>
+        <div className="overview-knowledge">
+          <div className="overview-knowledge-orbit" aria-hidden="true"><i/><i/></div>
+          <svg className="overview-knowledge-graph" viewBox="0 0 300 240" aria-hidden="true">
+            <path className="overview-graph-track" d={graphPath}/>
+            <path className="overview-graph-build overview-motion" pathLength="1" d={graphPath}/>
+            {nodes.map(([x,y],i)=><g className="overview-knowledge-node overview-motion" key={i} style={{'--node':i} as CSSProperties}>
+              <circle className="overview-node-halo" cx={x} cy={y} r="13"/><circle cx={x} cy={y} r={i===4?7:5}/>
             </g>)}
           </svg>
-          <div className="overview-core overview-motion"><span className="overview-core-orbit overview-motion" aria-hidden="true"/><span className="overview-core-mark" aria-hidden="true">{Array.from({length:9},(_,i)=><i key={i} className="overview-motion"/>)}</span><span>Shared, evolving <strong>knowledge.</strong></span></div>
-          <span className="overview-exchange-label overview-learn">Learn from experience</span><span className="overview-exchange-label overview-reuse">Reuse across applications</span>
+          <span className="overview-graph-tag overview-tag-concepts overview-motion">Concepts</span><span className="overview-graph-tag overview-tag-relations overview-motion">Relationships</span><span className="overview-graph-tag overview-tag-rules overview-motion">Rules</span>
+          <div className="overview-core overview-motion"><span className="overview-core-mark" aria-hidden="true">{Array.from({length:9},(_,i)=><i key={i}/>)}</span><strong>OntoMosaic</strong></div>
+          <p>Shared knowledge. Evolving intelligence.</p>
         </div>
-        <section className="overview-shelf overview-ontology" aria-labelledby="overview-knowledge-title">
-          <div className="overview-shelf-heading"><h3 id="overview-knowledge-title"><span/> ONTOLOGY LAYER <span className="overview-layer-name">(OntoMosaic)</span></h3><span>Concepts. Relationships. Rules.</span></div>
-          <div className="overview-catalog">{ontologies.map((module,index) => <Tile key={module.name} module={module} index={index}/>)}</div>
-        </section>
+        <div className="overview-outcomes" aria-label="Application capabilities">
+          <span className="overview-small-label">NEW POSSIBILITIES</span>
+          {(['answer','table','workflow'] as const).map((kind,i)=><div key={kind} className={`overview-outcome overview-motion overview-outcome-${i}`}><span><Icon kind={kind}/></span><strong>{['Answers','Structured data','Agentic workflows'][i]}</strong><i>↗</i></div>)}
+        </div>
       </div>
-      <div className="overview-scene-footer"><span className="overview-narration" aria-hidden="true">
-        {['Bring your data together.', 'Understand documents with evidence.', 'Turn documents into databases.', 'Choose the right data structure.', 'Turn experience into knowledge.', 'Connect context and evidence.', 'Learn reusable SQL knowledge.', 'Unify processes and data.', 'Put shared knowledge back to work.'].map((caption,i) => <span className={`overview-caption overview-caption-${i} overview-motion`} key={caption}>{caption}</span>)}
-      </span><span>Applications × Ontologies</span></div>
+      <section className="overview-shelf overview-ontology" aria-labelledby="overview-knowledge-title">
+        <h3 id="overview-knowledge-title" className="overview-layer-label">ONTOLOGY LAYER <span>(OntoMosaic)</span></h3>
+        <div className="overview-ontology-dock">{ontologies.map(module=><a className={`overview-tile overview-tone-${module.tone}`} key={module.name} href={siteUrl(module.href)} aria-label={`Explore ${module.name}`}><Icon kind="graph"/><span><strong>{module.name}</strong></span></a>)}</div>
+      </section>
+      <div className="overview-narration" aria-hidden="true">{captions.map((caption,i)=><span className={`overview-caption overview-caption-${i} overview-motion`} key={caption}>{caption}</span>)}</div>
     </div>
   </section>;
 }

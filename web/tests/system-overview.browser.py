@@ -1,102 +1,68 @@
-"""With Playwright installed and Vite preview running:
-python3 -P tests/system-overview.browser.py http://127.0.0.1:21680
-"""
+"""Run against a local Vite or prepared Pages preview URL."""
 import sys
 from urllib.parse import urlparse
-
 from playwright.sync_api import expect, sync_playwright
 
-with sync_playwright() as playwright:
-    browser = playwright.chromium.launch(headless=True)
-    page = browser.new_page(viewport={"width": 1440, "height": 1100})
-    page.route("**/api/health", lambda route: route.fulfill(
-        status=200, content_type="application/json", body="{}"))
-    errors = []
-    page.on("pageerror", lambda error: errors.append(str(error)))
-    page.goto(sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:21680")
-    overview = page.locator(".system-overview")
-    assert page.locator(".hero + .system-overview + .workflow-section").count() == 1
-    assert overview.locator(".overview-story, .overview-chapters, .overview-controls").count() == 0
-    assert overview.locator(".overview-shelf").count() == 2
-    assert overview.locator(".overview-tile").count() == 6
-    assert overview.locator("a").count() == 5
-    assert overview.locator(".overview-future").count() == 0
-    assert overview.locator(".overview-future a, .overview-future button").count() == 0
-    for name, href in (("DocMosaic", "/docmosaic/"), ("DBMosaic", "/dbmosaic/"),
-                       ("OntoMosaic-Text2SQL", "/ontomosaic-text2sql"),
-                       ("OntoMosaic-Doc", "/ontomosaic-doc"),
-                       ("OntoMosaic-Enterprise", "/ontomosaic-enterprise")):
-        expect(overview.get_by_role("link", name=f"Explore {name}", exact=True)).to_have_attribute("href", urlparse(page.url).path.rstrip("/") + href)
-    expect(overview.get_by_text("StructMosaic", exact=True)).to_be_visible()
-    assert overview.locator(".overview-art-structure .overview-structure-choice").count() == 3
-    assert overview.locator(".overview-art-structure .overview-node").count() == 0
-    assert overview.locator(".overview-ontology .overview-art-graph").count() == 3
-    assert overview.locator(".overview-tile").filter(has_text="StructMosaic").locator("a").count() == 0
-    for label in ("Research", "Search", "Analytics", "Automation", "Finance", "Your next app", "Your domain"):
-        expect(overview.get_by_text(label, exact=True)).to_have_count(0)
-    expect(overview.get_by_text("Agentic document understanding", exact=True)).to_be_visible()
+with sync_playwright() as p:
+    browser = p.chromium.launch(headless=True)
+    page = browser.new_page(viewport={"width":1440,"height":1100})
+    page.route('**/api/health', lambda r:r.fulfill(status=200,content_type='application/json',body='{}'))
+    errors=[]
+    page.on('pageerror',lambda e:errors.append(str(e)))
+    page.goto(sys.argv[1])
+    overview=page.locator('.system-overview')
+    assert page.locator('.hero + .system-overview + .workflow-section').count()==1
+    expect(overview.locator('.overview-tile')).to_have_count(6)
+    expect(overview.locator('a')).to_have_count(5)
+    for name,href in [('Document understanding','/docmosaic/'),('Relational extraction','/dbmosaic/'),('Context retrieval','/ontomosaic-doc'),('SQL learning','/ontomosaic-text2sql'),('Business semantics','/ontomosaic-enterprise')]:
+        expect(overview.get_by_role('link',name=f'Explore {name}',exact=True)).to_have_attribute('href',urlparse(page.url).path.rstrip('/')+href)
+    expect(overview.get_by_text('Adaptive structuring',exact=True)).to_be_visible()
+    expect(overview.locator('.overview-paper-cells i')).to_have_count(12)
+    for name in ['DocMosaic','DBMosaic','StructMosaic','OntoMosaic-Doc','OntoMosaic-Text2SQL','OntoMosaic-Enterprise']:
+        expect(overview.get_by_text(name,exact=True)).to_have_count(0)
+    expect(overview.locator('.overview-knowledge-graph')).to_be_visible()
     overview.scroll_into_view_if_needed()
-    expect(overview).to_have_attribute("data-running", "true")
-    flow = overview.locator(".overview-transfer")
+    expect(overview).to_have_attribute('data-running','true')
+    page.get_by_role('button',name='Pause system animation').click()
+    assert overview.evaluate("e=>e.getAnimations({subtree:true}).every(a=>a.playState==='paused')")
     def seek(seconds):
-        overview.evaluate("(e, seconds) => e.getAnimations({subtree:true}).forEach(a => { a.currentTime = seconds * 1000; })", seconds)
-    seek(13)
-    initial = flow.first.evaluate("e => getComputedStyle(e).strokeDashoffset")
-    page.wait_for_function("initial => getComputedStyle(document.querySelector('.overview-transfer')).strokeDashoffset !== initial", arg=initial)
-    page.get_by_role("button", name="Pause system animation").click()
-    expect(overview).to_have_attribute("data-playing", "false")
-    assert overview.evaluate("""e => [...e.querySelectorAll('.overview-motion')]
-        .every(n => getComputedStyle(n).animationName === 'none' ||
-                    getComputedStyle(n).animationPlayState === 'paused')""")
-    page.get_by_role("button", name="Play system animation").click()
-    expect(overview).to_have_attribute("data-playing", "true")
-    assert overview.evaluate("""e => [...e.querySelectorAll('.overview-motion')]
-        .every(n => getComputedStyle(n).animationPlayState === 'running')""")
-    page.get_by_role("button", name="Pause system animation").click()
-
-    # A single highlighted module progresses through applications, then ontologies.
-    lights = overview.locator(".overview-card-light")
-    for second, selected in ((3.2,0), (6.1,1), (9.0,2), (13.8,3), (16.2,4), (18.6,5)):
+        overview.evaluate('(e,s)=>e.getAnimations({subtree:true}).forEach(a=>a.currentTime=s*1000)',seconds)
+    for i,second in enumerate([2,6,10,14]):
         seek(second)
-        opacity = lights.evaluate_all("els => els.map(e => Number(getComputedStyle(e).opacity))")
-        assert opacity[selected] > .9 and sum(o > .5 for o in opacity) == 1, (second, opacity)
-    seek(13.8)
-    overview.screenshot(path="/tmp/datamosaic-overview-learning.png")
-    for width in (1440, 1200, 1024, 901, 900, 768, 601, 600, 390, 360, 320):
-        page.set_viewport_size({"width": width, "height": 1100})
-        assert overview.evaluate("e => e.scrollWidth <= e.clientWidth + 1"), f"Overflow at {width}px"
-        bounds = overview.bounding_box()
-        shelves = overview.locator(".overview-shelf").all()
-        for shelf in shelves:
-            box = shelf.bounding_box()
-            assert box["x"] >= bounds["x"] and box["x"] + box["width"] <= bounds["x"] + bounds["width"], (width, box)
-            assert box["y"] + box["height"] <= bounds["y"] + bounds["height"], (width, "Shelf clipped")
-            assert shelf.evaluate("e => [...e.querySelectorAll('.overview-tile')].every(n => n.scrollWidth <= n.clientWidth + 1)"), (width, "Tile text overflow")
-        upper, lower = [shelf.bounding_box() for shelf in shelves]
-        assert upper["y"] + upper["height"] < lower["y"], (width, "Layers overlap")
-
-    page.set_viewport_size({"width": 1440, "height": 1100})
-    scene = overview.locator(".overview-scene")
-    expect(scene).to_have_css("background-color", "rgb(248, 250, 252)")
-    seek(6.1)
-    overview.screenshot(path="/tmp/datamosaic-overview-desktop.png")
-    page.get_by_role("button", name="Switch to dark mode").click()
-    expect(scene).to_have_css("background-color", "rgb(27, 39, 54)")
-    overview.screenshot(path="/tmp/datamosaic-overview-dark.png")
-    page.get_by_role("button", name="Switch to light mode").click()
-    expect(scene).to_have_css("background-color", "rgb(248, 250, 252)")
-    page.set_viewport_size({"width": 390, "height": 1100})
-    overview.screenshot(path="/tmp/datamosaic-overview-mobile.png")
-    page.evaluate("window.scrollTo(0, 0)")
-    expect(overview).to_have_attribute("data-running", "false")
+        opacity=overview.locator('.overview-caption').evaluate_all('els=>els.map(e=>Number(getComputedStyle(e).opacity))')
+        assert opacity[i]>.9 and sum(v>.5 for v in opacity)==1,(second,opacity)
+    seek(2)
+    early=overview.locator('.overview-knowledge-node').first.evaluate('e=>Number(getComputedStyle(e).opacity)')
+    seek(11)
+    late=overview.locator('.overview-knowledge-node').first.evaluate('e=>Number(getComputedStyle(e).opacity)')
+    assert late>early+.4
+    for width in [1440,1200,1024,901,800,768,600,540,390,360,320]:
+        page.set_viewport_size({'width':width,'height':1100})
+        assert overview.evaluate('e=>e.scrollWidth<=e.clientWidth+1'),width
+        assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),width
+        assert overview.locator('.overview-tile').evaluate_all('els=>els.every(e=>e.scrollWidth<=e.clientWidth+1)'),width
+        for shelf in overview.locator('.overview-shelf').all():
+            assert shelf.evaluate('e=>e.scrollWidth<=e.clientWidth+1'),width
+    page.set_viewport_size({'width':1440,'height':1100})
+    seek(11)
+    expect(overview.locator('.overview-scene')).to_have_css('background-color','rgb(248, 250, 252)')
+    overview.screenshot(path='/tmp/datamosaic-overview-desktop.png')
+    page.get_by_role('button',name='Switch to dark mode').click()
+    expect(overview.locator('.overview-scene')).to_have_css('background-color','rgb(27, 39, 54)')
+    overview.screenshot(path='/tmp/datamosaic-overview-dark.png')
+    page.get_by_role('button',name='Switch to light mode').click()
+    page.set_viewport_size({'width':390,'height':1100})
+    overview.screenshot(path='/tmp/datamosaic-overview-mobile.png')
     overview.scroll_into_view_if_needed()
-    page.emulate_media(reduced_motion="reduce")
-    expect(overview).to_have_attribute("data-playing", "false")
-    expect(page.get_by_role("button", name="Play system animation")).to_be_hidden()
-    assert overview.evaluate("e => [...e.querySelectorAll('*')].every(n => getComputedStyle(n).animationName === 'none')")
+    page.get_by_role('button',name='Play system animation').click()
+    expect(overview).to_have_attribute('data-running','true')
+    page.evaluate('window.scrollTo(0,document.documentElement.scrollHeight)')
+    expect(overview).to_have_attribute('data-running','false')
+    page.emulate_media(reduced_motion='reduce')
+    expect(overview).to_have_attribute('data-playing','false')
+    assert overview.evaluate('e=>e.getAnimations({subtree:true}).length===0')
     page.reload()
-    expect(overview).to_have_attribute("data-playing", "false")
-    assert not errors, errors
+    expect(overview).to_have_attribute('data-playing','false')
+    assert not errors,errors
     browser.close()
-
-print("PASS: placement, 6 current modules, 5 existing links, animated flow, no chapters, pause/resume, responsive bounds, reduced motion, no JS errors")
+print('PASS: six modules, four narrative phases, graph growth, responsive layout, themes, pause and reduced motion')
