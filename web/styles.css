@@ -55,7 +55,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid #7794b4; outline-offs
 .hero-copy { position: relative; z-index: 1; width: 100%; max-width: 1440px; margin: 0 auto; text-align: center; }
 h1 { margin: 0; color: #22282f; font-size: clamp(37px, 3.8vw, 59px); font-weight: 730; letter-spacing: -.065em; line-height: 1.1; }
 h1 em { display: block; color: #1e4863; font-style: normal; }
-.hero h1 { color: #182c42; font-family: Inter, "Helvetica Neue", Arial, sans-serif; font-size: clamp(40px, 5vw, 72px); font-weight: 560; letter-spacing: -.045em; line-height: 1.1; text-wrap: balance; }
+.hero h1 { color: #182c42; font-family: Inter, "Helvetica Neue", Arial, sans-serif; font-size: clamp(38px, 4.7vw, 68px); font-weight: 560; letter-spacing: -.045em; line-height: 1.1; text-wrap: balance; }
 .hero h1 em { display: block; width: fit-content; margin: 0 auto; color: #315fa3; }
 @supports ((background-clip: text) or (-webkit-background-clip: text)) {
   .hero h1 em { background: linear-gradient(100deg, #235b9b, #6747a8 85%); background-clip: text; -webkit-background-clip: text; color: transparent; }
@@ -676,7 +676,7 @@ h2 em { color: #1e4863; font-style: normal; }
   .theme-toggle { width: 32px; height: 32px; padding: 6px; }
   .content { padding: 20px 14px; }
   .hero { padding: 58px 6px 64px; }
-  .hero h1 { font-size: clamp(32px, 8.7vw, 44px); letter-spacing: -.04em; }
+  .hero h1 { font-size: clamp(30px, 8.3vw, 42px); letter-spacing: -.04em; }
   .hero-description { margin: 24px auto 28px; font-size: 16px; }
   .hero-actions { max-width: 360px; margin: 0 auto; }
   .hero-preview { justify-self: center; }
