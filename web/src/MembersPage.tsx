@@ -22,7 +22,7 @@ const leaders = [
     name: 'Haixun Wang',
     portrait: haixunWangPortrait,
     homepage: 'https://haixun.github.io/',
-    description: 'VP Engineering, Head of AI\u00a0@\u00a0EvenUp\nAffiliate Full Professor\u00a0@\u00a0University of Washington\nACM Fellow, IEEE Fellow',
+    description: 'VP Engineering, Head of AI\n@ EvenUp\nAffiliate Full Professor\n@ University of Washington\nACM Fellow, IEEE Fellow',
     scholar: 'https://scholar.google.com/citations?user=Q1mcglAAAAAJ&hl=en',
     linkedin: 'https://www.linkedin.com/in/haixun/',
   },
