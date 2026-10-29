@@ -170,12 +170,13 @@ export default function App() {
               <div className="card-actions"><a href={siteUrl('/dbmosaic/')}>Open DBMosaic <span aria-hidden="true">↗</span></a><button className="card-demo" type="button" onClick={() => setActiveDemo('extract')} aria-label="Watch DBMosaic demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo</button></div>
             </article>
             <article className="workflow-card structure">
-              <div className="card-main">
+              <a className="card-main" href={siteUrl('/structmosaic/')} aria-label="Open StructMosaic">
               <span className="card-header"><span className="card-title"><span className="card-number">03</span>StructMosaic <span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="4.5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 6.5v3.2M12 9.7 6.4 17M12 9.7l5.6 7.3"/></svg></span></span></span>
               <span className="card-description">StructMosaic turns a task into the right data structure—tables, graphs, trees, and beyond.</span>
               <img className="product-demo" src={structMosaicDemo} alt="StructMosaic turning a task into tables, graphs, and trees" loading="lazy" decoding="async"/>
               <span className="card-features"><span>Tables</span><span>Graphs</span><span>Trees</span></span>
-              </div>
+              </a>
+              <div className="card-actions"><a href={siteUrl('/structmosaic/')}>Open StructMosaic <span aria-hidden="true">↗</span></a></div>
             </article>
             <article className="coming-soon-card">
               <div className="coming-soon-visual" aria-hidden="true"><span><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><path d="M17.5 14v7M14 17.5h7"/></svg></span><i></i><span><svg viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></svg></span></div>
