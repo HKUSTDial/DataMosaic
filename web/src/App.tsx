@@ -86,7 +86,7 @@ export default function App() {
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-copy">
             <h1 id="hero-title">Efficient, Reliable, and Explainable AI <em>for Documents and Databases.</em></h1>
-            <p className="hero-description">DataMosaic brings together expert guidance and insights drawn from documents, tables, and databases, turning them into reusable knowledge. <span className="hero-ontology-description">Connected through shared, evolving ontologies, this knowledge powers question answering, data analytics, and agentic workflows.</span></p>
+            <p className="hero-description">DataMosaic turns documents, tables, and databases into reusable knowledge through evolving ontologies. <span className="hero-ontology-description">This knowledge powers intelligent applications for question answering, analytics, and agentic workflows.</span></p>
             <div className="hero-actions">
               <a className="button button-primary" href="#applications">Start for free <span aria-hidden="true">↗</span></a>
               <a className="button button-secondary" href="https://github.com/HKUSTDial/DataMosaic" target="_blank" rel="noreferrer">Documentation <span aria-hidden="true">↗</span></a>
