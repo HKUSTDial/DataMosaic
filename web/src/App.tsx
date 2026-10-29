@@ -63,6 +63,7 @@ export default function App() {
   const previewDemo = isPagesPreview ? previewRoutes[path.replace(/\/$/, '')] : undefined;
   const previewTitle = previewDemo && { analyze: 'DocMosaic', extract: 'DBMosaic', ontology: 'OntoMosaic-Text2SQL' }[previewDemo];
   // const [previewPaused, setPreviewPaused] = useState(false);
+  const [docDemo, setDocDemo] = useState<'agentic' | 'interaction'>('agentic');
   const [activeDemo, setActiveDemo] = useState<'analyze' | 'extract' | 'ontology' | 'structure' | null>(previewDemo ?? null);
   const [darkMode, setDarkMode] = useState(() => document.documentElement.dataset.theme === 'dark');
 
@@ -158,7 +159,7 @@ export default function App() {
               <img className="product-demo" src={docMosaicDemo} alt="DocMosaic document analysis workflow" loading="lazy" decoding="async"/>
               <span className="card-features"><span>Document Q&amp;A</span><span>Evidence navigation</span></span>
               </a>
-              <div className="card-actions"><a href={siteUrl('/docmosaic/')}>Open DocMosaic <span aria-hidden="true">↗</span></a><button className="card-demo" type="button" onClick={() => setActiveDemo('analyze')} aria-label="Watch DocMosaic demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo</button></div>
+              <div className="card-actions"><a href={siteUrl('/docmosaic/')}>Open DocMosaic <span aria-hidden="true">↗</span></a><div className="card-demo-group"><button className="card-demo" type="button" onClick={() => { setDocDemo('agentic'); setActiveDemo('analyze'); }} aria-label="Watch DocMosaic agentic demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo-Agentic</button><button className="card-demo" type="button" onClick={() => { setDocDemo('interaction'); setActiveDemo('analyze'); }} aria-label="Watch DocMosaic interactive demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo-Interactive</button></div></div>
             </article>
             <article className="workflow-card extract">
               <a className="card-main" href={siteUrl('/dbmosaic/')} aria-label="Open DBMosaic">
@@ -226,7 +227,7 @@ export default function App() {
         </>}
       </main>
     </div>
-    {activeDemo && <DemoDialog key={activeDemo} mode={activeDemo} onClose={() => {
+    {activeDemo && <DemoDialog key={activeDemo} mode={activeDemo} docDemo={docDemo} onClose={() => {
       if (previewDemo) window.location.assign(siteUrl('/'));
       else setActiveDemo(null);
     }}/>}

@@ -92,7 +92,7 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                         expect(page.get_by_role('heading', name='Members', exact=True)).to_have_count(0)
                         expect(page.locator('.research-intro')).to_have_count(0)
                         expect(page.get_by_role('heading', name='Leaders', exact=True)).to_be_visible()
-                        assert page.locator('.member-card').count() == 7
+                        assert page.locator('.member-card').count() == 9
                         for name, homepage, scholar_id, linkedin in (
                             ('Nan Tang', 'https://nantang.github.io/', 'poXWlycAAAAJ', 'https://www.linkedin.com/in/nan-tang-0695135'),
                             ('Haixun Wang', 'https://haixun.github.io/', 'Q1mcglAAAAAJ', 'https://www.linkedin.com/in/haixun/'),
@@ -104,9 +104,9 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                             assert card.locator('a').evaluate_all('(links) => links.every(a => a.target === "_blank" && a.rel.includes("noreferrer"))')
                             assert card.locator('p').inner_text().strip()
                         students = page.get_by_role('region', name='Students', exact=True)
-                        assert students.locator('h3').all_text_contents() == ['Zhuowen Liang', 'Zhengxuan Zhang', 'Zechao Chen', 'Chenyu Yang', 'Yuxiang Luo']
-                        assert students.locator('.member-info p').all_text_contents() == ['Ph.D. Student @HKUST(GZ)'] * 5
-                        assert students.locator('img.member-photo').count() == 5
+                        assert students.locator('h3').all_text_contents() == ['Zhuowen Liang', 'Zhengxuan Zhang', 'Zechao Chen', 'Chenyu Yang', 'Yuxiang Luo', 'Ruilang Wang', 'Yingxia Ye']
+                        assert students.locator('.member-info p').all_text_contents() == ['Ph.D. Student @HKUST(GZ)'] * 5 + ['MPhil Student @HKUST(GZ)'] * 2
+                        assert students.locator('img.member-photo').count() == 7
                         expect(students.get_by_role('link', name='Zhuowen Liang', exact=True)).to_have_attribute('href', 'https://setonliang.github.io/')
                         assert 'user=cjXF-ZIAAAAJ' in students.get_by_role('link', name='Zhuowen Liang on Google Scholar').get_attribute('href')
                         for name, url in (
@@ -173,8 +173,13 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                 for name in ('DocMosaic', 'OntoMosaic-Text2SQL'):
                     page.get_by_role('link', name=f'Open {name}', exact=True).first.click()
                     expect(page.get_by_role('dialog')).to_be_visible()
-                    expect(page.locator('#demo-title')).to_have_text(f'{name} demo')
-                    page.wait_for_function('document.querySelector(".demo-video")?.naturalWidth > 0')
+                    expect(page.locator('#demo-title')).to_have_text('DocMosaic · Agentic demo' if name == 'DocMosaic' else f'{name} demo')
+                    if name == 'DocMosaic':
+                        expect(page.locator('.demo-choices')).to_have_count(0)
+                        page.wait_for_function('document.querySelector("video.demo-video")?.readyState >= 1')
+                        assert 'DocMosaic-agentic-product-v2' in page.locator('video.demo-video').get_attribute('src')
+                    else:
+                        page.wait_for_function('document.querySelector(".demo-video")?.naturalWidth > 0')
                     assert page.locator('.demo-video').get_attribute('src').startswith('/DataMosaic/assets/')
                     assert page.reload().status == 200
                     expect(page.get_by_role('dialog')).to_be_visible()
@@ -186,16 +191,34 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                 expect(page.locator('video source').first).to_have_attribute('src', 'DBMosaic_product.mp4')
                 page.wait_for_function('document.querySelector("video")?.readyState >= 1')
                 assert page.goto(base).status == 200
+                page.get_by_role('link', name='Open StructMosaic', exact=True).first.click()
+                expect(page).to_have_url(base + 'structmosaic/')
+                expect(page.locator('h1')).to_be_visible()
+                expect(page.locator('#demo video source').first).to_have_attribute('src', 'demo.mp4')
+                page.wait_for_function('document.querySelector("#demo video")?.readyState >= 1')
+                assert page.goto(base).status == 200
+                page.get_by_role('button', name='Watch StructMosaic demo', exact=True).click()
+                expect(page.locator('#demo-title')).to_have_text('StructMosaic demo')
+                page.wait_for_function('document.querySelector("img.demo-video")?.naturalWidth > 0')
+                page.get_by_role('button', name='Close demo', exact=True).click()
                 for route in ('ontomosaic-doc', 'ontomosaic-enterprise'):
                     assert page.goto(base + route + '?tab=1').status == 200
                     assert page.reload().status == 200
                     assert page.locator('main').inner_html().strip() == ''
                     page.get_by_role('link', name='DataMosaic home').click()
                     expect(page).to_have_url(base)
-                page.get_by_role('button', name='Watch DocMosaic demo').click()
-                expect(page.get_by_role('dialog')).to_be_visible()
-                page.get_by_role('button', name='Close demo', exact=True).click()
-                expect(page).to_have_url(base)
+                for kind, video_name in [('agentic', 'DocMosaic-agentic-product-v2'), ('interactive', 'DocMosaic-interaction-flight-product')]:
+                    page.get_by_role('button', name=f'Watch DocMosaic {kind} demo', exact=True).click()
+                    expect(page.get_by_role('dialog')).to_be_visible()
+                    page.wait_for_function('document.querySelector("video.demo-video")?.readyState >= 1')
+                    assert video_name in page.locator('video.demo-video').get_attribute('src')
+                    duration = page.locator('video.demo-video').evaluate('(video) => video.duration')
+                    assert abs(duration - (37.2 if kind == 'agentic' else 44)) < .2
+                    if width == 1440:
+                        page.locator('video.demo-video').evaluate('async (video) => { video.muted = true; await video.play(); video.currentTime = 2; }')
+                        page.wait_for_function('document.querySelector("video.demo-video").currentTime > 2.1')
+                    page.get_by_role('button', name='Close demo', exact=True).click()
+                    expect(page).to_have_url(base)
                 page.get_by_role('button', name='Switch to dark mode').click()
                 expect(page.locator('html')).to_have_attribute('data-theme', 'dark')
                 page.get_by_role('button', name='Switch to light mode').click()

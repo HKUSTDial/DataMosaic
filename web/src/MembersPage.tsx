@@ -5,6 +5,8 @@ import zhengxuanZhangPortrait from '../../assets/members/zhengxuan-zhang.jpg';
 import chenyuYangPortrait from '../../assets/members/chenyu-yang.png';
 import yuxiangLuoPortrait from '../../assets/members/yuxiang-luo.png';
 import zechaoChenPortrait from '../../assets/members/zechao-chen.png';
+import ruilangWangPortrait from '../../assets/members/ruilang-wang.jpg';
+import yingxiaYePortrait from '../../assets/members/yingxia-ye.png';
 import { siteUrl } from './site';
 
 const leaders = [
@@ -12,7 +14,7 @@ const leaders = [
     name: 'Nan Tang',
     portrait: nanTangPortrait,
     homepage: 'https://nantang.github.io/',
-    description: 'Associate Professor of Data Science and Analytics at HKUST (Guangzhou). ACM Distinguished Member.',
+    description: 'Associate Professor\nAssociate Dean, Information Hub\n@ HKUST(GZ)\nACM Distinguished Member',
     scholar: 'https://scholar.google.com/citations?user=poXWlycAAAAJ',
     linkedin: 'https://www.linkedin.com/in/nan-tang-0695135',
   },
@@ -20,7 +22,7 @@ const leaders = [
     name: 'Haixun Wang',
     portrait: haixunWangPortrait,
     homepage: 'https://haixun.github.io/',
-    description: 'VP Engineering and Head of AI at EvenUp; Affiliate Professor at the University of Washington. ACM Fellow.',
+    description: 'VP Engineering, Head of AI\n@ EvenUp\nAffiliate Full Professor\n@ University of Washington\nACM Fellow, IEEE Fellow',
     scholar: 'https://scholar.google.com/citations?user=Q1mcglAAAAAJ&hl=en',
     linkedin: 'https://www.linkedin.com/in/haixun/',
   },
@@ -31,6 +33,8 @@ const students = [
   { name: 'Zechao Chen', portrait: zechaoChenPortrait, homepage: 'https://blog.ackth.cc/about', scholar: 'https://scholar.google.com/citations?hl=zh-CN&user=6d4h1zMAAAAJ' },
   { name: 'Chenyu Yang', portrait: chenyuYangPortrait, homepage: 'https://scholar.google.com/citations?hl=zh-CN&user=4NOsk-gAAAAJ', scholar: 'https://scholar.google.com/citations?hl=zh-CN&user=4NOsk-gAAAAJ' },
   { name: 'Yuxiang Luo', portrait: yuxiangLuoPortrait, homepage: 'https://scholar.google.com/citations?hl=zh-CN&user=SwBmffAAAAAJ', scholar: 'https://scholar.google.com/citations?hl=zh-CN&user=SwBmffAAAAAJ' },
+  { name: 'Ruilang Wang', portrait: ruilangWangPortrait, description: 'MPhil Student @HKUST(GZ)' },
+  { name: 'Yingxia Ye', portrait: yingxiaYePortrait, description: 'MPhil Student @HKUST(GZ)' },
 ];
 
 export default function MembersPage() {
@@ -43,7 +47,7 @@ export default function MembersPage() {
           <img className="member-photo" src={member.portrait} alt={member.name} width="280" height="350" decoding="async"/>
           <div className="member-info">
             <h3><a href={member.homepage} target="_blank" rel="noreferrer">{member.name}</a></h3>
-            <p>{member.description}</p>
+            <p style={{ whiteSpace: 'pre-line' }}>{member.description}</p>
             <div className="member-links">
               <a href={member.scholar} target="_blank" rel="noreferrer" aria-label={`${member.name} on Google Scholar`}>Google Scholar</a>
               <span aria-hidden="true">|</span>
@@ -59,8 +63,8 @@ export default function MembersPage() {
         {students.map(student => <article className="member-card" key={student.name} aria-label={student.name}>
           <img className="member-photo" src={student.portrait} alt={student.name} width="280" height="350" loading="lazy" decoding="async"/>
           <div className="member-info">
-            <h3><a href={student.homepage} target="_blank" rel="noreferrer">{student.name}</a></h3>
-            <p>Ph.D. Student @HKUST(GZ)</p>
+            <h3>{student.homepage ? <a href={student.homepage} target="_blank" rel="noreferrer">{student.name}</a> : student.name}</h3>
+            <p>{student.description ?? 'Ph.D. Student @HKUST(GZ)'}</p>
             {student.scholar && <div className="member-links">
               <a href={student.scholar} target="_blank" rel="noreferrer" aria-label={`${student.name} on Google Scholar`}>Google Scholar</a>
             </div>}

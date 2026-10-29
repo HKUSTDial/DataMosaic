@@ -18,3 +18,10 @@ User-provided portraits and profile links added on 2026-10-27:
 - Zechao Chen: `zechao-chen.png`; https://blog.ackth.cc/about
 
 All student portraits are supplied or sourced as listed above; student names and the shared affiliation were supplied by the user.
+
+User-provided portraits added on 2026-10-29:
+
+- Ruilang Wang: `ruilang-wang.jpg`; MPhil Student @HKUST(GZ).
+- Yingxia Ye: `yingxia-ye.png`; MPhil Student @HKUST(GZ).
+
+Profile links for these two students have not been provided.
