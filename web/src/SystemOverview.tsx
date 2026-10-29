@@ -1,62 +1,58 @@
 import { siteUrl } from './site';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type CSSProperties } from 'react';
 import './SystemOverview.css';
 
-const icons = {
-  document: 'M6 3h8l4 4v5M6 3v18h7M14 3v5h4M9 11h3M9 15h2M18 13a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm3 7 2 2',
-  mosaic: 'M4 4h4v4H4zM10 4h4v4h-4zM16 4h4v4h-4zM4 10h4v4H4zM10 10h4v4h-4zM16 10h4v4h-4zM4 16h4v4H4zM10 16h4v4h-4zM16 16h4v4h-4z',
-  research: 'M4 5c3-1 5-1 8 1 3-2 5-2 8-1v14c-3-1-5-1-8 1-3-2-5-2-8-1V5Zm8 1v14M7 9h2M7 12h2M15 9h2M15 12h2',
-  search: 'M10.5 4a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13Zm5 11 6 6M8 8h5M8 11h3',
-  analytics: 'M4 4v16h17M8 16v-5M13 16V7M18 16v-8M7 8l5-4 6 1',
-  workflow: 'M3 3h6v6H3zM15 15h6v6h-6zM6 9v6h9M15 6h6M18 3v6M3 18h6M6 15v6',
-  assistant: 'M8 5h8l4 4v9H4V9l4-4Zm4 0V2M8 11h1M15 11h1M9 15h6M2 10v5M22 10v5',
-  graph: 'M12 3 4 19h16L12 3Zm0 0v10M4 19l8-6 8 6M12 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM4 17a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm16 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8-6a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z',
-  finance: 'M3 9 12 3l9 6H3Zm2 3v6M10 12v6M14 12v6M19 12v6M3 21h18',
-  science: 'M9 3h6M10 3v7L4 20h16l-6-10V3M8 14h8M10 17h1M14 18h1',
-  legal: 'M12 3v18M6 21h12M4 7h16M6 7l-4 8h8L6 7Zm12 0-4 8h8l-4-8Z',
-  health: 'M9 3h6v6h6v6h-6v6H9v-6H3V9h6V3Z',
-  education: 'm2 9 10-5 10 5-10 5L2 9Zm4 3v6c4 3 8 3 12 0v-6M22 9v8',
-  commerce: 'M4 7h16l1 5H3l1-5Zm0 5v9h16v-9M9 21v-6h6v6M7 3h10',
-  plus: 'M12 5v14M5 12h14',
-};
+const applications = [
+  { name: 'DocMosaic', detail: 'Answers with evidence', kind: 'document', tone: 'blue', href: '/docmosaic/' },
+  { name: 'DBMosaic', detail: 'Documents to databases', kind: 'database', tone: 'violet', href: '/dbmosaic/' },
+  { name: 'StructMosaic', detail: 'Tables. Graphs. Trees.', kind: 'structure', tone: 'cyan' },
+];
+const ontologies = [
+  { name: 'OntoMosaic-Doc', detail: 'Context graph retrieval', kind: 'graph', tone: 'blue', href: '/ontomosaic-doc' },
+  { name: 'OntoMosaic-Text2SQL', detail: 'Learn from SQL examples', kind: 'graph', tone: 'violet', href: '/ontomosaic-text2sql' },
+  { name: 'OntoMosaic-Enterprise', detail: 'Connect processes & data', kind: 'graph', tone: 'teal', href: '/ontomosaic-enterprise' },
+];
+type Module = { name: string; detail: string; kind: string; tone: string; href?: string };
 
-type AppTile = { name: string; icon: keyof typeof icons; tone: string; detail?: string; href?: string };
-const applications: AppTile[] = [
-  { name: 'DocMosaic', icon: 'document', tone: 'blue', detail: 'Understand', href: '/docmosaic/' },
-  { name: 'DBMosaic', icon: 'mosaic', tone: 'violet', detail: 'Structure', href: '/dbmosaic/' },
-  { name: 'Research', icon: 'research', tone: 'cyan' },
-  { name: 'Search', icon: 'search', tone: 'rose' },
-  { name: 'Analytics', icon: 'analytics', tone: 'amber' },
-  { name: 'Automation', icon: 'workflow', tone: 'indigo' },
-  { name: 'Assistants', icon: 'assistant', tone: 'green' },
-  { name: 'Your next app', icon: 'plus', tone: 'slate' },
-];
-const ontologies: AppTile[] = [
-  { name: 'OntoMosaic', detail: 'Text2SQL', icon: 'graph', tone: 'teal', href: '/ontomosaic-text2sql' },
-  { name: 'Finance', icon: 'finance', tone: 'indigo' },
-  { name: 'Science', icon: 'science', tone: 'cyan' },
-  { name: 'Legal', icon: 'legal', tone: 'amber' },
-  { name: 'Health', icon: 'health', tone: 'rose' },
-  { name: 'Education', icon: 'education', tone: 'violet' },
-  { name: 'Commerce', icon: 'commerce', tone: 'green' },
-  { name: 'Your domain', icon: 'plus', tone: 'slate' },
-];
-const connections = [
-  'M178 244H225Q255 244 255 214V157Q255 130 286 130H360',
-  'M178 264H225Q255 264 255 294V373Q255 400 286 400H360',
-  'M600 223V285',
-  'M930 285V223',
-];
+function ModuleArt({ kind }: { kind: string }) {
+  return <svg className="overview-art" viewBox="0 0 220 90" aria-hidden="true">
+    {kind === 'document' ? <>
+      <g className="overview-art-muted"><rect x="30" y="11" width="51" height="66" rx="7" transform="rotate(-9 55 44)"/><rect x="42" y="8" width="51" height="66" rx="7"/></g>
+      <rect className="overview-art-glass" x="53" y="13" width="51" height="66" rx="7"/><path className="overview-art-muted" d="M64 27h27M64 35h19M64 51h27M64 59h23M64 67h15"/>
+      <path className="overview-art-signal overview-motion" d="M104 45h30"/><rect className="overview-art-glass" x="136" y="23" width="62" height="43" rx="10"/>
+      <path className="overview-art-accent overview-motion" d="m148 44 5 5 10-12M171 38h16M171 47h11"/>
+      <rect className="overview-scan overview-motion" x="59" y="39" width="39" height="7" rx="2"/>
+    </> : kind === 'database' ? <>
+      <g className="overview-art-muted"><path d="M34 25h39l22 20M34 65h39l22-20M163 45h25"/><rect x="20" y="17" width="26" height="16" rx="4"/><rect x="20" y="57" width="26" height="16" rx="4"/><rect x="174" y="33" width="27" height="25" rx="4"/><path d="M174 42h27M183 42v16M192 42v16"/></g>
+      <path className="overview-art-glass" d="M95 23v43c0 16 67 16 67 0V23"/><ellipse className="overview-art-accent overview-motion" cx="128.5" cy="23" rx="33.5" ry="11"/>
+      <path className="overview-art-accent overview-motion" d="M95 44c0 16 67 16 67 0M95 64c0 16 67 16 67 0"/>
+      <path className="overview-art-signal overview-motion" d="M46 25h27l22 20M46 65h27l22-20"/>
+    </> : <>
+      <path className="overview-art-muted" d="M110 15 46 43l18 29 46-21 47 21 22-29-69-28v36M46 43l64 8 69-8M64 72h93"/>
+      <path className="overview-art-signal overview-motion" d="M46 43 110 15l69 28-22 29-47-21-46 21"/>
+      {[[110,15],[46,43],[179,43],[64,72],[110,51],[157,72]].map(([x,y], i) => <g key={i} className="overview-node overview-motion" style={{ '--node-delay': `${i * -.65}s` } as CSSProperties}>
+        <circle className="overview-node-halo" cx={x} cy={y} r="10"/>
+        {kind === 'structure' && i % 2 ? <rect x={x-4} y={y-4} width="8" height="8" rx="2"/> : <circle cx={x} cy={y} r={i===0 ? 5 : 4}/>}
+      </g>)}
+    </>}
+  </svg>;
+}
 
-function Tile({ app }: { app: AppTile }) {
-  const className = `overview-tile overview-tone-${app.tone}${app.href ? ' overview-available' : ' overview-future'}${app.icon === 'plus' ? ' overview-custom' : ''}`;
+function Tile({ module, index }: { module: Module; index: number }) {
+  const ontology = module.name.startsWith('OntoMosaic-');
+  const props = { className: `overview-tile overview-tone-${module.tone}`, style: { '--module-delay': `${index * -3}s` } as CSSProperties };
   const content = <>
-    <span className="overview-icon overview-motion" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={icons[app.icon]}/></svg></span>
-    <strong>{app.name}</strong>{app.detail && <span className="overview-tile-detail">{app.detail}</span>}
+    <span className="overview-card-light overview-motion" aria-hidden="true"/>
+    <ModuleArt kind={module.kind}/>
+    <span className="overview-tile-copy">
+      <strong>{ontology ? <><span className="overview-name-prefix">OntoMosaic-</span>{module.name.slice(11)}</> : module.name}</strong>
+      <span className="overview-tile-detail">{module.detail}</span>
+    </span>
+    {module.href && <span className="overview-tile-arrow" aria-hidden="true">↗</span>}
   </>;
-  return app.href
-    ? <a className={className} href={siteUrl(app.href)} aria-label={`Explore ${app.name}${app.detail === 'Text2SQL' ? '-Text2SQL' : ''}`}>{content}</a>
-    : <div className={className} role="img" aria-label={`${app.name}, future concept`}>{content}</div>;
+  return module.href
+    ? <a {...props} href={siteUrl(module.href)} aria-label={`Explore ${module.name}`}>{content}</a>
+    : <div {...props} aria-label={module.name}>{content}</div>;
 }
 
 export default function SystemOverview() {
@@ -74,35 +70,39 @@ export default function SystemOverview() {
       <p>Purpose-built applications.<br/>A growing layer of knowledge.<br/><strong>All in one mosaic.</strong></p>
       <button className="overview-toggle" type="button" onClick={() => setPlaying(value => !value)} aria-label={playing ? 'Pause system animation' : 'Play system animation'} title={playing ? 'Pause animation' : 'Play animation'}><svg viewBox="0 0 16 16" aria-hidden="true">{playing ? <path d="M5 3v10M11 3v10"/> : <path d="m5 3 8 5-8 5Z"/>}</svg></button>
     </header>
-    <div className="overview-scene" role="group" aria-label="An expanding ecosystem: document applications connected to shared domain ontologies. DocMosaic, DBMosaic and OntoMosaic-Text2SQL are available; the other icons illustrate future possibilities.">
-      <div className="overview-ambient overview-ambient-blue" aria-hidden="true"/>
-      <div className="overview-ambient overview-ambient-teal" aria-hidden="true"/>
-      <svg className="overview-wires" viewBox="0 0 1200 524" preserveAspectRatio="none" aria-hidden="true">
-        <defs><linearGradient id="overview-flow-color"><stop stopColor="#a4c8e9"/><stop offset=".5" stopColor="#aaa0d7"/><stop offset="1" stopColor="#6fb9ba"/></linearGradient></defs>
-        <g className="overview-wire-track">{connections.map(path => <path key={path} d={path}/>)}</g>
-        <g className="overview-wire-flow overview-motion">{connections.map(path => <path key={path} d={path}/>)}</g>
-        <g className="overview-wire-anchors"><circle cx="178" cy="244" r="4"/><circle cx="178" cy="264" r="4"/></g>
-      </svg>
-      <div className="overview-sources">
-        <p className="overview-source-label">YOUR INFORMATION</p>
-        <div className="overview-paper-stack overview-motion" aria-hidden="true">
-          <div className="overview-sheet overview-sheet-back"><span>DATA</span><div className="overview-sheet-cells">{Array.from({ length: 12 }, (_, index) => <i key={index}/>)}</div></div>
-          <div className="overview-sheet overview-sheet-middle"><span>REPORT</span><div className="overview-sheet-bars"><i/><i/><i/><i/></div><i className="overview-sheet-line"/><i className="overview-sheet-line short"/></div>
-          <div className="overview-sheet overview-sheet-front"><b>D<span>↗</span></b><i className="overview-sheet-line"/><i className="overview-sheet-line"/><i className="overview-sheet-line short"/><div className="overview-sheet-highlight overview-motion"><i/><i/><i/></div></div>
-          <span className="overview-source-seal">✦</span>
+    <div className="overview-scene" role="group" aria-label="Documents, tables and databases connect to three applications and three OntoMosaic modules through shared, evolving knowledge.">
+      <div className="overview-aurora overview-motion" aria-hidden="true"/>
+      <div className="overview-grid" aria-hidden="true"/>
+      <aside className="overview-sources" aria-label="Data sources">
+        <p className="overview-source-label">YOUR DATA</p>
+        <div className="overview-source-stack">
+          {['Documents', 'Tables', 'Databases'].map((name,i) => <div className={`overview-source overview-source-${i} overview-motion`} key={name}>
+            <svg viewBox="0 0 24 24" aria-hidden="true">{i===0 ? <path d="M6 3h8l4 4v14H6zM14 3v5h4M9 12h6M9 16h6"/> : i===1 ? <path d="M3 4h18v16H3zM3 10h18M9 10v10M15 10v10"/> : <><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 4 16 4 16 0V5M4 12c0 4 16 4 16 0"/></>}</svg>
+            <span>{name}</span><i aria-hidden="true"/>
+          </div>)}
         </div>
-        <div className="overview-source-types"><span>Text</span><span>Tables</span><span>Figures</span></div>
-        <p className="overview-source-note">Every document.<br/>A new starting point.</p>
+        <p className="overview-source-note">Different formats.<br/>Connected possibilities.</p>
+        <div className="overview-intake" aria-hidden="true"><i className="overview-motion"/></div>
+      </aside>
+      <div className="overview-engine">
+        <section className="overview-shelf overview-applications" aria-labelledby="overview-apps-title">
+          <div className="overview-shelf-heading"><h3 id="overview-apps-title"><span/> APPLICATION LAYER</h3><span>Answer. Extract. Act.</span></div>
+          <div className="overview-catalog">{applications.map((module,index) => <Tile key={module.name} module={module} index={index}/>)}</div>
+        </section>
+        <div className="overview-exchange">
+          <svg className="overview-connections" viewBox="0 0 900 100" preserveAspectRatio="none" aria-hidden="true">
+            <g className="overview-connection-track"><path d="M150 0v20Q150 50 180 50h540q30 0 30-30V0M450 0v100M150 100V80q0-30 30-30h540q30 0 30 30v20"/></g>
+            <g className="overview-connection-flow overview-motion"><path d="M150 0v20q0 30 30 30h270v50M750 100V80q0-30-30-30H450V0"/></g>
+          </svg>
+          <div className="overview-core"><span className="overview-core-orbit overview-motion" aria-hidden="true"/><span className="overview-core-mark" aria-hidden="true">{Array.from({length:9},(_,i)=><i key={i} className="overview-motion"/>)}</span><span>Shared, evolving <strong>knowledge.</strong></span></div>
+          <span className="overview-exchange-label overview-learn">Learn from experience</span><span className="overview-exchange-label overview-reuse">Reuse across applications</span>
+        </div>
+        <section className="overview-shelf overview-ontology" aria-labelledby="overview-knowledge-title">
+          <div className="overview-shelf-heading"><h3 id="overview-knowledge-title"><span/> ONTOLOGY LAYER <span className="overview-layer-name">(OntoMosaic)</span></h3><span>Concepts. Relationships. Rules.</span></div>
+          <div className="overview-catalog">{ontologies.map((module,index) => <Tile key={module.name} module={module} index={index}/>)}</div>
+        </section>
       </div>
-      <section className="overview-shelf overview-applications" aria-labelledby="overview-apps-title">
-        <div className="overview-shelf-heading"><div><p className="overview-layer-label"><span/> APPLICATION LAYER</p><h3 id="overview-apps-title">An app for every possibility.</h3></div><span className="overview-more">More apps to come <i aria-hidden="true">↗</i></span></div>
-        <div className="overview-catalog" role="group" aria-label="Available applications and future app concepts">{applications.map(app => <Tile key={app.name} app={app}/>)}</div>
-      </section>
-      <div className="overview-exchange" aria-hidden="true"><span>↓</span> Shared intelligence <span>↑</span></div>
-      <section className="overview-shelf overview-ontology" aria-labelledby="overview-knowledge-title">
-        <div className="overview-shelf-heading"><div><p className="overview-layer-label"><span/> ONTOLOGY LAYER (OntoMosaic)</p><h3 id="overview-knowledge-title">Knowledge without boundaries.</h3></div><span className="overview-more">More domains to come <i aria-hidden="true">↗</i></span></div>
-        <div className="overview-catalog" role="group" aria-label="Available ontology application and future domain concepts">{ontologies.map(app => <Tile key={app.name} app={app}/>)}</div>
-      </section>
+      <div className="overview-scene-footer"><span><i/> One connected ecosystem</span><span>Applications × Ontologies</span></div>
     </div>
   </section>;
 }
