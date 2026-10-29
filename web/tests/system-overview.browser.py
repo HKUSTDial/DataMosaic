@@ -1,5 +1,6 @@
 """Run against a local Vite or prepared Pages preview URL."""
 import sys
+import time
 from playwright.sync_api import expect, sync_playwright
 
 with sync_playwright() as p:
@@ -14,17 +15,30 @@ with sync_playwright() as p:
     expect(overview.locator('.overview-app-story')).to_have_count(3)
     expect(overview.locator('.overview-plugin')).to_have_count(3)
     expect(overview.locator('.overview-paper-cells i')).to_have_count(12)
-    for title in ['Document understanding','Relational extraction','Adaptive structuring']:
+    for title in ['Document understanding','Information extraction','Adaptive structuring']:
         expect(overview.get_by_role('button',name=f'Show {title}')).to_be_visible()
+    expect(overview.locator('.overview-story-description')).to_have_count(0)
+    for card in overview.locator('.overview-app-story').all():
+        assert card.locator('.overview-story-io').evaluate("e=>e.nextElementSibling.classList.contains('overview-story-visual')")
     overview.scroll_into_view_if_needed()
     expect(overview).to_have_attribute('data-running','true')
+    # All three capability scenes keep moving, including unselected cards.
+    for card in overview.locator('.overview-app-story').all():
+        assert card.evaluate("e=>e.getAnimations({subtree:true}).some(a=>a.playState==='running'&&a.animationName!=='overview-progress')")
+    scan=overview.locator('.story-scan')
+    initial=scan.evaluate("e=>e.getAnimations()[0].currentTime")
+    time.sleep(.2)
+    assert scan.evaluate("e=>e.getAnimations()[0].currentTime") > initial
+    ids=overview.locator('defs [id]').evaluate_all('els=>els.map(e=>e.id)')
+    assert len(ids)==len(set(ids))
     for index in [1,2,0]:
         page.clock.run_for(4900)
         expect(overview).to_have_attribute('data-active',str(index))
         expect(overview.locator('.overview-app-story.is-active')).to_have_count(1)
-    overview.get_by_role('button',name='Show Relational extraction').click()
+    overview.get_by_role('button',name='Show Information extraction').click()
     expect(overview).to_have_attribute('data-active','1')
     expect(overview).to_have_attribute('data-playing','false')
+    expect(scan).to_have_css('animation-play-state','paused')
     page.clock.run_for(6000)
     expect(overview).to_have_attribute('data-active','1')
     sockets=overview.locator('.overview-app-socket')
@@ -37,7 +51,7 @@ with sync_playwright() as p:
     business.click()
     expect(business).to_have_attribute('aria-pressed','true')
     connected(3)
-    expect(overview.locator('.overview-plugin-notice')).to_contain_text('connected to all three applications')
+    expect(overview.locator('.overview-plugin-notice')).to_have_count(0)
     business.press('Space')
     connected(2)
     overview.get_by_role('button',name='SQL knowledge',exact=False).click()
@@ -65,6 +79,7 @@ with sync_playwright() as p:
     page.get_by_role('button',name='Play system animation').click()
     page.evaluate('window.scrollTo(0,document.documentElement.scrollHeight)')
     expect(overview).to_have_attribute('data-running','false')
+    expect(scan).to_have_css('animation-play-state','paused')
     old=overview.get_attribute('data-active')
     page.clock.run_for(10000)
     expect(overview).to_have_attribute('data-active',old)
@@ -73,4 +88,4 @@ with sync_playwright() as p:
     assert overview.evaluate('e=>e.getAnimations({subtree:true}).length===0')
     assert not errors,errors
     browser.close()
-print('PASS: sequential stories, manual selection, shared optional plugins, keyboard toggles, responsive themes and pause')
+print('PASS: three animated capabilities, motion timing, shared plugins, responsive themes, pause and reduced motion')

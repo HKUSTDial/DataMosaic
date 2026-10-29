@@ -85,13 +85,13 @@ export default function App() {
         {informationPage?.path === '/members' ? <MembersPage/> : informationPage?.path === '/tools' ? <ToolsPage/> : informationPage?.path === '/benchmarks' ? <BenchmarksPage/> : ontologyPlaceholder ? null : isText2SQLPage ? <Suspense fallback={<p role="status">Loading OntoMosaic-Text2SQL…</p>}><OntologyWorkbench/></Suspense> : isResearchPage ? <ResearchPage/> : <>
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-copy">
-            <h1 id="hero-title">Powerful reasoning where it matters. <em>Reusable intelligence everywhere</em></h1>
+            <h1 id="hero-title">Efficient, Reliable, and Explainable AI <em>for Documents and Databases.</em></h1>
             <p className="hero-description">DataMosaic brings together expert guidance and insights drawn from documents, tables, and databases, turning them into reusable knowledge. <span className="hero-ontology-description">Connected through shared, evolving ontologies, this knowledge powers question answering, data analytics, and agentic workflows.</span></p>
             <div className="hero-actions">
               <a className="button button-primary" href="#applications">Start for free <span aria-hidden="true">↗</span></a>
               <a className="button button-secondary" href="https://github.com/HKUSTDial/DataMosaic" target="_blank" rel="noreferrer">Documentation <span aria-hidden="true">↗</span></a>
             </div>
-            <p className="hero-tagline"><span>Fast.</span> <span>Accurate.</span> <span>Cost-efficient.</span> <span>Built to scale.</span></p>
+            <p className="hero-tagline"><span>Powerful Reasoning.</span> <span>Reusable knowledge.</span> <span>Built to scale.</span></p>
           </div>
           {/* <div className="preview-sources" role="list" aria-label="Illustrative document formats">
             {previewSources.map(source => <div className={`preview-source source-${source.kind}`} key={source.format} role="listitem" aria-label={source.kind === 'md' ? 'Markdown: README.md' : `${source.format}: ${source.filename}`}>

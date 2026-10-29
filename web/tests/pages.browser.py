@@ -46,7 +46,7 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
             for width in (1440, 1200, 1101, 1024, 390, 320):
                 page.set_viewport_size({'width': width, 'height': 1100})
                 assert page.goto(base).status == 200
-                expect(page.locator('#hero-title')).to_have_text('Powerful reasoning where it matters. Reusable intelligence everywhere')
+                expect(page.locator('#hero-title')).to_have_text('Efficient, Reliable, and Explainable AI for Documents and Databases.')
                 assert page.locator('.overview-app-story').count() == 3
                 assert page.locator('.overview-plugin').count() == 3
                 assert page.locator('a[href^="/"]').evaluate_all('(links) => links.every(a => a.getAttribute("href").startsWith("/DataMosaic/"))')
