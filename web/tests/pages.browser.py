@@ -103,6 +103,7 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                             expect(card.get_by_role('link', name=f'{name} on LinkedIn')).to_have_attribute('href', linkedin)
                             assert card.locator('a').evaluate_all('(links) => links.every(a => a.target === "_blank" && a.rel.includes("noreferrer"))')
                             assert card.locator('p').inner_text().strip()
+                            assert '\n@' not in card.locator('p').text_content()
                         students = page.get_by_role('region', name='Students', exact=True)
                         assert students.locator('h3').all_text_contents() == ['Zhuowen Liang', 'Zhengxuan Zhang', 'Zechao Chen', 'Chenyu Yang', 'Yuxiang Luo', 'Ruilang Wang', 'Yingxia Ye']
                         assert students.locator('.member-info p').all_text_contents() == ['Ph.D. Student @HKUST(GZ)'] * 5 + ['MPhil Student @HKUST(GZ)'] * 2
