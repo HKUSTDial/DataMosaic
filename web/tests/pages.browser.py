@@ -50,32 +50,38 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                 assert page.locator('.overview-app-story').count() == 3
                 assert page.locator('.overview-plugin').count() == 3
                 assert page.locator('a[href^="/"]').evaluate_all('(links) => links.every(a => a.getAttribute("href").startsWith("/DataMosaic/"))')
-                assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1')
+                assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'), width
                 mobile_navigation = page.get_by_role('button', name='Open navigation', exact=True)
                 is_mobile = mobile_navigation.is_visible()
                 if not is_mobile:
                     navigation = page.locator('.header-navigation').bounding_box()
                     actions = page.locator('.header-actions').bounding_box()
                     assert navigation['x'] + navigation['width'] <= actions['x'], width
-                for group, labels in (('organization', ['Documentation', 'Members']), ('resource', ['Tools', 'Benchmarks', 'Publications'])):
+                expect(page.locator('.hero-actions').get_by_role('link', name="Let's try it", exact=False)).to_have_attribute('href', '#applications')
+                expect(page.locator('#nav-organization')).to_have_count(0)
+                expect(page.locator('#nav-documentation')).to_have_attribute('href', 'https://github.com/HKUSTDial/DataMosaic')
+                expect(page.locator('#nav-documentation')).to_have_attribute('target', '_blank')
+                expect(page.locator('#nav-members')).to_have_attribute('href', '/DataMosaic/members/')
+                for group, labels in (('resource', ['Tools', 'Benchmarks', 'Publications']),):
                     if is_mobile:
                         mobile_navigation.click()
                     trigger = page.locator(f'#nav-{group}')
                     trigger.click()
                     panel = page.locator(f'#nav-{group}-panel')
                     assert panel.locator('strong').all_text_contents() == labels
-                    if group == 'organization':
-                        expect(panel.get_by_role('link', name='Documentation', exact=False)).to_have_attribute('href', 'https://github.com/HKUSTDial/DataMosaic')
                     page.keyboard.press('Escape')
                     expect(panel).to_be_hidden()
                     expect(trigger).to_be_focused()
                     if is_mobile:
                         page.get_by_role('button', name='Close navigation', exact=True).click()
-                for group, label, route in (('organization', 'Members', 'members'), ('resource', 'Tools', 'tools'), ('resource', 'Benchmarks', 'benchmarks')):
+                for group, label, route in ((None, 'Members', 'members'), ('resource', 'Tools', 'tools'), ('resource', 'Benchmarks', 'benchmarks')):
                     if is_mobile:
                         mobile_navigation.click()
-                    page.locator(f'#nav-{group}').click()
-                    page.locator(f'#nav-{group}-panel').get_by_role('link', name=label, exact=False).click()
+                    if group:
+                        page.locator(f'#nav-{group}').click()
+                        page.locator(f'#nav-{group}-panel').get_by_role('link', name=label, exact=False).click()
+                    else:
+                        page.locator('#nav-members').click()
                     expect(page).to_have_url(base + route + '/')
                     expect(page.get_by_role('heading', name='Leaders' if route == 'members' else label, exact=True)).to_be_visible()
                     assert page.reload().status == 200
@@ -213,7 +219,7 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                 ('resource', 'Tools', 'tools/'),
                 ('resource', 'Benchmarks', 'benchmarks/'),
                 ('resource', 'Publications', 'research/'),
-                ('organization', 'Members', 'members/'),
+                (None, 'Members', 'members/'),
             ):
                 mobile.goto(base)
                 mobile.get_by_role('button', name='Open navigation', exact=True).tap()
@@ -221,13 +227,16 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                 # Reproduce a touch blur with no next focus target before the click arrives.
                 mobile.evaluate('document.activeElement.blur()')
                 expect(mobile.locator('#primary-navigation')).to_be_visible()
-                trigger = mobile.locator(f'#nav-{group}')
-                trigger.tap()
-                trigger.focus()
-                mobile.evaluate('document.activeElement.blur()')
-                panel = mobile.locator(f'#nav-{group}-panel')
-                expect(panel).to_be_visible()
-                panel.get_by_role('link', name=label, exact=False).tap()
+                if group:
+                    trigger = mobile.locator(f'#nav-{group}')
+                    trigger.tap()
+                    trigger.focus()
+                    mobile.evaluate('document.activeElement.blur()')
+                    panel = mobile.locator(f'#nav-{group}-panel')
+                    expect(panel).to_be_visible()
+                    panel.get_by_role('link', name=label, exact=False).tap()
+                else:
+                    mobile.locator('#nav-members').tap()
                 expect(mobile).to_have_url(base + route)
             mobile.goto(base)
             mobile.get_by_role('button', name='Open navigation', exact=True).tap()
