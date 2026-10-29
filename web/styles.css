@@ -245,13 +245,16 @@ h2 em { color: #1e4863; font-style: normal; }
 .card-actions > a { display: inline-flex; align-items: center; gap: 7px; color: #2563a6; font-size: 11px; font-weight: 680; text-decoration: none; }
 .card-actions > a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .extract .card-actions > a { color: #7251b5; }
+.structure .card-actions > a { color: #2a6f92; }
 .card-demo { display: inline-flex; align-items: center; gap: 6px; min-height: 30px; padding: 0 10px; border: 1px solid #dde3ea; border-radius: 6px; background: #f0f3f7; color: #66717d; font-family: inherit; font-size: 11px; cursor: pointer; }
 .card-demo svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linejoin: round; }
 .card-demo:hover { border-color: #7794b4; background: #eaf0f7; color: #31567a; }
 .analyze .card-demo { border-color: #d1e2f4; background: #eff6ff; color: #2563a6; }
 .extract .card-demo { border-color: #e1d4f3; background: #f5f0fc; color: #7251b5; }
+.structure .card-demo { border-color: #c5dde8; background: #eef6fa; color: #2a6f92; }
 .analyze .card-demo:hover { border-color: #87add6; background: #e3efff; }
 .extract .card-demo:hover { border-color: #b79ad8; background: #eee3fa; }
+.structure .card-demo:hover { border-color: #7eabc4; background: #e3f1f7; }
 .coming-soon-card { grid-column: 1 / -1; display: flex; align-items: center; gap: 22px; padding: 24px 27px; border: 1px dashed #dde3ea; border-radius: 15px; background: linear-gradient(110deg, #f0f3f7, #fafbfd); }
 .coming-soon-visual { display: flex; align-items: center; gap: 5px; width: 116px; flex: none; color: #738195; }
 .coming-soon-visual > span { display: grid; place-items: center; width: 40px; height: 40px; flex: none; border: 1px solid #dde3ea; border-radius: 10px; background: #fff; }
@@ -508,13 +511,16 @@ h2 em { color: #1e4863; font-style: normal; }
 :root[data-theme="dark"] .hero-description, :root[data-theme="dark"] .card-description, :root[data-theme="dark"] .section-heading > p, :root[data-theme="dark"] .case-description, :root[data-theme="dark"] .case-capability p { color: var(--night-muted); }
 :root[data-theme="dark"] .brand-name span, :root[data-theme="dark"] h1 em, :root[data-theme="dark"] h2 em, :root[data-theme="dark"] .section-kicker, :root[data-theme="dark"] .case-capability-label, :root[data-theme="dark"] .card-actions > a, :root[data-theme="dark"] .case-actions a { color: var(--night-accent); }
 :root[data-theme="dark"] .extract .card-actions > a, :root[data-theme="dark"] .extract-capability .case-capability-label, :root[data-theme="dark"] .case-actions a:last-child { color: var(--night-violet); }
+:root[data-theme="dark"] .structure .card-actions > a { color: #9ec9e4; }
 :root[data-theme="dark"] .demo-control:hover { background: #243244; color: var(--night-text); }
 :root[data-theme="dark"] .theme-toggle, :root[data-theme="dark"] .card-demo, :root[data-theme="dark"] .preview-toggle { border-color: var(--night-border); background: var(--night-panel); color: var(--night-muted); }
 :root[data-theme="dark"] .theme-toggle:hover, :root[data-theme="dark"] .card-demo:hover, :root[data-theme="dark"] .preview-toggle:hover { border-color: #536b87; background: #233850; color: var(--night-accent); }
 :root[data-theme="dark"] .analyze .card-demo { border-color: #355474; background: #213953; color: #b1d3f7; }
 :root[data-theme="dark"] .extract .card-demo { border-color: #55446c; background: #352a48; color: #d3baef; }
+:root[data-theme="dark"] .structure .card-demo { border-color: #35566a; background: #1d3948; color: #9ec9e4; }
 :root[data-theme="dark"] .analyze .card-demo:hover { border-color: #5d89b1; background: #2b4b68; }
 :root[data-theme="dark"] .extract .card-demo:hover { border-color: #9678bd; background: #453254; }
+:root[data-theme="dark"] .structure .card-demo:hover { border-color: #5d8eaa; background: #24485c; }
 :root[data-theme="dark"] .hero { background: radial-gradient(ellipse at 24% 90%, #24456355, transparent 55%), radial-gradient(ellipse at 78% 90%, #3b2b5344, transparent 55%); }
 :root[data-theme="dark"] .hero h1 { color: #e6eef8; }
 :root[data-theme="dark"] .hero h1 em { color: #a6c8f2; }

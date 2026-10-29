@@ -3,3 +3,58 @@
 @media(max-width:1100px){.topbar .wrap{gap:14px}.nav{gap:17px}.wordmark{font-size:21px}.structure-preview{padding:20px}.structure-triptych{gap:7px}.structure-triptych svg{width:65px}}
 @media(max-width:850px){.hero-grid{gap:35px}.structure-preview{max-width:620px;width:100%}.example-chain{gap:10px;flex-wrap:wrap}.flow strong{font-size:18px}}
 @media(max-width:600px){.topbar .wrap{flex-wrap:nowrap;gap:10px}.wordmark{font-size:19px;gap:7px}.brand-mark{width:24px;height:24px}.language-switch{margin-left:auto}.menu-toggle{padding:5px 8px}.menu-toggle>span{display:none}.structure-preview{padding:18px}.structure-tabs{gap:6px}.structure-tabs button{flex:1;padding:10px 7px;font-size:11px}.structure-panel{padding:20px}.structure-panel h3{font-size:20px}.example-grid>*{font-size:10px;padding:9px 8px}.hero-links{flex-wrap:wrap}.hero-copy h1{font-size:35px}.hero-strip{gap:20px}.structure-triptych>div{padding:12px 5px}.preview-input strong{font-size:14px}footer .wrap{align-items:flex-start;flex-direction:column}}
+
+/* A quiet, interactive loop: question → representation → answer. */
+.case-carousel{animation:case-float 5s ease-in-out infinite;--case-duration:6.5s}
+.case-carousel .animation-heading{margin-bottom:16px;letter-spacing:.07em}
+.case-playback{display:grid;place-items:center;margin-left:auto;flex:none;width:27px;height:27px;border:1px solid #d9ddef;border-radius:6px;background:#fff;color:#7276a5;font:14px var(--sans)}
+.case-playback:hover{background:#eeeffa}
+.case-carousel .structure-triptych{margin-bottom:18px;gap:9px}
+.case-carousel .structure-triptych>button{position:relative;display:flex;align-items:center;justify-content:center;gap:9px;min-width:0;padding:10px 8px;background:#f4f5fa;color:#737b94;border:1px solid #e0e3ee;border-radius:8px;overflow:hidden;transition:background .2s,border-color .2s,transform .2s,box-shadow .2s}
+.case-carousel .structure-triptych>button:hover{transform:translateY(-3px);border-color:#a5acd8}
+.case-carousel .structure-triptych>button[aria-selected="true"]{color:#525ca3;background:#eeeffb;border-color:#a6addb;box-shadow:0 3px 10px #6065c710}
+.case-carousel .structure-triptych>button:nth-child(2)[aria-selected="true"]{background:#eaf5f8;border-color:#8bbdcc;color:#3a8195}
+.case-carousel .structure-triptych>button:nth-child(3)[aria-selected="true"]{background:#f1edf8;border-color:#b5a0d1;color:#8061a3}
+.case-carousel .structure-triptych svg{width:34px;height:30px;flex:none}
+.case-carousel .mini-table{width:29px;height:27px;padding:0;gap:2px;flex:none}
+.case-carousel .structure-triptych b{font-size:11px}
+.case-progress{position:absolute;bottom:0;left:0;height:2px;background:currentColor;opacity:.6;width:100%;transform:scaleX(0);transform-origin:left}
+.case-carousel [aria-selected="true"] .case-progress{animation:case-progress var(--case-duration) linear forwards}
+.case-carousel.is-paused .case-progress{animation-play-state:paused}
+.case-slides{min-height:374px}
+.hero-example[hidden]{display:none}
+.hero-example:not([hidden]){animation:case-enter .45s ease both}
+.case-carousel .preview-input{min-height:95px;padding:14px 16px;gap:7px;align-content:center}
+.case-carousel .preview-input strong{font-size:15px;line-height:1.5}
+.case-carousel .connector{font-size:18px;line-height:1.7}
+.case-evidence{height:166px;display:grid;align-items:center;border:1px solid #e0e4f0;background:#ffffffb8;border-radius:8px;padding:10px 14px}
+.case-table{font:10px/1.5 var(--sans);width:100%}
+.case-table>div{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:3px 7px;border-bottom:1px solid #edf0f5}
+.case-table>div>span:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.case-table .case-table-head{font-size:9px;color:#7b859b;background:#f3f5fb}
+.case-table .winning-row{background:#eeebfa;color:#6458a2;font-weight:650;border-radius:3px}
+.case-graph svg{display:block;width:100%;height:142px;overflow:visible}
+.case-graph .graph-track{fill:none;stroke:#d2dce5;stroke-width:3}
+.case-graph .graph-path{fill:none;stroke:#79acbd;stroke-width:3;stroke-dasharray:6 6;animation:case-path 3s linear infinite}
+.case-graph circle{fill:#f1f9fb;stroke:#76a6b8;stroke-width:2}
+.case-graph text{text-anchor:middle;font:11px var(--sans);fill:#526c80}
+.case-graph .hop-label text{font:10px var(--mono);fill:#8ca2b4}
+.case-tree{display:grid;justify-items:center;align-content:center;font:11px var(--mono)}
+.tree-citation,.tree-paper,.tree-references b{padding:3px 16px;border:1px solid #d3c7e6;border-radius:5px;background:#f9f6fc;font-weight:400}
+.tree-paper{background:#efe8f7;color:#7b6197;min-width:105px;text-align:center}
+.tree-stem{height:12px;border-left:1px solid #c5b6d9}
+.tree-branches{display:flex;width:155px;height:16px;border:1px solid #c5b6d9;border-bottom:0;margin-top:0;position:relative}
+.tree-branches:before{content:"";position:absolute;left:50%;top:-6px;height:6px;border-left:1px solid #c5b6d9}
+.tree-references{display:flex;justify-content:space-between;width:214px}
+.case-tree small{font:9px var(--sans);color:#8c809e;margin-top:8px}
+.case-carousel .preview-output{min-height:75px;padding:12px 9px;gap:6px}
+.case-carousel .preview-output strong{font-size:12px;line-height:1.5}
+.case-carousel .preview-output>span{font-size:10px}
+.case-caption{display:flex;justify-content:space-between;gap:10px;margin-top:14px;font:9px var(--sans);color:#8b93a9}
+.case-counter{font-family:var(--mono);white-space:nowrap}
+@keyframes case-float{0%,100%{transform:translateY(4px)}50%{transform:translateY(-10px)}}
+@keyframes case-enter{from{opacity:.2;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@keyframes case-progress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes case-path{to{stroke-dashoffset:-24}}
+@media(max-width:600px){.case-carousel .animation-heading{font-size:8px;gap:5px}.case-carousel .structure-triptych>button{gap:6px;padding:9px 5px}.case-carousel .structure-triptych b{font-size:10px}.case-carousel .preview-input strong{font-size:13px}.case-carousel .preview-input{min-height:95px}.case-evidence{padding-inline:6px}.case-table{font-size:9px}.case-table .case-table-head{font-size:8px}.case-carousel .preview-output strong{font-size:11px}.case-caption{font-size:8px}}
+@media(prefers-reduced-motion:reduce){.case-carousel,.hero-example:not([hidden]),.case-carousel [aria-selected="true"] .case-progress,.case-graph .graph-path{animation:none}.case-carousel .structure-triptych>button{transition:none}.case-carousel .structure-triptych>button:hover{transform:none}}

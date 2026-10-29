@@ -3,7 +3,8 @@ import ProductPreview from './ProductPreview';
 import ontoMosaicDemo from '../../assets/OntoMosaic-Text2SQL-demo.gif';
 import docMosaicDemo from '../../assets/DocMosaic-demo.gif';
 import dbMosaicDemo from '../../assets/DBMosaic-demo.gif';
-import { isPagesPreview } from './site';
+import structMosaicDemo from '../../assets/StructMosaic-demo.gif';
+import { isPagesPreview, siteUrl } from './site';
 
 const demoVideos = import.meta.glob<string>('../../assets/*-demo.{mp4,webm}', {
   eager: true,
@@ -11,13 +12,14 @@ const demoVideos = import.meta.glob<string>('../../assets/*-demo.{mp4,webm}', {
   import: 'default',
 });
 
-export default function DemoDialog({ mode, onClose }: { mode: 'analyze' | 'extract' | 'ontology'; onClose: () => void }) {
+export default function DemoDialog({ mode, onClose }: { mode: 'analyze' | 'extract' | 'ontology' | 'structure'; onClose: () => void }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoFailed, setVideoFailed] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const title = mode === 'ontology' ? 'OntoMosaic-Text2SQL' : mode === 'analyze' ? 'DocMosaic' : 'DBMosaic';
-  const videoUrl = demoVideos[`../../assets/${mode}-demo.mp4`] ?? demoVideos[`../../assets/${mode}-demo.webm`];
+  const title = mode === 'ontology' ? 'OntoMosaic-Text2SQL' : mode === 'analyze' ? 'DocMosaic' : mode === 'structure' ? 'StructMosaic' : 'DBMosaic';
+  const videoUrl = mode === 'structure' ? siteUrl('/structmosaic/demo.mp4') : demoVideos[`../../assets/${mode}-demo.mp4`] ?? demoVideos[`../../assets/${mode}-demo.webm`];
+  const previewImage = mode === 'analyze' ? docMosaicDemo : mode === 'structure' ? structMosaicDemo : dbMosaicDemo;
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -51,8 +53,9 @@ export default function DemoDialog({ mode, onClose }: { mode: 'analyze' | 'extra
     </div>
     {isPagesPreview && <p className="demo-preview-note">Workflow preview. Run DataMosaic locally to use this application.</p>}
     {mode === 'ontology' ? <img className="demo-video" src={ontoMosaicDemo} alt="OntoMosaic-Text2SQL ontology learning workflow"/>
-      : isPagesPreview ? <img className="demo-video" src={mode === 'analyze' ? docMosaicDemo : dbMosaicDemo} alt={`${title} workflow preview`}/>
+      : isPagesPreview || (mode === 'structure' && videoFailed) ? <img className="demo-video" src={previewImage} alt={`${title} workflow preview`}/>
       : videoUrl && !videoFailed ? <video className="demo-video" ref={videoRef} src={videoUrl} controls playsInline preload="metadata" onError={() => setVideoFailed(true)} aria-label={`${title} product demonstration`}/>
+      : mode === 'structure' ? <img className="demo-video" src={structMosaicDemo} alt="StructMosaic workflow preview"/>
       : <div className="demo-placeholder">
         <span className="coming-soon-badge">{videoFailed ? 'Video unavailable' : 'Video coming soon'}</span>
         <ProductPreview mode={mode}/>

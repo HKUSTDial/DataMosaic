@@ -1,10 +1,12 @@
 import { siteUrl } from './site';
 import datamosaicFramework from '../../assets/research/datamosaic-framework.png';
+import datamosaicdemoFramework from '../../assets/research/datamosaic-demo-framework.png';
 import docpilotFramework from '../../assets/research/docpilot-framework.png';
 import litecostFramework from '../../assets/research/litecost-framework.png';
 import cycleieFramework from '../../assets/research/cycleie-framework.jpg';
 import dtbenchImage from '../../assets/benchmarks/dtbench.jpg';
 import doc2dbImage from '../../assets/benchmarks/doc2db-bench.png';
+import datapuzzleImage from '../../assets/research/datapuzzle-framework.png';
 
 const publications: {
   title: string;
@@ -26,7 +28,7 @@ const publications: {
     title: 'DataMosaic: An Interactive Demonstration of Constraint-Driven Document-to-Database Construction.',
     authors: 'Zhengxuan Zhang, Zhuowen Liang, Haixun Wang, and Nan Tang.',
     venue: 'VLDB Demo',
-    framework: datamosaicFramework,
+    framework: datamosaicdemoFramework,
     pdf: 'https://www.vldb.org/pvldb/vol19/p4570-zhang.pdf',
     code: 'https://github.com/HKUSTDial/DBMosaic',
   },
@@ -52,6 +54,7 @@ const publications: {
     venue: 'EMNLP Findings',
     framework: cycleieFramework,
     pdf: 'https://aclanthology.org/2026.findings-emnlp.418.pdf',
+    code: 'https://github.com/HKUSTDial/CycleIE',
   },
   {
     title: 'Beyond Tables: Doc2DB-Bench for Relationally Faithful Document-to-Database Construction.',
@@ -60,6 +63,14 @@ const publications: {
     framework: doc2dbImage,
     pdf: 'https://arxiv.org/pdf/2608.08459',
     code: 'https://github.com/SetonLiang/Doc2DB-Bench',
+  },
+  {
+    title: 'Datapuzzle: Breaking free from the hallucinated promise of llms in data analysis',
+    authors: 'Zhengxuan Zhang, Zhuowen Liang, Yin Wu, Teng Lin, Yuyu Luo, Nan Tang',
+    venue: 'arXiv',
+    framework: datapuzzleImage,
+    pdf: 'https://arxiv.org/pdf/2504.10036',
+    code: 'https://github.com/zzhang393/StructMosaic',
   },
   {
     title: 'DTBench: A Synthetic Benchmark for Document-to-Table Extraction.',
