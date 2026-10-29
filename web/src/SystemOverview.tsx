@@ -1,114 +1,95 @@
-import { siteUrl } from './site';
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import {useEffect, useRef, useState} from 'react';
 import './SystemOverview.css';
 
-const icons = {
-  document: 'M6 3h8l4 4v14H6zM14 3v5h4M9 12h6M9 16h4',
-  database: 'M4 5c0-4 16-4 16 0s-16 4-16 0v14c0 4 16 4 16 0V5M4 12c0 4 16 4 16 0',
-  structure: 'M9 3h6v6H9zM4 16h5v5H4zM15 16h5v5h-5zM12 9v4M6.5 16v-3h11v3',
-  table: 'M3 4h18v16H3zM3 10h18M9 10v10M15 10v10',
-  answer: 'M4 4h16v13H9l-5 4V4ZM8 9h8M8 13h5',
-  workflow: 'M3 3h6v6H3zM15 15h6v6h-6zM6 9v9h9M15 6h6M18 3v6',
-  graph: 'M12 4 4 19h16L12 4Zm0 0v9M4 19l8-6 8 6',
-};
-const applications = [
-  {name:'Document understanding', icon:'document', tone:'blue', href:'/docmosaic/'},
-  {name:'Relational extraction', icon:'database', tone:'violet', href:'/dbmosaic/'},
-  {name:'Adaptive structuring', icon:'structure', tone:'cyan'},
-] as const;
-const ontologies = [
-  {name:'Context retrieval', tone:'blue', href:'/ontomosaic-doc'},
-  {name:'SQL learning', tone:'violet', href:'/ontomosaic-text2sql'},
-  {name:'Business semantics', tone:'teal', href:'/ontomosaic-enterprise'},
+const apps = [
+  {title:'Document understanding', description:'Find evidence. Answer with confidence.', input:'Documents + questions', output:'Grounded answers'},
+  {title:'Relational extraction', description:'Turn scattered facts into connected records.', input:'Documents + schema', output:'Related tables'},
+  {title:'Adaptive structuring', description:'Choose the right structure for the task.', input:'Data + a task', output:'Tables, graphs or trees'},
 ];
-const nodes = [[150,45],[80,85],[222,85],[55,145],[150,130],[248,150],[100,195],[204,200]];
-const graphPath = 'M150 45 80 85 55 145 100 195 150 130 204 200 248 150 222 85 150 45v85L80 85M55 145l95-15 98 20M222 85l-72 45';
-const captions = ['Connect your data.', 'Put applications to work.', 'Learn shared knowledge.', 'Reuse it everywhere.'];
-function Icon({kind}:{kind:keyof typeof icons}) {
-  return <svg viewBox="0 0 24 24" aria-hidden="true"><path d={icons[kind]}/></svg>;
+const plugins = [
+  {name:'Context & evidence', detail:'Reusable concepts and source relationships', tone:'blue'},
+  {name:'SQL knowledge', detail:'Reusable mappings and query rules', tone:'violet'},
+  {name:'Business semantics', detail:'Reusable definitions and constraints', tone:'teal'},
+];
+function PlugIcon(){return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3v5M16 3v5M6 8h12v4a6 6 0 0 1-12 0V8ZM12 18v4"/></svg>;}
+function Story({index}:{index:number}) {
+  return <svg className="overview-story-art" viewBox="0 0 260 160" aria-hidden="true">
+    {index===0 ? <>
+      <rect className="story-paper" x="14" y="21" width="90" height="113" rx="8"/>
+      <text x="26" y="40">REPORT</text><path className="story-muted" d="M26 52h62M26 61h50M26 91h62M26 100h54M26 109h38"/>
+      <rect className="story-evidence story-motion" x="22" y="69" width="74" height="13" rx="3"/>
+      <path className="story-ink" d="M28 75h55"/>
+      <path className="story-transfer story-motion" d="M104 75h39"/><path className="story-muted" d="m136 70 7 5-7 5"/>
+      <g className="story-result story-motion"><rect className="story-paper" x="151" y="38" width="96" height="82" rx="10"/>
+      <text x="164" y="59">ANSWER</text><path className="story-ink" d="m164 76 4 4 9-10M186 73h46M186 82h31"/>
+      <rect className="story-evidence" x="163" y="95" width="72" height="14" rx="4"/><text x="171" y="105" className="story-small">Source · p. 12</text></g>
+    </> : index===1 ? <>
+      <rect className="story-paper" x="10" y="29" width="80" height="101" rx="8"/>
+      <text x="21" y="47">INVOICE</text><path className="story-muted" d="M21 57h57M21 65h43"/>
+      <g className="story-evidence story-motion"><rect x="18" y="74" width="63" height="15" rx="3"/><rect x="18" y="98" width="63" height="15" rx="3"/></g>
+      <text x="24" y="85">Acme</text><text x="24" y="109">$240</text>
+      <path className="story-transfer story-motion" d="M90 81h33q9 0 9-9V47h16M132 81v32h16"/>
+      <g className="story-result story-motion"><rect className="story-paper" x="151" y="24" width="98" height="49" rx="6"/><rect className="story-evidence" x="151" y="24" width="98" height="18" rx="6"/>
+      <text x="162" y="37">CUSTOMERS</text><text x="162" y="59">01</text><text x="186" y="59">Acme</text>
+      <rect className="story-paper" x="151" y="95" width="98" height="49" rx="6"/><rect className="story-evidence" x="151" y="95" width="98" height="18" rx="6"/>
+      <text x="162" y="108">ORDERS</text><text x="162" y="130">01</text><text x="186" y="130">$240</text>
+      <path className="story-ink story-link story-motion" d="M162 73v22"/><circle className="story-dot" cx="162" cy="76" r="2"/><circle className="story-dot" cx="162" cy="92" r="2"/></g>
+    </> : <>
+      <rect className="story-paper" x="66" y="12" width="128" height="32" rx="8"/><text x="88" y="32">Organize this data</text>
+      <path className="story-muted" d="M130 44v28M47 88V72h166v16"/>
+      <path className="story-transfer story-motion" d="M130 44v28H47v16"/>
+      <g className="story-result story-motion"><rect className="story-paper story-choice" x="13" y="89" width="67" height="53" rx="7"/>
+      <path className="story-ink" d="M28 102h36v26H28zM28 111h36M28 120h36M40 111v17M52 111v17"/>
+      <rect className="story-paper" x="97" y="89" width="67" height="53" rx="7"/><path className="story-muted" d="m111 120 20-18 19 24-39-6"/>
+      <circle className="story-dot" cx="111" cy="120" r="3"/><circle className="story-dot" cx="131" cy="102" r="3"/><circle className="story-dot" cx="150" cy="126" r="3"/>
+      <rect className="story-paper" x="181" y="89" width="67" height="53" rx="7"/><path className="story-muted" d="M214 105v10M199 127v-12h30v12"/>
+      <rect className="story-ink" x="209" y="99" width="10" height="8" rx="2"/><rect className="story-ink" x="194" y="125" width="10" height="8" rx="2"/><rect className="story-ink" x="224" y="125" width="10" height="8" rx="2"/></g>
+    </>}
+  </svg>;
 }
-
-export default function SystemOverview() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [inView, setInView] = useState(false);
-  const [playing, setPlaying] = useState(() => !window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-  useEffect(() => {
-    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const handleChange = () => { if (preference.matches) setPlaying(false); };
-    preference.addEventListener('change', handleChange);
-    return () => preference.removeEventListener('change', handleChange);
-  }, []);
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting && entry.intersectionRatio >= .15), {threshold: .15});
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  return <section ref={sectionRef} className="system-overview" aria-labelledby="system-overview-title" data-playing={playing} data-running={playing && inView}>
-    <header className="overview-heading">
-      <div><p className="overview-eyebrow"><span aria-hidden="true">✦</span> THE DATAMOSAIC ECOSYSTEM</p><h2 id="system-overview-title">More than documents.<br/><em>A world of possibilities.</em></h2></div>
-      <p>Purpose-built applications.<br/>A growing layer of knowledge.<br/><strong>All in one mosaic.</strong></p>
-      <button className="overview-toggle" type="button" onClick={() => setPlaying(v => !v)} aria-label={playing ? 'Pause system animation' : 'Play system animation'}><svg viewBox="0 0 16 16" aria-hidden="true"><path d={playing ? 'M5 3v10M11 3v10' : 'm5 3 8 5-8 5Z'}/></svg></button>
-    </header>
-    <div className="overview-scene" role="group" aria-label="Data powers applications. OntoMosaic turns experience into shared knowledge that applications can reuse.">
-      <section className="overview-shelf overview-applications" aria-labelledby="overview-apps-title">
-        <h3 id="overview-apps-title" className="overview-layer-label">APPLICATION LAYER</h3>
-        <div className="overview-app-dock">
-          {applications.map((app,i) => {
-            const content = <><span className={`overview-app-icon overview-motion overview-tone-${app.tone}`} style={{'--item':i} as CSSProperties}><Icon kind={app.icon}/><i className="overview-icon-shine overview-motion"/></span><strong>{app.name}</strong></>;
-            return 'href' in app ? <a className="overview-tile" key={app.name} href={siteUrl(app.href)} aria-label={`Explore ${app.name}`}>{content}</a> : <div className="overview-tile" key={app.name}>{content}</div>;
-          })}
-        </div>
-        <span className="overview-dock-caption">Agentic applications for your data</span>
-      </section>
-      <div className="overview-stage">
-        <svg className="overview-routes" viewBox="0 0 1000 350" preserveAspectRatio="none" aria-hidden="true">
-          <defs><linearGradient id="overview-route-gradient"><stop stopColor="#7794b4"/><stop offset=".5" stopColor="#a394bc"/><stop offset="1" stopColor="#7eaaa5"/></linearGradient></defs>
-          <path className="overview-route-track" d="M180 175H820M500 0V105M500 245V350M820 200v75q0 30-30 30H210q-30 0-30-30v-75"/>
-          <path className="overview-route-in overview-motion" pathLength="1" d="M180 175H500V0"/>
-          <path className="overview-route-learn overview-motion" pathLength="1" d="M500 0V175"/>
-          <path className="overview-route-out overview-motion" pathLength="1" d="M500 175H820"/>
-          <path className="overview-route-reuse overview-motion" pathLength="1" d="M820 200v75q0 30-30 30H500V0"/>
-        </svg>
-        <svg className="overview-routes overview-routes-mobile" viewBox="0 0 300 420" preserveAspectRatio="none" aria-hidden="true">
-          <path className="overview-route-track" d="M150 0v420M150 390h120V10H150"/>
-          <path className="overview-route-in overview-motion" pathLength="1" d="M150 0v150"/>
-          <path className="overview-route-learn overview-motion" pathLength="1" d="M150 60v150"/>
-          <path className="overview-route-out overview-motion" pathLength="1" d="M150 250v170"/>
-          <path className="overview-route-reuse overview-motion" pathLength="1" d="M150 390h100q20 0 20-20V30q0-20-20-20H150"/>
-        </svg>
-        <div className="overview-data" aria-label="Data sources">
-          <span className="overview-small-label">YOUR INFORMATION</span>
-          <div className="overview-data-stack overview-motion" aria-hidden="true">
-            <div className="overview-paper overview-paper-back"><span className="overview-paper-caption">DATA</span><div className="overview-paper-cells">{Array.from({length:12},(_,i)=><i key={i}/>)}</div></div>
-            <div className="overview-paper overview-paper-middle"><span className="overview-paper-caption">REPORT</span><div className="overview-paper-bars"><i/><i/><i/><i/></div><i/><i/></div>
-            <div className="overview-paper overview-paper-front"><b className="overview-paper-monogram">D<span>↗</span></b><i/><i/><i/><div className="overview-paper-highlight"><i/><i/><i/></div><span className="overview-paper-scan overview-motion"/></div>
-          </div>
-          <p>Text · Tables · Figures</p>
-        </div>
-        <div className="overview-knowledge">
-          <div className="overview-knowledge-orbit" aria-hidden="true"><i/><i/></div>
-          <svg className="overview-knowledge-graph" viewBox="0 0 300 240" aria-hidden="true">
-            <path className="overview-graph-track" d={graphPath}/>
-            <path className="overview-graph-build overview-motion" pathLength="1" d={graphPath}/>
-            {nodes.map(([x,y],i)=><g className="overview-knowledge-node overview-motion" key={i} style={{'--node':i} as CSSProperties}>
-              <circle className="overview-node-halo" cx={x} cy={y} r="13"/><circle cx={x} cy={y} r={i===4?7:5}/>
-            </g>)}
-          </svg>
-          <span className="overview-graph-tag overview-tag-concepts overview-motion">Concepts</span><span className="overview-graph-tag overview-tag-relations overview-motion">Relationships</span><span className="overview-graph-tag overview-tag-rules overview-motion">Rules</span>
-          <div className="overview-core overview-motion"><span className="overview-core-mark" aria-hidden="true">{Array.from({length:9},(_,i)=><i key={i}/>)}</span><strong>OntoMosaic</strong></div>
-          <p>Shared knowledge. Evolving intelligence.</p>
-        </div>
-        <div className="overview-outcomes" aria-label="Application capabilities">
-          <span className="overview-small-label">NEW POSSIBILITIES</span>
-          {(['answer','table','workflow'] as const).map((kind,i)=><div key={kind} className={`overview-outcome overview-motion overview-outcome-${i}`}><span><Icon kind={kind}/></span><strong>{['Answers','Structured data','Agentic workflows'][i]}</strong><i>↗</i></div>)}
-        </div>
+export default function SystemOverview(){
+  const sectionRef=useRef<HTMLElement>(null);
+  const storiesRef=useRef<HTMLDivElement>(null);
+  const [inView,setInView]=useState(false);
+  const [playing,setPlaying]=useState(()=>!window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const [active,setActive]=useState(0);
+  const [selected,setSelected]=useState([true,true,false]);
+  const [notice,setNotice]=useState('Select knowledge plugins. Reuse them across applications.');
+  useEffect(()=>{const media=window.matchMedia('(prefers-reduced-motion: reduce)');const change=()=>{if(media.matches)setPlaying(false);};media.addEventListener('change',change);return()=>media.removeEventListener('change',change);},[]);
+  useEffect(()=>{const observer=new IntersectionObserver(([entry])=>setInView(entry.isIntersecting&&entry.intersectionRatio>=.15),{threshold:.15});if(sectionRef.current)observer.observe(sectionRef.current);return()=>observer.disconnect();},[]);
+  useEffect(()=>{if(!playing||!inView)return;const timer=setTimeout(()=>setActive(i=>(i+1)%apps.length),4800);return()=>clearTimeout(timer);},[active,playing,inView]);
+  useEffect(()=>{
+    const media=window.matchMedia('(max-width:600px)');
+    const reveal=()=>{if(!inView||!media.matches)return;const panel=storiesRef.current,card=panel?.children[active] as HTMLElement|undefined;if(panel&&card)panel.scrollTo({left:card.offsetLeft,behavior:'auto'});};
+    reveal();media.addEventListener('change',reveal);
+    return()=>media.removeEventListener('change',reveal);
+  },[active,inView]);
+  const count=selected.filter(Boolean).length;
+  function toggle(index:number){const next=selected.map((value,i)=>i===index?!value:value);setSelected(next);setNotice(next[index]?`${plugins[index].name} connected to all three applications.`:`${plugins[index].name} disconnected from the applications.`);}
+  return <section ref={sectionRef} className="system-overview" aria-labelledby="system-overview-title" data-playing={playing} data-running={playing&&inView} data-active={active}>
+    <header className="overview-heading"><div><p className="overview-eyebrow"><span aria-hidden="true">✦</span> THE DATAMOSAIC ECOSYSTEM</p><h2 id="system-overview-title">More than documents.<br/><em>A world of possibilities.</em></h2></div><p>Purpose-built applications.<br/>A growing layer of knowledge.<br/><strong>All in one mosaic.</strong></p><button className="overview-toggle" type="button" aria-label={playing?'Pause system animation':'Play system animation'} onClick={()=>setPlaying(v=>!v)}><svg viewBox="0 0 16 16" aria-hidden="true"><path d={playing?'M5 3v10M11 3v10':'m5 3 8 5-8 5Z'}/></svg></button></header>
+    <div className="overview-scene">
+      <div className="overview-app-layout">
+        <aside className="overview-data" aria-label="Data sources"><span className="overview-small-label">YOUR INFORMATION</span><div className="overview-data-stack" aria-hidden="true">
+          <div className="overview-paper overview-paper-back"><span>DATA</span><div className="overview-paper-cells">{Array.from({length:12},(_,i)=><i key={i}/>)}</div></div>
+          <div className="overview-paper overview-paper-middle"><span>REPORT</span><div className="overview-paper-bars"><i/><i/><i/><i/></div><i/><i/></div>
+          <div className="overview-paper overview-paper-front"><b>D<span>↗</span></b><i/><i/><i/><div className="overview-paper-highlight"><i/><i/><i/></div></div>
+        </div><p>Text · Tables · Figures</p><span className="overview-data-arrow" aria-hidden="true">→</span></aside>
+        <section className="overview-applications" aria-labelledby="overview-apps-title"><div className="overview-layer-heading"><h3 id="overview-apps-title">APPLICATION LAYER</h3><span>Three ways to put your data to work</span></div>
+          <div ref={storiesRef} className="overview-app-stories" onPointerDown={()=>setPlaying(false)}>{apps.map((app,index)=><article className={`overview-app-story overview-tone-${index} ${active===index?'is-active':''}`} key={app.title}>
+            <button className="overview-story-select" aria-label={`Show ${app.title}`} aria-pressed={active===index} onClick={()=>{setActive(index);setPlaying(false);}}><span className="overview-story-dot"/><strong>{app.title}</strong></button>
+            <div className="overview-story-visual" key={`${index}-${active===index}`}><Story index={index}/></div>
+            <p className="overview-story-description">{app.description}</p><div className="overview-story-io"><span>{app.input}</span><i aria-hidden="true">→</i><strong>{app.output}</strong></div>
+            <div className="overview-app-socket" aria-label={`${count} knowledge plugins connected to ${app.title}`}><PlugIcon/><span>{count?`${count} knowledge ${count===1?'plugin':'plugins'}`:'Add knowledge plugins'}</span><div>{plugins.map((plugin,i)=><i key={plugin.name} className={`overview-socket-dot overview-plugin-tone-${plugin.tone} ${selected[i]?'is-connected':''}`} aria-hidden="true"/>)}</div></div>
+            <span className="overview-story-progress" aria-hidden="true"><i key={active===index?'active':'idle'}/></span>
+          </article>)}</div>
+        </section>
       </div>
-      <section className="overview-shelf overview-ontology" aria-labelledby="overview-knowledge-title">
-        <h3 id="overview-knowledge-title" className="overview-layer-label">ONTOLOGY LAYER <span>(OntoMosaic)</span></h3>
-        <div className="overview-ontology-dock">{ontologies.map(module=><a className={`overview-tile overview-tone-${module.tone}`} key={module.name} href={siteUrl(module.href)} aria-label={`Explore ${module.name}`}><Icon kind="graph"/><span><strong>{module.name}</strong></span></a>)}</div>
+      <div className={`overview-plugin-bus ${count?'is-connected':''}`} aria-hidden="true"><svg viewBox="0 0 1000 60" preserveAspectRatio="none"><path d="M165 0v15q0 15 15 15h640q15 0 15-15V0M500 0v60M165 60V45q0-15 15-15h640q15 0 15 15v15"/><path className="overview-plugin-energy" key={selected.join('-')} pathLength="1" d="M165 60V45q0-15 15-15h640q15 0 15-15V0M500 60V0"/></svg><span><PlugIcon/> Choose once. Reuse across apps.</span></div>
+      <section className="overview-ontology" aria-labelledby="overview-knowledge-title"><div className="overview-layer-heading"><h3 id="overview-knowledge-title">ONTOLOGY LAYER <span>(OntoMosaic)</span></h3><span>Optional, reusable knowledge plugins</span></div>
+        <div className="overview-plugin-rack">{plugins.map((plugin,index)=><button type="button" className={`overview-plugin overview-plugin-tone-${plugin.tone}`} key={plugin.name} aria-pressed={selected[index]} onClick={()=>toggle(index)}><span className="overview-plugin-icon"><PlugIcon/></span><span><strong>{plugin.name}</strong><small>{plugin.detail}</small></span><span className="overview-plugin-switch" aria-hidden="true"><i/></span></button>)}</div>
+        <p className="overview-plugin-notice" aria-live="polite">{notice}</p>
       </section>
-      <div className="overview-narration" aria-hidden="true">{captions.map((caption,i)=><span className={`overview-caption overview-caption-${i} overview-motion`} key={caption}>{caption}</span>)}</div>
     </div>
   </section>;
 }
