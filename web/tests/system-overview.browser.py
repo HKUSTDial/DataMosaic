@@ -28,9 +28,13 @@ with sync_playwright() as playwright:
                        ("OntoMosaic-Enterprise", "/ontomosaic-enterprise")):
         expect(overview.get_by_role("link", name=f"Explore {name}", exact=True)).to_have_attribute("href", urlparse(page.url).path.rstrip("/") + href)
     expect(overview.get_by_text("StructMosaic", exact=True)).to_be_visible()
+    assert overview.locator(".overview-art-structure .overview-structure-choice").count() == 3
+    assert overview.locator(".overview-art-structure .overview-node").count() == 0
+    assert overview.locator(".overview-ontology .overview-art-graph").count() == 3
     assert overview.locator(".overview-tile").filter(has_text="StructMosaic").locator("a").count() == 0
     for label in ("Research", "Search", "Analytics", "Automation", "Finance", "Your next app", "Your domain"):
         expect(overview.get_by_text(label, exact=True)).to_have_count(0)
+    expect(overview.get_by_text("Agentic document understanding", exact=True)).to_be_visible()
     flow = overview.locator(".overview-connection-flow")
     initial = flow.evaluate("e => getComputedStyle(e).strokeDashoffset")
     page.wait_for_function("initial => getComputedStyle(document.querySelector('.overview-connection-flow')).strokeDashoffset !== initial", arg=initial)
@@ -59,10 +63,14 @@ with sync_playwright() as playwright:
         assert upper["y"] + upper["height"] < lower["y"], (width, "Layers overlap")
 
     page.set_viewport_size({"width": 1440, "height": 1100})
+    scene = overview.locator(".overview-scene")
+    expect(scene).to_have_css("background-color", "rgb(248, 250, 252)")
     overview.screenshot(path="/tmp/datamosaic-overview-desktop.png")
     page.get_by_role("button", name="Switch to dark mode").click()
+    expect(scene).to_have_css("background-color", "rgb(27, 39, 54)")
     overview.screenshot(path="/tmp/datamosaic-overview-dark.png")
     page.get_by_role("button", name="Switch to light mode").click()
+    expect(scene).to_have_css("background-color", "rgb(248, 250, 252)")
     page.set_viewport_size({"width": 390, "height": 1100})
     overview.screenshot(path="/tmp/datamosaic-overview-mobile.png")
     page.emulate_media(reduced_motion="reduce")

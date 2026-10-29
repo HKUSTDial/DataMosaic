@@ -3,7 +3,7 @@ import { useEffect, useState, type CSSProperties } from 'react';
 import './SystemOverview.css';
 
 const applications = [
-  { name: 'DocMosaic', detail: 'Answers with evidence', kind: 'document', tone: 'blue', href: '/docmosaic/' },
+  { name: 'DocMosaic', detail: 'Agentic document understanding', kind: 'document', tone: 'blue', href: '/docmosaic/' },
   { name: 'DBMosaic', detail: 'Documents to databases', kind: 'database', tone: 'violet', href: '/dbmosaic/' },
   { name: 'StructMosaic', detail: 'Tables. Graphs. Trees.', kind: 'structure', tone: 'cyan' },
 ];
@@ -15,7 +15,7 @@ const ontologies = [
 type Module = { name: string; detail: string; kind: string; tone: string; href?: string };
 
 function ModuleArt({ kind }: { kind: string }) {
-  return <svg className="overview-art" viewBox="0 0 220 90" aria-hidden="true">
+  return <svg className={`overview-art overview-art-${kind}`} viewBox="0 0 220 90" aria-hidden="true">
     {kind === 'document' ? <>
       <g className="overview-art-muted"><rect x="30" y="11" width="51" height="66" rx="7" transform="rotate(-9 55 44)"/><rect x="42" y="8" width="51" height="66" rx="7"/></g>
       <rect className="overview-art-glass" x="53" y="13" width="51" height="66" rx="7"/><path className="overview-art-muted" d="M64 27h27M64 35h19M64 51h27M64 59h23M64 67h15"/>
@@ -27,12 +27,29 @@ function ModuleArt({ kind }: { kind: string }) {
       <path className="overview-art-glass" d="M95 23v43c0 16 67 16 67 0V23"/><ellipse className="overview-art-accent overview-motion" cx="128.5" cy="23" rx="33.5" ry="11"/>
       <path className="overview-art-accent overview-motion" d="M95 44c0 16 67 16 67 0M95 64c0 16 67 16 67 0"/>
       <path className="overview-art-signal overview-motion" d="M46 25h27l22 20M46 65h27l22-20"/>
+    </> : kind === 'structure' ? <>
+      <rect className="overview-art-glass" x="92" y="2" width="36" height="23" rx="6"/>
+      <path className="overview-art-accent overview-motion" d="m99 13 3 3 5-6M112 10h9M112 16h6"/>
+      <path className="overview-art-muted" d="M110 25v18M38 43v-5q0-5 5-5h134q5 0 5 5v5"/>
+      <path className="overview-art-signal overview-motion" d="M110 25v8H43q-5 0-5 5v5M110 33h67q5 0 5 5v5"/>
+      <g className="overview-structure-choice overview-motion">
+        <rect className="overview-art-glass" x="12" y="43" width="52" height="37" rx="6"/>
+        <path d="M21 51h34v21H21zM21 58h34M21 65h34M32 58v14M43 58v14"/>
+      </g>
+      <g className="overview-structure-choice overview-motion" style={{animationDelay:'-3s'}}>
+        <rect className="overview-art-glass" x="84" y="43" width="52" height="37" rx="6"/>
+        <path d="M110 55v7M98 68v-6h24v6"/><rect x="106" y="50" width="8" height="6" rx="1"/><rect x="94" y="68" width="8" height="6" rx="1"/><rect x="118" y="68" width="8" height="6" rx="1"/>
+      </g>
+      <g className="overview-structure-choice overview-motion" style={{animationDelay:'-6s'}}>
+        <rect className="overview-art-glass" x="156" y="43" width="52" height="37" rx="6"/>
+        <path d="m170 62 12-10 13 18-25-8 8 10 17-2"/><circle cx="170" cy="62" r="3"/><circle cx="182" cy="52" r="3"/><circle cx="195" cy="70" r="3"/><circle cx="178" cy="72" r="3"/>
+      </g>
     </> : <>
       <path className="overview-art-muted" d="M110 15 46 43l18 29 46-21 47 21 22-29-69-28v36M46 43l64 8 69-8M64 72h93"/>
       <path className="overview-art-signal overview-motion" d="M46 43 110 15l69 28-22 29-47-21-46 21"/>
       {[[110,15],[46,43],[179,43],[64,72],[110,51],[157,72]].map(([x,y], i) => <g key={i} className="overview-node overview-motion" style={{ '--node-delay': `${i * -.65}s` } as CSSProperties}>
         <circle className="overview-node-halo" cx={x} cy={y} r="10"/>
-        {kind === 'structure' && i % 2 ? <rect x={x-4} y={y-4} width="8" height="8" rx="2"/> : <circle cx={x} cy={y} r={i===0 ? 5 : 4}/>}
+        <circle cx={x} cy={y} r={i===0 ? 5 : 4}/>
       </g>)}
     </>}
   </svg>;
