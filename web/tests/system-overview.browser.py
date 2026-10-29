@@ -35,9 +35,14 @@ with sync_playwright() as playwright:
     for label in ("Research", "Search", "Analytics", "Automation", "Finance", "Your next app", "Your domain"):
         expect(overview.get_by_text(label, exact=True)).to_have_count(0)
     expect(overview.get_by_text("Agentic document understanding", exact=True)).to_be_visible()
-    flow = overview.locator(".overview-connection-flow")
-    initial = flow.evaluate("e => getComputedStyle(e).strokeDashoffset")
-    page.wait_for_function("initial => getComputedStyle(document.querySelector('.overview-connection-flow')).strokeDashoffset !== initial", arg=initial)
+    overview.scroll_into_view_if_needed()
+    expect(overview).to_have_attribute("data-running", "true")
+    flow = overview.locator(".overview-transfer")
+    def seek(seconds):
+        overview.evaluate("(e, seconds) => e.getAnimations({subtree:true}).forEach(a => { a.currentTime = seconds * 1000; })", seconds)
+    seek(13)
+    initial = flow.first.evaluate("e => getComputedStyle(e).strokeDashoffset")
+    page.wait_for_function("initial => getComputedStyle(document.querySelector('.overview-transfer')).strokeDashoffset !== initial", arg=initial)
     page.get_by_role("button", name="Pause system animation").click()
     expect(overview).to_have_attribute("data-playing", "false")
     assert overview.evaluate("""e => [...e.querySelectorAll('.overview-motion')]
@@ -49,6 +54,14 @@ with sync_playwright() as playwright:
         .every(n => getComputedStyle(n).animationPlayState === 'running')""")
     page.get_by_role("button", name="Pause system animation").click()
 
+    # A single highlighted module progresses through applications, then ontologies.
+    lights = overview.locator(".overview-card-light")
+    for second, selected in ((3.2,0), (6.1,1), (9.0,2), (13.8,3), (16.2,4), (18.6,5)):
+        seek(second)
+        opacity = lights.evaluate_all("els => els.map(e => Number(getComputedStyle(e).opacity))")
+        assert opacity[selected] > .9 and sum(o > .5 for o in opacity) == 1, (second, opacity)
+    seek(13.8)
+    overview.screenshot(path="/tmp/datamosaic-overview-learning.png")
     for width in (1440, 1200, 1024, 901, 900, 768, 601, 600, 390, 360, 320):
         page.set_viewport_size({"width": width, "height": 1100})
         assert overview.evaluate("e => e.scrollWidth <= e.clientWidth + 1"), f"Overflow at {width}px"
@@ -65,6 +78,7 @@ with sync_playwright() as playwright:
     page.set_viewport_size({"width": 1440, "height": 1100})
     scene = overview.locator(".overview-scene")
     expect(scene).to_have_css("background-color", "rgb(248, 250, 252)")
+    seek(6.1)
     overview.screenshot(path="/tmp/datamosaic-overview-desktop.png")
     page.get_by_role("button", name="Switch to dark mode").click()
     expect(scene).to_have_css("background-color", "rgb(27, 39, 54)")
@@ -73,6 +87,9 @@ with sync_playwright() as playwright:
     expect(scene).to_have_css("background-color", "rgb(248, 250, 252)")
     page.set_viewport_size({"width": 390, "height": 1100})
     overview.screenshot(path="/tmp/datamosaic-overview-mobile.png")
+    page.evaluate("window.scrollTo(0, 0)")
+    expect(overview).to_have_attribute("data-running", "false")
+    overview.scroll_into_view_if_needed()
     page.emulate_media(reduced_motion="reduce")
     expect(overview).to_have_attribute("data-playing", "false")
     expect(page.get_by_role("button", name="Play system animation")).to_be_hidden()
