@@ -18,7 +18,7 @@ Given a task **Q** and available sources, DataMosaic is built around three compl
 
 These capabilities are organized into task-oriented modules:
 
-The homepage uses a top navigation bar: **Applications → DBMosaic / DocMosaic** opens DBMosaic and DocPilot respectively; **Ontologies** lists the OntoMosaic modules; **Resources → Documentation / Publications** opens the repository and the site's `/research/` publication list. **Organization** opens HKUSTDial, and **Contact us** opens the repository's issue form. On smaller screens, navigation is available through the menu button. The research page groups the three publications below by year and provides PDF and code links; it supports direct access and refresh through the existing portal fallback.
+The homepage uses a top navigation bar: **Applications → DBMosaic / DocMosaic** opens DBMosaic and DocPilot respectively; **Ontologies** lists the OntoMosaic modules; **Resources → Tools / Benchmarks / Publications** opens `/tools/`, `/benchmarks/`, and the existing `/research/` publication list. **Organization → Documentation / Members** opens the repository and `/members/`; Members lists faculty and students with portraits and available profile links; Tools groups related products into Agentic Document AI (LandingAI) and Extraction (LlamaExtract and Reducto), with product images, capability summaries, and official website links; Benchmarks groups DTBench and Doc2DB-Bench under Information Extraction, and LongDocURL, MMLongBench-Doc, MADQA, FinRAGBench-V, and OfficeQA Pro under DocVQA, with official figures and paper, code, and dataset links, and **Contact us** opens the repository's issue form. On smaller screens, navigation is available through the menu button. The research page groups the publications by year and provides PDF and code links where they are available; it supports direct access and refresh through the existing portal fallback.
 
 | Engine / Module | Repository | What it does | Output |
 | --- | --- | --- | --- |
@@ -29,7 +29,7 @@ The homepage uses a top navigation bar: **Applications → DBMosaic / DocMosaic*
 
 This work is associated with three publications:
 
-[1] **Zhengxuan Zhang**, Zhuowen Liang, Jiazhuo Chen, Haixun Wang, and Nan Tang. *Document-to-Database: Extraction Meets Relational Semantics.* VLDB, 2026. [[PDF](https://www.vldb.org/pvldb/vol19/p2522-zhang.pdf)]
+[1] **Zhengxuan Zhang**, Zhuowen Liang, Jiazhuo Chen, Haixun Wang, and Nan Tang. *Document-to-Database: Extraction Meets Relational Semantics.* VLDB, 2026. [[PDF](https://www.vldb.org/pvldb/vol19/p2522-tang.pdf)]
 
 [2] **Zhengxuan Zhang**, Zhuowen Liang, Haixun Wang, and Nan Tang. *DataMosaic: An Interactive Demonstration of Constraint-Driven Document-to-Database Construction.* VLDB Demo, 2026. [[PDF](https://www.vldb.org/pvldb/vol19/p4570-zhang.pdf)]
 

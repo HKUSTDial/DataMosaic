@@ -44,9 +44,6 @@
       notify('已选中文本，请按 Ctrl+C 或 ⌘C 复制');
     }
   }
-  document.querySelector('#copy-bib').addEventListener('click', event => {
-    copyText(document.querySelector('#bibtex'));
-  });
   document.querySelectorAll('pre:not(.bib)').forEach((pre, index) => {
     const wrapper = document.createElement('div');
     wrapper.className = 'code-wrap';
@@ -61,33 +58,7 @@
     button.addEventListener('click', () => copyText(pre));
   });
 
-  const promo = document.querySelector('#promo');
-  const promoToggle = document.querySelector('#promo-toggle');
-  const motionSource = document.querySelector('.hero-animation source');
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  let animationPaused = reducedMotion.matches;
-  function updateAnimation() {
-    const source = animationPaused ? 'promo-poster.png' : 'datamosaic_promo_5s.gif';
-    promo.src = source;
-    motionSource.srcset = source;
-    syncAnimationLabels();
-    promoToggle.setAttribute('aria-pressed', String(animationPaused));
-  }
-  function syncAnimationLabels() {
-    promoToggle.textContent = t(animationPaused ? '播放动画 ▷' : '暂停动画 Ⅱ');
-    promoToggle.setAttribute('aria-label', t(animationPaused ? '播放演示动画' : '暂停演示动画'));
-  }
-  promoToggle.addEventListener('click', () => {
-    animationPaused = !animationPaused;
-    updateAnimation();
-  });
-  reducedMotion.addEventListener('change', event => {
-    animationPaused = event.matches;
-    updateAnimation();
-  });
-  updateAnimation();
   document.addEventListener('languagechange', () => {
-    syncAnimationLabels();
     menuButton.setAttribute('aria-label', t(nav.classList.contains('open') ? '关闭导航' : '打开导航'));
     document.querySelectorAll('.copy-code').forEach((button, index) => {
       button.textContent = t('复制 ↗');

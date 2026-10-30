@@ -13,7 +13,8 @@ const dropdowns = [
     { label: 'OntoMosaic-Enterprise', description: 'Connect business processes and data through a shared ontology', href: '/ontomosaic-enterprise', icon: 'M12 8v4M5 16v-4h14v4M9 2h6v6H9zM2 16h6v6H2zM16 16h6v6h-6z' },
   ] },
   { id: 'resource', label: 'Resources', icon: 'M12 5v15M3 5c3-1.5 6-1.5 9 0 3-1.5 6-1.5 9 0v15c-3-1.5-6-1.5-9 0-3-1.5-6-1.5-9 0z', links: [
-    { label: 'Documentation', description: 'Explore the repository and setup guides', href: repository, icon: 'M12 5v15M3 5c3-1.5 6-1.5 9 0 3-1.5 6-1.5 9 0v15c-3-1.5-6-1.5-9 0-3-1.5-6-1.5-9 0z' },
+    { label: 'Tools', description: 'Explore tools for working with data', href: '/tools/', icon: 'M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z' },
+    { label: 'Benchmarks', description: 'Explore datasets and evaluations', href: '/benchmarks/', icon: 'M4 3v18h17M8 17v-5M13 17V8M18 17V4' },
     { label: 'Publications', description: 'Read the research behind DataMosaic', href: '/research/', icon: 'M4 3h11l3 3v5M4 3v18h7M8 7h5M8 11h3M19 15a4 4 0 1 1-8 0 4 4 0 0 1 8 0Zm-1 3 3 3' },
   ] },
 ];
@@ -57,7 +58,8 @@ export default function SiteHeader({ darkMode, onToggleTheme }: { darkMode: bool
   }, [openMenu, mobileOpen]);
 
   return <header className="site-header" ref={headerRef} onBlur={(event) => {
-    if (!event.currentTarget.contains(event.relatedTarget)) closeNavigation();
+    // Touch interactions can blur without focusing the tapped control; let its click finish.
+    if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget)) closeNavigation();
   }}>
     <div className="site-header-inner">
       <a className="brand" href={siteUrl('/')} aria-label="DataMosaic home">
@@ -75,7 +77,8 @@ export default function SiteHeader({ darkMode, onToggleTheme }: { darkMode: bool
             </a>)}
           </div>
         </div>)}
-        <a className="header-organization" href="https://github.com/HKUSTDial" target="_blank" rel="noreferrer" onClick={closeNavigation}>Organization<span aria-hidden="true">↗</span></a>
+        <a className="header-nav-trigger" id="nav-documentation" href={repository} target="_blank" rel="noreferrer" onClick={closeNavigation}><span className="header-nav-label"><svg className="header-nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v15M3 5c3-1.5 6-1.5 9 0 3-1.5 6-1.5 9 0v15c-3-1.5-6-1.5-9 0-3-1.5-6-1.5-9 0z"/></svg>Documentation</span></a>
+        <a className="header-nav-trigger" id="nav-members" href={siteUrl('/members/')} onClick={closeNavigation}><span className="header-nav-label"><svg className="header-nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M13 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Members</span></a>
       </nav>
       <div className="header-actions">
         <button className="header-mobile-toggle" id="nav-mobile" type="button" aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={mobileOpen} aria-controls="primary-navigation" onClick={() => { setMobileOpen(!mobileOpen); setOpenMenu(null); }}>

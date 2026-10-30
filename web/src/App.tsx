@@ -2,18 +2,27 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import UseCases from './UseCases';
 import docMosaicDemo from '../../assets/DocMosaic-demo.gif';
 import dbMosaicDemo from '../../assets/DBMosaic-demo.gif';
+import structMosaicDemo from '../../assets/StructMosaic-demo.gif';
 import ontoDocDemo from '../../assets/OntoMosaic-Doc-demo.gif';
 import ontoMosaicDemo from '../../assets/OntoMosaic-DB-demo.gif';
 import ontoEnterpriseDemo from '../../assets/OntoMosaic-Enterprise-demo.gif';
 import DemoDialog from './DemoDialog';
 import SiteHeader from './SiteHeader';
 import ResearchPage from './ResearchPage';
+import MembersPage from './MembersPage';
+import ToolsPage from './ToolsPage';
+import BenchmarksPage from './BenchmarksPage';
 import SystemOverview from './SystemOverview';
 import { isPagesPreview, pagePath, siteUrl } from './site';
 const OntologyWorkbench = lazy(() => import('./features/ontology/OntologyWorkbench'));
 const ontologyPlaceholders = [
   { name: 'OntoMosaic-Doc', href: '/ontomosaic-doc', number: '01' },
   { name: 'OntoMosaic-Enterprise', href: '/ontomosaic-enterprise', number: '03' },
+];
+const informationPages = [
+  { path: '/members', title: 'Members' },
+  { path: '/tools', title: 'Tools' },
+  { path: '/benchmarks', title: 'Benchmarks' },
 ];
 
 /* const previewSources = [
@@ -44,6 +53,7 @@ function ServiceStatus({ url }: { url: string }) {
 export default function App() {
   const path = pagePath();
   const isResearchPage = /^\/research\/?$/.test(path);
+  const informationPage = informationPages.find(page => page.path === path.replace(/\/$/, ''));
   const isText2SQLPage = !isPagesPreview && /^\/(ontomosaic-text2sql|ontology)\/?$/.test(path);
   const ontologyPlaceholder = ontologyPlaceholders.find(item => item.href === path.replace(/\/$/, ''));
   const previewRoutes: Record<string, 'analyze' | 'extract' | 'ontology'> = {
@@ -53,11 +63,12 @@ export default function App() {
   const previewDemo = isPagesPreview ? previewRoutes[path.replace(/\/$/, '')] : undefined;
   const previewTitle = previewDemo && { analyze: 'DocMosaic', extract: 'DBMosaic', ontology: 'OntoMosaic-DB' }[previewDemo];
   // const [previewPaused, setPreviewPaused] = useState(false);
-  const [activeDemo, setActiveDemo] = useState<'analyze' | 'extract' | 'ontology' | null>(previewDemo ?? null);
+  const [docDemo, setDocDemo] = useState<'agentic' | 'interaction'>('agentic');
+  const [activeDemo, setActiveDemo] = useState<'analyze' | 'extract' | 'ontology' | 'structure' | null>(previewDemo ?? null);
   const [darkMode, setDarkMode] = useState(() => document.documentElement.dataset.theme === 'dark');
 
   useEffect(() => {
-    document.title = ontologyPlaceholder ? `${ontologyPlaceholder.name} | DataMosaic` : previewTitle ? `${previewTitle} | DataMosaic` : isText2SQLPage ? 'OntoMosaic-DB | DataMosaic' : isResearchPage ? 'Research Papers | DataMosaic' : 'DataMosaic';
+    document.title = informationPage ? `${informationPage.title} | DataMosaic` : ontologyPlaceholder ? `${ontologyPlaceholder.name} | DataMosaic` : previewTitle ? `${previewTitle} | DataMosaic` : isText2SQLPage ? 'OntoMosaic-DB | DataMosaic' : isResearchPage ? 'Research Papers | DataMosaic' : 'DataMosaic';
     const theme = darkMode ? 'dark' : 'light';
     document.documentElement.dataset.theme = theme;
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', darkMode ? '#111720' : '#f4f6f8');
@@ -66,22 +77,22 @@ export default function App() {
     } catch {
       // Theme switching remains available when browser storage is blocked.
     }
-  }, [darkMode, isResearchPage, isText2SQLPage, ontologyPlaceholder?.name, previewTitle]);
+  }, [darkMode, isResearchPage, isText2SQLPage, ontologyPlaceholder?.name, previewTitle, informationPage?.title]);
 
   return <div className="app-shell">
     <SiteHeader darkMode={darkMode} onToggleTheme={() => setDarkMode(value => !value)}/>
     <div className="page">
-      <main className={`content${isResearchPage ? ' research-content' : ''}${isText2SQLPage ? ' ontology-content' : ''}`}>
-        {ontologyPlaceholder ? null : isText2SQLPage ? <Suspense fallback={<p role="status">Loading OntoMosaic-DB…</p>}><OntologyWorkbench/></Suspense> : isResearchPage ? <ResearchPage/> : <>
+      <main className={`content${isResearchPage || informationPage ? ' research-content' : ''}${isText2SQLPage ? ' ontology-content' : ''}`}>
+        {informationPage?.path === '/members' ? <MembersPage/> : informationPage?.path === '/tools' ? <ToolsPage/> : informationPage?.path === '/benchmarks' ? <BenchmarksPage/> : ontologyPlaceholder ? null : isText2SQLPage ? <Suspense fallback={<p role="status">Loading OntoMosaic-DB…</p>}><OntologyWorkbench/></Suspense> : isResearchPage ? <ResearchPage/> : <>
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-copy">
-            <h1 id="hero-title">Knowledge that evolves. <em>Intelligence that scales.</em></h1>
-            <p className="hero-description">DataMosaic brings together expert guidance and insights drawn from documents, tables, and databases, turning them into reusable knowledge. <span className="hero-ontology-description">Connected through shared, evolving ontologies, this knowledge powers question answering, data analytics, and agentic workflows.</span></p>
+            <h1 id="hero-title">Efficient, Reliable, and Explainable AI <em>for Documents and Databases.</em></h1>
+            <p className="hero-description">DataMosaic turns documents, tables, and databases into reusable knowledge through evolving ontologies. <span className="hero-ontology-description">This knowledge powers intelligent applications for question answering, analytics, and agentic workflows.</span></p>
             <div className="hero-actions">
-              <a className="button button-primary" href="#applications">Start for free <span aria-hidden="true">↗</span></a>
+              <a className="button button-primary" href="#applications">Let's try it <span aria-hidden="true">↗</span></a>
               <a className="button button-secondary" href="https://github.com/HKUSTDial/DataMosaic" target="_blank" rel="noreferrer">Documentation <span aria-hidden="true">↗</span></a>
             </div>
-            <p className="hero-tagline"><span>Fast.</span> <span>Accurate.</span> <span>Cost-efficient.</span> <span>Built to scale.</span></p>
+            <p className="hero-tagline"><span>Powerful Reasoning.</span> <span>Reusable knowledge.</span> <span>Built to scale.</span></p>
           </div>
           {/* <div className="preview-sources" role="list" aria-label="Illustrative document formats">
             {previewSources.map(source => <div className={`preview-source source-${source.kind}`} key={source.format} role="listitem" aria-label={source.kind === 'md' ? 'Markdown: README.md' : `${source.format}: ${source.filename}`}>
@@ -137,8 +148,8 @@ export default function App() {
         <SystemOverview/>
         <section className="workflow-section" id="applications" aria-labelledby="workflows-title">
           <div className="section-heading product-heading">
-            <div><p className="section-kicker">Application Layer</p><h2 id="workflows-title">Put your documents <em>to work.</em></h2></div>
-            <p>A growing collection of tools to understand documents, investigate evidence, and build structured data.</p>
+            <div><p className="section-kicker">Application Layer</p><h2 id="workflows-title">Answer. Extract. <em>Act.</em></h2></div>
+            <p className="application-description">Agentic applications that answer questions, investigate evidence, extract structured data, <span>and automate work across documents, tables, and databases.</span></p>
           </div>
           <div className="workflow-grid">
             <article className="workflow-card analyze">
@@ -148,7 +159,7 @@ export default function App() {
               <img className="product-demo" src={docMosaicDemo} alt="DocMosaic document analysis workflow" loading="lazy" decoding="async"/>
               <span className="card-features"><span>Document Q&amp;A</span><span>Evidence navigation</span></span>
               </a>
-              <div className="card-actions"><a href={siteUrl('/docmosaic/')}>Open DocMosaic <span aria-hidden="true">↗</span></a><button className="card-demo" type="button" onClick={() => setActiveDemo('analyze')} aria-label="Watch DocMosaic demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo</button></div>
+              <div className="card-actions"><a href={siteUrl('/docmosaic/')}>Open DocMosaic <span aria-hidden="true">↗</span></a><div className="card-demo-group"><button className="card-demo" type="button" onClick={() => { setDocDemo('agentic'); setActiveDemo('analyze'); }} aria-label="Watch DocMosaic agentic demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo-Agentic</button><button className="card-demo" type="button" onClick={() => { setDocDemo('interaction'); setActiveDemo('analyze'); }} aria-label="Watch DocMosaic interactive demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo-Interactive</button></div></div>
             </article>
             <article className="workflow-card extract">
               <a className="card-main" href={siteUrl('/dbmosaic/')} aria-label="Open DBMosaic">
@@ -159,6 +170,15 @@ export default function App() {
               </a>
               <div className="card-actions"><a href={siteUrl('/dbmosaic/')}>Open DBMosaic <span aria-hidden="true">↗</span></a><button className="card-demo" type="button" onClick={() => setActiveDemo('extract')} aria-label="Watch DBMosaic demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo</button></div>
             </article>
+            <article className="workflow-card structure">
+              <a className="card-main" href={siteUrl('/structmosaic/')} aria-label="Open StructMosaic">
+              <span className="card-header"><span className="card-title"><span className="card-number">03</span>StructMosaic <span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="4.5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 6.5v3.2M12 9.7 6.4 17M12 9.7l5.6 7.3"/></svg></span></span><ServiceStatus url="/structmosaic/index.html"/></span>
+              <span className="card-description">StructMosaic turns a task into the right data structure—tables, graphs, trees, and beyond.</span>
+              <img className="product-demo" src={structMosaicDemo} alt="StructMosaic turning a task into tables, graphs, and trees" loading="lazy" decoding="async"/>
+              <span className="card-features"><span>Tables</span><span>Graphs</span><span>Trees</span></span>
+              </a>
+              <div className="card-actions"><a href={siteUrl('/structmosaic/')}>Open StructMosaic <span aria-hidden="true">↗</span></a><button className="card-demo" type="button" onClick={() => setActiveDemo('structure')} aria-label="Watch StructMosaic demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo</button></div>
+            </article>
             <article className="coming-soon-card">
               <div className="coming-soon-visual" aria-hidden="true"><span><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><path d="M17.5 14v7M14 17.5h7"/></svg></span><i></i><span><svg viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></svg></span></div>
               <div className="coming-soon-copy"><div><h3>More capabilities</h3><span className="coming-soon-badge">Coming soon</span></div><p>An expanding workspace for document intelligence. More modules and workflows are on the way.</p></div>
@@ -167,7 +187,7 @@ export default function App() {
         </section>
         <section className="ontology-section" aria-labelledby="ontologies-title">
           <div className="section-heading product-heading">
-            <div><p className="section-kicker">Ontology Layer</p><h2 id="ontologies-title">Knowledge for <em>your workflows.</em></h2></div>
+            <div><p className="section-kicker">Ontology Layer</p><h2 id="ontologies-title">Make intelligence <em>reusable.</em></h2></div>
           </div>
           <div className="workflow-grid">
             <article className="workflow-card">
@@ -207,7 +227,7 @@ export default function App() {
         </>}
       </main>
     </div>
-    {activeDemo && <DemoDialog key={activeDemo} mode={activeDemo} onClose={() => {
+    {activeDemo && <DemoDialog key={activeDemo} mode={activeDemo} docDemo={docDemo} onClose={() => {
       if (previewDemo) window.location.assign(siteUrl('/'));
       else setActiveDemo(null);
     }}/>}
