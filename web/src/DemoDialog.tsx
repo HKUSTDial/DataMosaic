@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import ProductPreview from './ProductPreview';
-import ontoMosaicDemo from '../../assets/OntoMosaic-Text2SQL-demo.gif';
+import ontoMosaicDemo from '../../assets/OntoMosaic-DB-demo.gif';
 import docMosaicDemo from '../../assets/DocMosaic-demo.gif';
 import dbMosaicDemo from '../../assets/DBMosaic-demo.gif';
 import { isPagesPreview } from './site';
@@ -16,8 +16,8 @@ export default function DemoDialog({ mode, onClose }: { mode: 'analyze' | 'extra
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoFailed, setVideoFailed] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const title = mode === 'ontology' ? 'OntoMosaic-Text2SQL' : mode === 'analyze' ? 'DocMosaic' : 'DBMosaic';
-  const videoUrl = demoVideos[`../../assets/${mode}-demo.mp4`] ?? demoVideos[`../../assets/${mode}-demo.webm`];
+  const title = mode === 'ontology' ? 'OntoMosaic-DB' : mode === 'analyze' ? 'DocMosaic' : 'DBMosaic';
+  const videoUrl = mode === 'ontology' ? demoVideos['../../assets/OntoMosaic-DB-demo.mp4'] : demoVideos[`../../assets/${mode}-demo.mp4`] ?? demoVideos[`../../assets/${mode}-demo.webm`];
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -50,7 +50,8 @@ export default function DemoDialog({ mode, onClose }: { mode: 'analyze' | 'extra
       </div>
     </div>
     {isPagesPreview && <p className="demo-preview-note">Workflow preview. Run DataMosaic locally to use this application.</p>}
-    {mode === 'ontology' ? <img className="demo-video" src={ontoMosaicDemo} alt="OntoMosaic-Text2SQL ontology learning workflow"/>
+    {mode === 'ontology' && videoUrl && !videoFailed ? <video className="demo-video" ref={videoRef} src={videoUrl} controls playsInline preload="metadata" onError={() => setVideoFailed(true)} aria-label={`${title} product demonstration`}/>
+      : mode === 'ontology' ? <img className="demo-video" src={ontoMosaicDemo} alt="OntoMosaic-DB ontology learning workflow"/>
       : isPagesPreview ? <img className="demo-video" src={mode === 'analyze' ? docMosaicDemo : dbMosaicDemo} alt={`${title} workflow preview`}/>
       : videoUrl && !videoFailed ? <video className="demo-video" ref={videoRef} src={videoUrl} controls playsInline preload="metadata" onError={() => setVideoFailed(true)} aria-label={`${title} product demonstration`}/>
       : <div className="demo-placeholder">

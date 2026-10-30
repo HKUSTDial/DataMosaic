@@ -3,7 +3,7 @@ import UseCases from './UseCases';
 import docMosaicDemo from '../../assets/DocMosaic-demo.gif';
 import dbMosaicDemo from '../../assets/DBMosaic-demo.gif';
 import ontoDocDemo from '../../assets/OntoMosaic-Doc-demo.gif';
-import ontoMosaicDemo from '../../assets/OntoMosaic-Text2SQL-demo.gif';
+import ontoMosaicDemo from '../../assets/OntoMosaic-DB-demo.gif';
 import ontoEnterpriseDemo from '../../assets/OntoMosaic-Enterprise-demo.gif';
 import DemoDialog from './DemoDialog';
 import SiteHeader from './SiteHeader';
@@ -51,13 +51,13 @@ export default function App() {
     '/ontomosaic-text2sql': 'ontology', '/ontology': 'ontology',
   };
   const previewDemo = isPagesPreview ? previewRoutes[path.replace(/\/$/, '')] : undefined;
-  const previewTitle = previewDemo && { analyze: 'DocMosaic', extract: 'DBMosaic', ontology: 'OntoMosaic-Text2SQL' }[previewDemo];
+  const previewTitle = previewDemo && { analyze: 'DocMosaic', extract: 'DBMosaic', ontology: 'OntoMosaic-DB' }[previewDemo];
   // const [previewPaused, setPreviewPaused] = useState(false);
   const [activeDemo, setActiveDemo] = useState<'analyze' | 'extract' | 'ontology' | null>(previewDemo ?? null);
   const [darkMode, setDarkMode] = useState(() => document.documentElement.dataset.theme === 'dark');
 
   useEffect(() => {
-    document.title = ontologyPlaceholder ? `${ontologyPlaceholder.name} | DataMosaic` : previewTitle ? `${previewTitle} | DataMosaic` : isText2SQLPage ? 'OntoMosaic-Text2SQL | DataMosaic' : isResearchPage ? 'Research Papers | DataMosaic' : 'DataMosaic';
+    document.title = ontologyPlaceholder ? `${ontologyPlaceholder.name} | DataMosaic` : previewTitle ? `${previewTitle} | DataMosaic` : isText2SQLPage ? 'OntoMosaic-DB | DataMosaic' : isResearchPage ? 'Research Papers | DataMosaic' : 'DataMosaic';
     const theme = darkMode ? 'dark' : 'light';
     document.documentElement.dataset.theme = theme;
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', darkMode ? '#111720' : '#f4f6f8');
@@ -72,7 +72,7 @@ export default function App() {
     <SiteHeader darkMode={darkMode} onToggleTheme={() => setDarkMode(value => !value)}/>
     <div className="page">
       <main className={`content${isResearchPage ? ' research-content' : ''}${isText2SQLPage ? ' ontology-content' : ''}`}>
-        {ontologyPlaceholder ? null : isText2SQLPage ? <Suspense fallback={<p role="status">Loading OntoMosaic-Text2SQL…</p>}><OntologyWorkbench/></Suspense> : isResearchPage ? <ResearchPage/> : <>
+        {ontologyPlaceholder ? null : isText2SQLPage ? <Suspense fallback={<p role="status">Loading OntoMosaic-DB…</p>}><OntologyWorkbench/></Suspense> : isResearchPage ? <ResearchPage/> : <>
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-copy">
             <h1 id="hero-title">Knowledge that evolves. <em>Intelligence that scales.</em></h1>
@@ -180,13 +180,13 @@ export default function App() {
               <div className="card-actions"><a href={siteUrl('/ontomosaic-doc')}>Open OntoMosaic-Doc <span aria-hidden="true">↗</span></a></div>
             </article>
             <article className="workflow-card">
-              <a className="card-main" href={siteUrl('/ontomosaic-text2sql')} aria-label="Open OntoMosaic-Text2SQL">
-                <span className="card-header"><span className="card-title"><span className="card-number">02</span>OntoMosaic-Text2SQL <span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 8v4M5 16v-4h14v4"/><rect x="9" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="16" width="6" height="6" rx="1.5"/><rect x="16" y="16" width="6" height="6" rx="1.5"/></svg></span></span><ServiceStatus url="/ontomosaic-text2sql/api/health"/></span>
+              <a className="card-main" href={siteUrl('/ontomosaic-text2sql')} aria-label="Open OntoMosaic-DB">
+                <span className="card-header"><span className="card-title"><span className="card-number">02</span>OntoMosaic-DB <span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 8v4M5 16v-4h14v4"/><rect x="9" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="16" width="6" height="6" rx="1.5"/><rect x="16" y="16" width="6" height="6" rx="1.5"/></svg></span></span><ServiceStatus url="/ontomosaic-text2sql/api/health"/></span>
                 <span className="card-description">Learn database knowledge from question–SQL examples. Explore concepts and relationships, then export the ontology graph.</span>
-                <img className="product-demo" src={ontoMosaicDemo} alt="OntoMosaic-Text2SQL ontology learning workflow" loading="lazy" decoding="async"/>
+                <img className="product-demo" src={ontoMosaicDemo} alt="OntoMosaic-DB ontology learning workflow" loading="lazy" decoding="async"/>
                 <span className="card-features"><span>SQL example learning</span><span>Ontology graph</span></span>
               </a>
-              <div className="card-actions"><a href={siteUrl('/ontomosaic-text2sql')}>Open OntoMosaic-Text2SQL <span aria-hidden="true">↗</span></a><button className="card-demo" type="button" onClick={() => setActiveDemo('ontology')} aria-label="Watch OntoMosaic-Text2SQL demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo</button></div>
+              <div className="card-actions"><a href={siteUrl('/ontomosaic-text2sql')}>Open OntoMosaic-DB <span aria-hidden="true">↗</span></a><button className="card-demo" type="button" onClick={() => setActiveDemo('ontology')} aria-label="Watch OntoMosaic-DB demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo</button></div>
             </article>
             <article className="workflow-card">
               <div className="card-main">

@@ -1,4 +1,4 @@
-# OntoMosaic-Text2SQL integration
+# OntoMosaic-DB integration
 
 The portal owns the React UI in `web/src/features/ontology/`; the Cortex engine is maintained independently in the `module/Ontology-NL2SQL` Git submodule at https://github.com/HKUSTDial/Ontology-NL2SQL. The first release is a source snapshot of the local `autoonto-nl2sql-release` project. The original checkout and its Git history are unchanged. Runtime workspaces, SQLite databases, credentials and review outputs are excluded from the release.
 

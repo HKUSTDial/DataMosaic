@@ -9,7 +9,7 @@ from playwright.sync_api import expect, sync_playwright
 
 base = sys.argv[1] if len(sys.argv) > 1 else 'http://127.0.0.1:21680'
 modules = [('OntoMosaic-Doc', '/ontomosaic-doc'),
-           ('OntoMosaic-Text2SQL', '/ontomosaic-text2sql'),
+           ('OntoMosaic-DB', '/ontomosaic-text2sql'),
            ('OntoMosaic-Enterprise', '/ontomosaic-enterprise')]
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)

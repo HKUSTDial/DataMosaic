@@ -32,7 +32,7 @@ const applications: AppTile[] = [
   { name: 'Your next app', icon: 'plus', tone: 'slate' },
 ];
 const ontologies: AppTile[] = [
-  { name: 'OntoMosaic', detail: 'Text2SQL', icon: 'graph', tone: 'teal', href: '/ontomosaic-text2sql' },
+  { name: 'OntoMosaic', detail: 'DB', icon: 'graph', tone: 'teal', href: '/ontomosaic-text2sql' },
   { name: 'Finance', icon: 'finance', tone: 'indigo' },
   { name: 'Science', icon: 'science', tone: 'cyan' },
   { name: 'Legal', icon: 'legal', tone: 'amber' },
@@ -74,7 +74,7 @@ export default function SystemOverview() {
       <p>Purpose-built applications.<br/>A growing layer of knowledge.<br/><strong>All in one mosaic.</strong></p>
       <button className="overview-toggle" type="button" onClick={() => setPlaying(value => !value)} aria-label={playing ? 'Pause system animation' : 'Play system animation'} title={playing ? 'Pause animation' : 'Play animation'}><svg viewBox="0 0 16 16" aria-hidden="true">{playing ? <path d="M5 3v10M11 3v10"/> : <path d="m5 3 8 5-8 5Z"/>}</svg></button>
     </header>
-    <div className="overview-scene" role="group" aria-label="An expanding ecosystem: document applications connected to shared domain ontologies. DocMosaic, DBMosaic and OntoMosaic-Text2SQL are available; the other icons illustrate future possibilities.">
+    <div className="overview-scene" role="group" aria-label="An expanding ecosystem: document applications connected to shared domain ontologies. DocMosaic, DBMosaic and OntoMosaic-DB are available; the other icons illustrate future possibilities.">
       <div className="overview-ambient overview-ambient-blue" aria-hidden="true"/>
       <div className="overview-ambient overview-ambient-teal" aria-hidden="true"/>
       <svg className="overview-wires" viewBox="0 0 1200 524" preserveAspectRatio="none" aria-hidden="true">

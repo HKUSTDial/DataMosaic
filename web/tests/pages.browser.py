@@ -50,7 +50,7 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                 assert page.locator('.overview-tile').count() == 16
                 assert page.locator('a[href^="/"]').evaluate_all('(links) => links.every(a => a.getAttribute("href").startsWith("/DataMosaic/"))')
                 assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1')
-                for name in ('DocMosaic', 'OntoMosaic-Text2SQL'):
+                for name in ('DocMosaic', 'OntoMosaic-DB'):
                     page.get_by_role('link', name=f'Open {name}', exact=True).first.click()
                     expect(page.get_by_role('dialog')).to_be_visible()
                     expect(page.locator('#demo-title')).to_have_text(f'{name} demo')

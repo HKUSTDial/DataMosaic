@@ -5,7 +5,7 @@ Workflow cards display these animations:
 - `DocMosaic-demo.gif`: the DocMosaic card.
 - `DBMosaic-demo.gif`: the DBMosaic card.
 - `OntoMosaic-Doc-demo.gif`: the OntoMosaic-Doc card.
-- `OntoMosaic-Text2SQL-demo.gif`: the OntoMosaic-Text2SQL card and its **Demo** dialog.
+- `OntoMosaic-DB-demo.gif`: the OntoMosaic-DB card and video fallback.
 - `OntoMosaic-Enterprise-demo.gif`: the OntoMosaic-Enterprise card, converted from `OntoMosaic-Enterprise-demo.mp4` with looping playback.
 
 The full animation is fitted inside a shared 2:1 frame without cropping.
@@ -20,8 +20,7 @@ If both formats are present, the player uses MP4.
 
 The DocMosaic and DBMosaic **Demo** buttons open a video dialog. Without a video,
 the dialog shows a workflow preview and **Video coming soon**. A playback
-error also falls back to the preview. The ontology **Demo** button opens its GIF
-in the same dialog, with the same expand and close controls.
+error also falls back to the preview. The ontology **Demo** button plays `OntoMosaic-DB-demo.mp4`, with the GIF as a playback-error fallback. Both use the same expand and close controls.
 
 After adding or replacing a video, rebuild the frontend: restart `./start.sh`
 for script deployment, or run `docker compose up -d --no-deps --build web`

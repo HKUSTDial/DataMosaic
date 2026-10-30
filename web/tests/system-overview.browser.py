@@ -22,7 +22,7 @@ with sync_playwright() as playwright:
     assert overview.locator(".overview-future").count() == 13
     assert overview.locator(".overview-future a, .overview-future button").count() == 0
     for name, href in (("DocMosaic", "/docmosaic/"), ("DBMosaic", "/dbmosaic/"),
-                       ("OntoMosaic-Text2SQL", "/ontomosaic-text2sql")):
+                       ("OntoMosaic-DB", "/ontomosaic-text2sql")):
         expect(overview.get_by_role("link", name=f"Explore {name}", exact=True)).to_have_attribute("href", href)
     expect(overview.get_by_text("More apps to come")).to_be_visible()
     expect(overview.get_by_text("More domains to come")).to_be_visible()
