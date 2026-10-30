@@ -1,5 +1,5 @@
 import type {Database, GraphData, InputFile, Pair, Run, Table} from './types';
-const base='/ontomosaic-text2sql/api';
+const base='/ontomosaic-db/api';
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const r=await fetch(base+path,init);
   if(!r.ok){const d=await r.json().catch(()=>null);throw new Error(typeof d?.detail==='string'?d.detail:`Request failed (${r.status})`);}

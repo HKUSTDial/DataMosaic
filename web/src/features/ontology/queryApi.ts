@@ -8,7 +8,7 @@ export type SqlRevision={id:string;sql:string;explanation:string;status:string;e
 export type QueryEvent={seq:number;type:string;created_at:string;payload:Record<string,unknown>};
 export type QueryTask={id:string;session_id:string;question:string;status:string;phase:string;retrieval_mode?:string;state_version:number;last_event_seq:number;error:string|null;answer:string|null;initial_sql?:string;created_at:string;revision_of:string|null;interaction:{id:string;source:string;questions:Question[]}|null;confirmations:{prompt:string;selected_statements:string[];explanation:string;source:string}[];graphs:Record<string,QueryGraph>;retrieval_selection?:{relevant_node_ids:string[]}|null;context:{status:string|null;guidance:{guidance_content:string;usage?:string;ontology_assets?:GuidanceAsset[];interaction_guidance?:{guidance_id:string;should_be:string}[]}|null;projection_trace:{choice_point_id:string;retained_graph_refs:string[];removed_graph_refs:string[]}[];unresolved_choice_point_ids:string[]}|null;sql_revisions:SqlRevision[];result:{columns:string[];rows:unknown[][];row_count:number;truncated:boolean;elapsed_seconds:number}|null};
 export type QuerySession={id:string;database_id:string;title:string;first_question?:string;created_at:string;ontology_source:OntologySource;tasks:QueryTask[]};
-const base='/ontomosaic-text2sql/api/nl2sql';
+const base='/ontomosaic-db/api/nl2sql';
 export const requestId=()=>Array.from(crypto.getRandomValues(new Uint8Array(16)),b=>b.toString(16).padStart(2,'0')).join('');
 async function request<T>(path:string,data?:unknown):Promise<T>{
  const r=await fetch(base+path,data===undefined?undefined:{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});

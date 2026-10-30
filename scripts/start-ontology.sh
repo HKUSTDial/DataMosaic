@@ -31,7 +31,7 @@ npm --prefix "$ROOT_DIR/web" run build
 export CORTEX_PROJECT_ROOT="$ONTOLOGY_SOURCE"
 export CORTEX_WEB_FRONTEND_DIST="$ROOT_DIR/web/dist"
 export PYTHONPATH="$ROOT_DIR/api:$ONTOLOGY_SOURCE/src${PYTHONPATH:+:$PYTHONPATH}"
-echo "Open http://127.0.0.1:$ONTOLOGY_PORT/ontomosaic-text2sql"
+echo "Open http://127.0.0.1:$ONTOLOGY_PORT/ontomosaic-db"
 cd "$ONTOLOGY_SOURCE"
 exec "$ONTOLOGY_PYTHON" -m uvicorn portal_ontology:app \
   --host "${DATAMOSAIC_WEB_BIND:-127.0.0.1}" --port "$ONTOLOGY_PORT" --workers 1

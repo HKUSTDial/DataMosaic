@@ -174,7 +174,7 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                         page.get_by_role('button', name='Switch to light mode').click()
                     page.get_by_role('link', name='Back to DataMosaic', exact=False).click()
                     expect(page).to_have_url(base)
-                for name in ('DocMosaic', 'OntoMosaic-Text2SQL'):
+                for name in ('DocMosaic', 'OntoMosaic-DB'):
                     page.get_by_role('link', name=f'Open {name}', exact=True).first.click()
                     expect(page.get_by_role('dialog')).to_be_visible()
                     expect(page.locator('#demo-title')).to_have_text('DocMosaic · Agentic demo' if name == 'DocMosaic' else f'{name} demo')
@@ -183,7 +183,9 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                         page.wait_for_function('document.querySelector("video.demo-video")?.readyState >= 1')
                         assert 'DocMosaic-agentic-product-v2' in page.locator('video.demo-video').get_attribute('src')
                     else:
-                        page.wait_for_function('document.querySelector(".demo-video")?.naturalWidth > 0')
+                        page.wait_for_function('document.querySelector("video.demo-video")?.readyState >= 1')
+                        assert 'OntoMosaic-DB-demo' in page.locator('video.demo-video').get_attribute('src')
+                        assert abs(page.locator('video.demo-video').evaluate('(video) => video.duration') - 30) < 0.1
                     assert page.locator('.demo-video').get_attribute('src').startswith('/DataMosaic/assets/')
                     assert page.reload().status == 200
                     expect(page.get_by_role('dialog')).to_be_visible()
@@ -241,7 +243,7 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                 ('application', 'DBMosaic', 'dbmosaic/'),
                 ('application', 'DocMosaic', 'docmosaic/'),
                 ('ontology', 'OntoMosaic-Doc', 'ontomosaic-doc/'),
-                ('ontology', 'OntoMosaic-Text2SQL', 'ontomosaic-text2sql/'),
+                ('ontology', 'OntoMosaic-DB', 'ontomosaic-db/'),
                 ('ontology', 'OntoMosaic-Enterprise', 'ontomosaic-enterprise/'),
                 ('resource', 'Tools', 'tools/'),
                 ('resource', 'Benchmarks', 'benchmarks/'),

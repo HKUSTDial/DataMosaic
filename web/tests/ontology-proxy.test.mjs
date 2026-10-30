@@ -38,7 +38,7 @@ test('ontology proxy preserves prefixes, query strings and multipart bodies', as
     vite.kill(); upstream.closeAllConnections(); upstream.close(); throw error;
   });
   try {
-    for (const prefix of ['/ontomosaic-text2sql/api', '/ontology/api']) {
+    for (const prefix of ['/ontomosaic-db/api', '/ontomosaic-text2sql/api', '/ontology/api']) {
       const path = `${prefix}/databases?offset=20&name=with%20space`;
       const result = await (await fetch(url + path)).json();
       assert.equal(result.path, path);
@@ -47,12 +47,12 @@ test('ontology proxy preserves prefixes, query strings and multipart bodies', as
     const body = new Uint8Array([0, 1, 2, 127, 128, 255]);
     const form = new FormData();
     form.append('file', new Blob([body]), 'sample.sqlite');
-    const result = await (await fetch(url + '/ontomosaic-text2sql/api/databases/upload',
+    const result = await (await fetch(url + '/ontomosaic-db/api/databases/upload',
       { method: 'POST', body: form })).json();
     assert.equal(result.method, 'POST');
     assert.match(result.contentType, /^multipart\/form-data; boundary=/);
     assert.ok(Buffer.from(result.body, 'base64').includes(Buffer.from(body)));
-    assert.match(await (await fetch(url + '/ontomosaic-text2sql')).text(), /id="root"/);
+    assert.match(await (await fetch(url + '/ontomosaic-db')).text(), /id="root"/);
   } finally {
     vite.kill();
     await once(vite, 'exit');

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import ProductPreview from './ProductPreview';
-import ontoMosaicDemo from '../../assets/OntoMosaic-Text2SQL-demo.gif';
+import ontoMosaicDemo from '../../assets/OntoMosaic-DB-demo.gif';
+import ontoMosaicVideo from '../../assets/OntoMosaic-DB-demo.mp4';
 import docMosaicDemo from '../../assets/DocMosaic-demo.gif';
 import dbMosaicDemo from '../../assets/DBMosaic-demo.gif';
 import docMosaicAgenticVideo from '../../assets/DocMosaic-agentic-product-v2.mp4';
@@ -19,12 +20,12 @@ export default function DemoDialog({ mode, docDemo = 'agentic', onClose }: { mod
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoFailed, setVideoFailed] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const title = mode === 'ontology' ? 'OntoMosaic-Text2SQL' : mode === 'analyze' ? 'DocMosaic' : mode === 'structure' ? 'StructMosaic' : 'DBMosaic';
-  const videoUrl = mode === 'analyze' ? (docDemo === 'agentic' ? docMosaicAgenticVideo : docMosaicFlightVideo)
+  const title = mode === 'ontology' ? 'OntoMosaic-DB' : mode === 'analyze' ? 'DocMosaic' : mode === 'structure' ? 'StructMosaic' : 'DBMosaic';
+  const videoUrl = mode === 'ontology' ? ontoMosaicVideo : mode === 'analyze' ? (docDemo === 'agentic' ? docMosaicAgenticVideo : docMosaicFlightVideo)
     : mode === 'structure' ? siteUrl('/structmosaic/demo.mp4')
       : demoVideos[`../../assets/${mode}-demo.mp4`] ?? demoVideos[`../../assets/${mode}-demo.webm`];
   const previewImage = mode === 'analyze' ? docMosaicDemo : mode === 'structure' ? structMosaicDemo : dbMosaicDemo;
-  const showVideo = videoUrl && !videoFailed && (mode === 'analyze' || !isPagesPreview);
+  const showVideo = videoUrl && !videoFailed && (mode === 'analyze' || mode === 'ontology' || !isPagesPreview);
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -60,8 +61,8 @@ export default function DemoDialog({ mode, docDemo = 'agentic', onClose }: { mod
       ? 'Nike annual report · Animated workflow based on a real run.'
       : 'Nike annual report · Follow the evidence through an animated flight path.'}</p>
       : isPagesPreview && <p className="demo-preview-note">Workflow preview. Run DataMosaic locally to use this application.</p>}
-    {mode === 'ontology' ? <img className="demo-video" src={ontoMosaicDemo} alt="OntoMosaic-Text2SQL ontology learning workflow"/>
-      : showVideo ? <video className="demo-video" key={videoUrl} ref={videoRef} src={videoUrl} controls playsInline preload="metadata" onError={() => setVideoFailed(true)} aria-label={`${title} ${mode === 'analyze' ? docDemo : 'product'} demonstration`}/>
+    {showVideo ? <video className="demo-video" key={videoUrl} ref={videoRef} src={videoUrl} controls playsInline preload="metadata" onError={() => setVideoFailed(true)} aria-label={`${title} ${mode === 'analyze' ? docDemo : 'product'} demonstration`}/>
+      : mode === 'ontology' ? <img className="demo-video" src={ontoMosaicDemo} alt="OntoMosaic-DB ontology learning workflow"/>
       : isPagesPreview || mode === 'structure' ? <img className="demo-video" src={previewImage} alt={`${title} workflow preview`}/>
       : <div className="demo-placeholder">
         <span className="coming-soon-badge">{videoFailed ? 'Video unavailable' : 'Video coming soon'}</span>

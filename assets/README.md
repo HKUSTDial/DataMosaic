@@ -6,7 +6,7 @@ Workflow cards display these animations:
 - `DBMosaic-demo.gif`: the DBMosaic card.
 - `StructMosaic-demo.gif`: the StructMosaic card, converted from `structmosaic.mp4` with looping playback.
 - `OntoMosaic-Doc-demo.gif`: the OntoMosaic-Doc card.
-- `OntoMosaic-Text2SQL-demo.gif`: the OntoMosaic-Text2SQL card and its **Demo** dialog.
+- `OntoMosaic-DB-demo.gif`: the OntoMosaic-DB card and video fallback.
 - `OntoMosaic-Enterprise-demo.gif`: the OntoMosaic-Enterprise card, converted from `OntoMosaic-Enterprise-demo.mp4` with looping playback.
 
 The full animation is fitted inside a shared 2:1 frame without cropping.
@@ -31,7 +31,7 @@ narration sidecars, and intermediate exports are not included in this website
 update. The portal imports only the two product videos above.
 
 `extract-demo.mp4` remains the DBMosaic walkthrough for the local portal
-(WebM is also supported). The ontology **Demo** button retains its GIF.
+(WebM is also supported). The ontology **Demo** button plays `OntoMosaic-DB-demo.mp4` (30 seconds), including on GitHub Pages. Its onscreen branding, English narration and subtitles use OntoMosaic-DB; playback errors fall back to the GIF.
 
 After adding or replacing a video, rebuild the frontend: restart `./start.sh`
 for script deployment, or run `docker compose up -d --no-deps --build web`

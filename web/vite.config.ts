@@ -40,7 +40,7 @@ export default defineConfig(({ mode }) => {
     plugins: [productDirectories(), react()],
     server: {
       host: '127.0.0.1',
-      proxy: { '/ontomosaic-text2sql/api/': ontology, '/ontology/api/': ontology },
+      proxy: { '/ontomosaic-db/api/': ontology, '/ontomosaic-text2sql/api/': ontology, '/ontology/api/': ontology },
     },
   };
 });

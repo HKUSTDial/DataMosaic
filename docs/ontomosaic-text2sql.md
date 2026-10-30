@@ -1,11 +1,11 @@
-# OntoMosaic-Text2SQL integration
+# OntoMosaic-DB integration
 
 The portal owns the React UI in `web/src/features/ontology/`; the Cortex engine is maintained independently in the `module/Ontology-NL2SQL` Git submodule at https://github.com/HKUSTDial/Ontology-NL2SQL. The first release is a source snapshot of the local `autoonto-nl2sql-release` project. The original checkout and its Git history are unchanged. Runtime workspaces, SQLite databases, credentials and review outputs are excluded from the release.
 
 ## Contract and responsibilities
 
-- `/ontomosaic-text2sql` opens the workbench inside the DataMosaic header and theme. `/ontology/` remains a compatible page alias.
-- `/ontomosaic-text2sql/api/*` is the public HTTP API. The engine also accepts `/ontology/api/*` and its direct `/api/*` for existing clients. This keeps the DBMosaic `/api/*` namespace independent in the unified gateway.
+- `/ontomosaic-db` opens the workbench inside the DataMosaic header and theme. `/ontomosaic-text2sql` and `/ontology/` remain compatible page aliases.
+- `/ontomosaic-db/api/*` is the public HTTP API. The portal also accepts `/ontomosaic-text2sql/api/*`, `/ontology/api/*` and its direct `/api/*` for existing clients. This keeps the DBMosaic `/api/*` namespace independent in the unified gateway.
 - The browser imports SQLite databases and question–SQL JSONL, previews schemas/rows, explicitly imports pairs, starts real Cortex training, polls persisted tasks and explores their generated graphs. Build IDs persist in the URL for refresh recovery.
 - Each web build currently processes **at most the first two imported examples**. This is shown in the workbench. Direct API clients can set `case_limit` to another positive integer or `null` for all examples.
 - The **Ask database** workspace runs an interactive NL2SQL agent against the bound SQLite snapshot. It retrieves ontology context, asks graph-grounded clarification questions, persists answers and resumes the task, then validates and executes a read-only SQL query. Relevant nodes, task guidance and SQL references can be inspected together. Existing CLI retrieval/guidance workflows remain available.
@@ -43,7 +43,7 @@ You can instead upload `.sqlite`, `.sqlite3` or `.db` through the workbench (up 
 ./start.sh --ontology-only
 ```
 
-Open http://127.0.0.1:8080/ontomosaic-text2sql. This command builds the real portal and serves it and the API from the ontology process; the other document engines are not started. `ONTOLOGY_PORT` overrides the port. Existing Analyze/Extract links require the full stack.
+Open http://127.0.0.1:8080/ontomosaic-db. This command builds the real portal and serves it and the API from the ontology process; the other document engines are not started. `ONTOLOGY_PORT` overrides the port. Existing Analyze/Extract links require the full stack.
 
 For frontend hot reload, run the engine and Vite separately:
 
@@ -56,7 +56,7 @@ module/Ontology-NL2SQL/.venv/bin/python -m uvicorn portal_ontology:app --host 12
 npm --prefix web run dev
 ```
 
-Vite forwards both API prefixes to `ONTOLOGY_URL` (default http://127.0.0.1:8011); visit its printed URL plus `/ontomosaic-text2sql`.
+Vite forwards both API prefixes to `ONTOLOGY_URL` (default http://127.0.0.1:8011); visit its printed URL plus `/ontomosaic-db`.
 
 ## Run the full stack
 
@@ -96,6 +96,6 @@ Commit and push engine changes inside the submodule first. Then commit its new G
 
 ## Interactive query workspace
 
-Query sessions use `/ontomosaic-text2sql/api/nl2sql`: ontology sources, session history, task snapshots, clarification answers, retry/cancel, activity and server-sent events. A session fixes its database and ontology snapshots; runtime sessions, answers and databases remain local and are not shipped in Git.
+Query sessions use `/ontomosaic-db/api/nl2sql`: ontology sources, session history, task snapshots, clarification answers, retry/cancel, activity and server-sent events. A session fixes its database and ontology snapshots; runtime sessions, answers and databases remain local and are not shipped in Git.
 
 The graph defaults to explicitly relevant nodes and existing edges between them, with full context available for inspection. Guidance presents task-scoped node definitions; unresolved inline variants remain in node details and are not expanded into SQL instructions. Narrow layouts keep session navigation in a collapsible left drawer. Baseline experiment code is unchanged.

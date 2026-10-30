@@ -41,7 +41,7 @@ The portal can be published as a static preview at **https://hkustdial.github.io
 
 Later pushes affecting the website rebuild `gh-pages` and explicitly request a Pages build, since pushes made with `GITHUB_TOKEN` do not trigger one automatically. No extra personal access token is needed. A successful **Build website branch** run confirms that the generated branch was updated; check **pages build and deployment** and the public URL to confirm publication. Branch publishing still uses GitHub Pages and can encounter service-side delays or timeouts.
 
-The preview includes the homepage, animations, research page, the DBMosaic product page, module demos, and empty ontology placeholders. The DBMosaic card opens that product page. DocMosaic and OntoMosaic-Text2SQL links open demos. Document analysis, database extraction, and ontology training require the local deployment below. The workflow builds only the portal and needs neither engine submodules nor model credentials. The generated branch contains the build output and `.nojekyll`, with no application source or engine submodules.
+The preview includes the homepage, animations, research page, the DBMosaic product page, module demos, and empty ontology placeholders. The DBMosaic card opens that product page. DocMosaic and OntoMosaic-DB links open demos. Document analysis, database extraction, and ontology training require the local deployment below. The workflow builds only the portal and needs neither engine submodules nor model credentials. The generated branch contains the build output and `.nojekyll`, with no application source or engine submodules.
 
 To build and inspect the same preview locally:
 
@@ -146,9 +146,9 @@ The default web bind address is `127.0.0.1:8080`. For access from another machin
 
 Naming: the platform uses `DATAMOSAIC_*` environment variables, the DBMosaic Extract engine uses `DBMOSAIC_*`, and DocPilot keeps `DOCPILOT_*`. Update any external shell exports or service configuration to these names. The `datamosaic` Compose service, Docker volume names, browser theme storage keys, and DataMosaic publication title are retained.
 
-## OntoMosaic-Text2SQL
+## OntoMosaic-DB
 
-Open **`/ontomosaic-text2sql`** to import a SQLite database and question–SQL examples, build ontology knowledge with Cortex, and explore or export the resulting graph. The backend is maintained in [`module/Ontology-NL2SQL`](https://github.com/HKUSTDial/Ontology-NL2SQL), independently of the document engines.
+Open **`/ontomosaic-db`** to import a SQLite database and question–SQL examples, build ontology knowledge with Cortex, and explore or export the resulting graph. The backend is maintained in [`module/Ontology-NL2SQL`](https://github.com/HKUSTDial/Ontology-NL2SQL), independently of the document engines.
 
 After installing the engine web dependencies, use `./start.sh --ontology-only` for independent development, or the full local/Docker stack for all modules. See [the integration guide](docs/ontomosaic-text2sql.md) for configuration, API paths, storage, current limits, and verification.
 
