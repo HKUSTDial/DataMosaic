@@ -86,7 +86,7 @@ export default function App() {
         {informationPage?.path === '/members' ? <MembersPage/> : informationPage?.path === '/tools' ? <ToolsPage/> : informationPage?.path === '/benchmarks' ? <BenchmarksPage/> : ontologyPlaceholder ? null : isText2SQLPage ? <Suspense fallback={<p role="status">Loading OntoMosaic-Text2SQL…</p>}><OntologyWorkbench/></Suspense> : isResearchPage ? <ResearchPage/> : <>
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-copy">
-            <h1 id="hero-title">Efficient, Reliable, and Explainable AI <em>for Documents and Databases.</em></h1>
+            <h1 id="hero-title">Efficient, Reliable, and Explainable AI <em>for Documents, Databases, and Enterprise Workflows.</em></h1>
             <p className="hero-description">DataMosaic turns documents, tables, and databases into reusable knowledge through evolving ontologies. <span className="hero-ontology-description">This knowledge powers intelligent applications for question answering, analytics, and agentic workflows.</span></p>
             <div className="hero-actions">
               <a className="button button-primary" href="#applications">Let's try it <span aria-hidden="true">↗</span></a>

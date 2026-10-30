@@ -56,7 +56,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid #7794b4; outline-offs
 h1 { margin: 0; color: #22282f; font-size: clamp(37px, 3.8vw, 59px); font-weight: 730; letter-spacing: -.065em; line-height: 1.1; }
 h1 em { display: block; color: #1e4863; font-style: normal; }
 .hero h1 { color: #182c42; font-family: Inter, "Helvetica Neue", Arial, sans-serif; font-size: clamp(37px, 4.55vw, 66px); font-weight: 560; letter-spacing: -.045em; line-height: 1.1; text-wrap: balance; }
-.hero h1 em { display: block; width: fit-content; margin: 0 auto; color: #315fa3; }
+.hero h1 em { display: block; width: fit-content; max-width: 100%; margin: 8px auto 0; padding-inline: .08em; color: #315fa3; font-family: Georgia, "Times New Roman", serif; font-size: .82em; font-style: italic; font-weight: 400; letter-spacing: -.035em; line-height: 1.18; }
 @supports ((background-clip: text) or (-webkit-background-clip: text)) {
   .hero h1 em { background: linear-gradient(100deg, #235b9b, #6747a8 85%); background-clip: text; -webkit-background-clip: text; color: transparent; }
 }
