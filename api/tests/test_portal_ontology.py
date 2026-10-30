@@ -37,7 +37,7 @@ class OntologySubmissionTests(unittest.IsolatedAsyncioTestCase):
             time.sleep(0.05)
             return {}
 
-        for index, prefix in enumerate(("/api", "/ontology/api", "/ontomosaic-text2sql/api")):
+        for index, prefix in enumerate(("/api", "/ontomosaic-db/api", "/ontology/api", "/ontomosaic-text2sql/api")):
             for second_id in ("same", "different"):
                 with self.subTest(prefix=prefix, second_id=second_id):
                     app = self.create_app(database_root=self.root / "databases", storage=self.root / f"runs-{index}-{second_id}")

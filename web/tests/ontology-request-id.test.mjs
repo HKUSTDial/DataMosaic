@@ -23,7 +23,7 @@ test('training works without crypto.randomUUID on HTTP origins', async () => {
   await exports.api.train('input');
   assert.equal(requests.length, 2);
   for (const { url, body } of requests) {
-    assert.equal(url, '/ontomosaic-text2sql/api/sql-train');
+    assert.equal(url, '/ontomosaic-db/api/sql-train');
     assert.equal(body.import_id, 'input');
     assert.match(body.request_id, /^[0-9a-f]{32}$/);
     assert.equal(body.mode, 'live');

@@ -243,7 +243,7 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                 ('application', 'DBMosaic', 'dbmosaic/'),
                 ('application', 'DocMosaic', 'docmosaic/'),
                 ('ontology', 'OntoMosaic-Doc', 'ontomosaic-doc/'),
-                ('ontology', 'OntoMosaic-DB', 'ontomosaic-text2sql/'),
+                ('ontology', 'OntoMosaic-DB', 'ontomosaic-db/'),
                 ('ontology', 'OntoMosaic-Enterprise', 'ontomosaic-enterprise/'),
                 ('resource', 'Tools', 'tools/'),
                 ('resource', 'Benchmarks', 'benchmarks/'),

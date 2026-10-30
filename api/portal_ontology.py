@@ -11,6 +11,11 @@ def create_app(**kwargs):
 
     @app.middleware("http")
     async def serialize_training(request, call_next):
+        # Map the public product prefix before engine routing and submission locking.
+        prefix = "/ontomosaic-db/api/"
+        if request.scope["path"].startswith(prefix):
+            request.scope["path"] = "/api/" + request.scope["path"][len(prefix):]
+            request.scope["raw_path"] = request.scope["path"].encode("utf-8")
         if request.method == "POST" and request.url.path.rstrip("/") in {
             "/api/sql-train", "/ontology/api/sql-train", "/ontomosaic-text2sql/api/sql-train",
         }:

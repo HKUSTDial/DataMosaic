@@ -54,11 +54,11 @@ export default function App() {
   const path = pagePath();
   const isResearchPage = /^\/research\/?$/.test(path);
   const informationPage = informationPages.find(page => page.path === path.replace(/\/$/, ''));
-  const isText2SQLPage = !isPagesPreview && /^\/(ontomosaic-text2sql|ontology)\/?$/.test(path);
+  const isText2SQLPage = !isPagesPreview && /^\/(ontomosaic-db|ontomosaic-text2sql|ontology)\/?$/.test(path);
   const ontologyPlaceholder = ontologyPlaceholders.find(item => item.href === path.replace(/\/$/, ''));
   const previewRoutes: Record<string, 'analyze' | 'extract' | 'ontology'> = {
     '/docmosaic': 'analyze',
-    '/ontomosaic-text2sql': 'ontology', '/ontology': 'ontology',
+    '/ontomosaic-db': 'ontology', '/ontomosaic-text2sql': 'ontology', '/ontology': 'ontology',
   };
   const previewDemo = isPagesPreview ? previewRoutes[path.replace(/\/$/, '')] : undefined;
   const previewTitle = previewDemo && { analyze: 'DocMosaic', extract: 'DBMosaic', ontology: 'OntoMosaic-DB' }[previewDemo];
@@ -200,13 +200,13 @@ export default function App() {
               <div className="card-actions"><a href={siteUrl('/ontomosaic-doc')}>Open OntoMosaic-Doc <span aria-hidden="true">↗</span></a></div>
             </article>
             <article className="workflow-card">
-              <a className="card-main" href={siteUrl('/ontomosaic-text2sql')} aria-label="Open OntoMosaic-DB">
-                <span className="card-header"><span className="card-title"><span className="card-number">02</span>OntoMosaic-DB <span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 8v4M5 16v-4h14v4"/><rect x="9" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="16" width="6" height="6" rx="1.5"/><rect x="16" y="16" width="6" height="6" rx="1.5"/></svg></span></span><ServiceStatus url="/ontomosaic-text2sql/api/health"/></span>
+              <a className="card-main" href={siteUrl('/ontomosaic-db')} aria-label="Open OntoMosaic-DB">
+                <span className="card-header"><span className="card-title"><span className="card-number">02</span>OntoMosaic-DB <span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 8v4M5 16v-4h14v4"/><rect x="9" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="16" width="6" height="6" rx="1.5"/><rect x="16" y="16" width="6" height="6" rx="1.5"/></svg></span></span><ServiceStatus url="/ontomosaic-db/api/health"/></span>
                 <span className="card-description">Learn database knowledge from question–SQL examples. Explore concepts and relationships, then export the ontology graph.</span>
                 <img className="product-demo" src={ontoMosaicDemo} alt="OntoMosaic-DB ontology learning workflow" loading="lazy" decoding="async"/>
                 <span className="card-features"><span>SQL example learning</span><span>Ontology graph</span></span>
               </a>
-              <div className="card-actions"><a href={siteUrl('/ontomosaic-text2sql')}>Open OntoMosaic-DB <span aria-hidden="true">↗</span></a><button className="card-demo" type="button" onClick={() => setActiveDemo('ontology')} aria-label="Watch OntoMosaic-DB demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo</button></div>
+              <div className="card-actions"><a href={siteUrl('/ontomosaic-db')}>Open OntoMosaic-DB <span aria-hidden="true">↗</span></a><button className="card-demo" type="button" onClick={() => setActiveDemo('ontology')} aria-label="Watch OntoMosaic-DB demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo</button></div>
             </article>
             <article className="workflow-card">
               <div className="card-main">

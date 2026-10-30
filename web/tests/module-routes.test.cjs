@@ -63,7 +63,7 @@ Module._load = function(request) {
   try {
     await Promise.race([once(child.stdout, 'data'), once(child, 'exit').then(() => { throw Error(output); })]);
     const base = `http://127.0.0.1:${port}`;
-    for (const url of ['/', '/research/', '/ontomosaic-doc', '/ontomosaic-doc/', '/ontomosaic-text2sql', '/ontomosaic-enterprise', '/ontomosaic-enterprise/?tab=1', '/ontology/']) {
+    for (const url of ['/', '/research/', '/ontomosaic-doc', '/ontomosaic-doc/', '/ontomosaic-db', '/ontomosaic-enterprise', '/ontomosaic-enterprise/?tab=1', '/ontology/']) {
       assert.match(await (await fetch(base + url)).text(), /id="root"/);
     }
     assert.equal(await (await fetch(base + '/analyze/deep-link')).text(), 'doc frontend');
@@ -90,7 +90,7 @@ Module._load = function(request) {
       ['/analyze/uploads/a.pdf', '/uploads/a.pdf', 'http://127.0.0.1:8008'],
       ['/api/upload', '/api/upload', 'http://127.0.0.1:5000'],
       ['/platform/api/health', '/api/health', 'http://127.0.0.1:8001'],
-      ['/ontomosaic-text2sql/api/health', '/ontomosaic-text2sql/api/health', 'http://127.0.0.1:8011'],
+      ['/ontomosaic-db/api/health', '/ontomosaic-db/api/health', 'http://127.0.0.1:8011'],
       ['/ontology/api/health', '/ontology/api/health', 'http://127.0.0.1:8011'],
     ]) {
       const body = Buffer.from([0, 1, 128, 255]);

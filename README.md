@@ -148,7 +148,7 @@ Naming: the platform uses `DATAMOSAIC_*` environment variables, the DBMosaic Ext
 
 ## OntoMosaic-DB
 
-Open **`/ontomosaic-text2sql`** to import a SQLite database and question–SQL examples, build ontology knowledge with Cortex, and explore or export the resulting graph. The backend is maintained in [`module/Ontology-NL2SQL`](https://github.com/HKUSTDial/Ontology-NL2SQL), independently of the document engines.
+Open **`/ontomosaic-db`** to import a SQLite database and question–SQL examples, build ontology knowledge with Cortex, and explore or export the resulting graph. The backend is maintained in [`module/Ontology-NL2SQL`](https://github.com/HKUSTDial/Ontology-NL2SQL), independently of the document engines.
 
 After installing the engine web dependencies, use `./start.sh --ontology-only` for independent development, or the full local/Docker stack for all modules. See [the integration guide](docs/ontomosaic-text2sql.md) for configuration, API paths, storage, current limits, and verification.
 
