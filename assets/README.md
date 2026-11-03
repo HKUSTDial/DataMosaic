@@ -31,7 +31,9 @@ narration sidecars, and intermediate exports are not included in this website
 update. The portal imports only the two product videos above.
 
 `extract-demo.mp4` remains the DBMosaic walkthrough for the local portal
-(WebM is also supported). The ontology **Demo** button plays `OntoMosaic-DB-demo.mp4` (30 seconds), including on GitHub Pages. Its onscreen branding, English narration and subtitles use OntoMosaic-DB; playback errors fall back to the GIF.
+(WebM is also supported). The ontology **Demo** buttons play `OntoMosaic-DB-demo.mp4`
+(30 seconds) and `enterprise-demo.mp4` (32 seconds), including on GitHub Pages.
+Playback errors fall back to each product's GIF.
 
 After adding or replacing a video, rebuild the frontend: restart `./start.sh`
 for script deployment, or run `docker compose up -d --no-deps --build web`

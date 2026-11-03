@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import ProductPreview from './ProductPreview';
 import ontoMosaicDemo from '../../assets/OntoMosaic-DB-demo.gif';
 import ontoMosaicVideo from '../../assets/OntoMosaic-DB-demo.mp4';
+import ontoEnterpriseDemo from '../../assets/OntoMosaic-Enterprise-demo.gif';
+import ontoEnterpriseVideo from '../../assets/enterprise-demo.mp4';
 import docMosaicDemo from '../../assets/DocMosaic-demo.gif';
 import dbMosaicDemo from '../../assets/DBMosaic-demo.gif';
 import docMosaicAgenticVideo from '../../assets/DocMosaic-agentic-product-v2.mp4';
@@ -9,13 +11,13 @@ import docMosaicFlightVideo from '../../assets/DocMosaic-interaction-flight-prod
 import structMosaicDemo from '../../assets/StructMosaic-demo.gif';
 import { isPagesPreview, siteUrl } from './site';
 
-export default function DemoDialog({ mode, docDemo = 'agentic', dbDemo = 'walkthrough', onClose }: { mode: 'analyze' | 'extract' | 'ontology' | 'structure'; docDemo?: 'agentic' | 'interaction'; dbDemo?: 'introduction' | 'walkthrough'; onClose: () => void }) {
+export default function DemoDialog({ mode, docDemo = 'agentic', dbDemo = 'walkthrough', onClose }: { mode: 'analyze' | 'extract' | 'ontology' | 'enterprise' | 'structure'; docDemo?: 'agentic' | 'interaction'; dbDemo?: 'introduction' | 'walkthrough'; onClose: () => void }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoFailed, setVideoFailed] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const title = mode === 'ontology' ? 'OntoMosaic-DB' : mode === 'analyze' ? 'DocMosaic' : mode === 'structure' ? 'StructMosaic' : 'DBMosaic';
-  const videoUrl = mode === 'ontology' ? ontoMosaicVideo : mode === 'analyze' ? (docDemo === 'agentic' ? docMosaicAgenticVideo : docMosaicFlightVideo)
+  const title = mode === 'ontology' ? 'OntoMosaic-DB' : mode === 'enterprise' ? 'OntoMosaic-Enterprise' : mode === 'analyze' ? 'DocMosaic' : mode === 'structure' ? 'StructMosaic' : 'DBMosaic';
+  const videoUrl = mode === 'ontology' ? ontoMosaicVideo : mode === 'enterprise' ? ontoEnterpriseVideo : mode === 'analyze' ? (docDemo === 'agentic' ? docMosaicAgenticVideo : docMosaicFlightVideo)
     : mode === 'structure' ? siteUrl('/structmosaic/demo.mp4')
       : siteUrl(dbDemo === 'introduction' ? '/dbmosaic/DBMosaic_product.mp4' : '/dbmosaic/demo.mp4');
   const heading = mode === 'analyze' ? `${title} · ${docDemo === 'agentic' ? 'Agentic' : 'Interactive'} demo`
@@ -59,6 +61,7 @@ export default function DemoDialog({ mode, docDemo = 'agentic', dbDemo = 'walkth
       : isPagesPreview && mode !== 'extract' && mode !== 'structure' && <p className="demo-preview-note">Workflow preview. Run DataMosaic locally to use this application.</p>}
     {showVideo ? <video className="demo-video" key={videoUrl} ref={videoRef} src={videoUrl} controls playsInline preload="metadata" onError={() => setVideoFailed(true)} aria-label={`${title} ${mode === 'analyze' ? docDemo : 'product'} demonstration`}/>
       : mode === 'ontology' ? <img className="demo-video" src={ontoMosaicDemo} alt="OntoMosaic-DB ontology learning workflow"/>
+      : mode === 'enterprise' ? <img className="demo-video" src={ontoEnterpriseDemo} alt="OntoMosaic-Enterprise process-to-ontology workflow"/>
       : isPagesPreview || mode === 'structure' ? <img className="demo-video" src={previewImage} alt={`${title} workflow preview`}/>
       : <div className="demo-placeholder">
         <span className="coming-soon-badge">{videoFailed ? 'Video unavailable' : 'Video coming soon'}</span>

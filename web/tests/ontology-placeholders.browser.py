@@ -49,6 +49,7 @@ with sync_playwright() as p:
             return image && image.complete && image.naturalWidth > 0;
         }''')
         expect(enterprise.locator('.service-status')).to_have_text('Unavailable')
+        expect(enterprise.get_by_role('button', name='Watch OntoMosaic-Enterprise demo')).to_be_visible()
         assert enterprise.evaluate('e => e.scrollWidth <= e.clientWidth + 1'), width
         assert cards.nth(1).locator('.product-demo').count() == 1
         mobile_navigation = page.get_by_role('button', name='Open navigation', exact=True).is_visible()
@@ -78,6 +79,15 @@ with sync_playwright() as p:
     page.goto(base + '/ontomosaic-db')
     expect(page.get_by_role('heading', name='Ontology workbench', exact=True)).to_be_visible()
     assert page.locator('main').inner_text().strip()
+    page.goto(base)
+    page.get_by_role('button', name='Watch OntoMosaic-Enterprise demo').click()
+    expect(page.get_by_role('dialog')).to_be_visible()
+    expect(page.locator('#demo-title')).to_have_text('OntoMosaic-Enterprise demo')
+    page.wait_for_function('document.querySelector("video.demo-video")?.readyState >= 1')
+    expect(page.locator('video.demo-video')).to_have_attribute('src', re.compile(r'.*enterprise-demo.*\.mp4'))
+    assert abs(page.locator('video.demo-video').evaluate('(video) => video.duration') - 32) < 0.1
+    page.get_by_role('button', name='Close demo', exact=True).click()
+    expect(page.get_by_role('dialog')).to_have_count(0)
     assert not errors, errors
     browser.close()
 print('PASS: card/menu order, blank routes, direct access, refresh, responsive cards, Text2SQL workbench, no mutations or JS errors')
