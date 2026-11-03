@@ -211,7 +211,7 @@ export default function App() {
             </article>
             <article className="workflow-card">
               <div className="card-main">
-                <span className="card-header"><span className="card-title"><span className="card-number">03</span>OntoMosaic-Enterprise <span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 8v4M5 16v-4h14v4"/><rect x="9" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="16" width="6" height="6" rx="1.5"/><rect x="16" y="16" width="6" height="6" rx="1.5"/></svg></span></span><span className="service-status bad" role="status">Unavailable</span></span>
+                <span className="card-header"><span className="card-title"><span className="card-number">03</span>OntoMosaic-Enterprise <span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 8v4M5 16v-4h14v4"/><rect x="9" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="16" width="6" height="6" rx="1.5"/><rect x="16" y="16" width="6" height="6" rx="1.5"/></svg></span></span><span className="service-status" role="status">Demo</span></span>
                 <span className="card-description">Turn business processes into a shared enterprise ontology. Unify concepts and relationships, then connect them to databases, systems, and documents.</span>
                 <img className="product-demo" src={ontoEnterpriseDemo} alt="OntoMosaic-Enterprise process-to-ontology demonstration" loading="lazy" decoding="async"/>
                 <span className="card-features"><span>Process-to-ontology</span><span>Connected data sources</span></span>

@@ -48,7 +48,8 @@ with sync_playwright() as p:
             const image = document.querySelector('.ontology-section .workflow-card:nth-child(3) img');
             return image && image.complete && image.naturalWidth > 0;
         }''')
-        expect(enterprise.locator('.service-status')).to_have_text('Unavailable')
+        expect(enterprise.locator('.service-status')).to_have_text('Demo')
+        expect(enterprise.locator('.service-status')).to_have_class('service-status')
         expect(enterprise.get_by_role('button', name='Watch OntoMosaic-Enterprise demo')).to_be_visible()
         assert enterprise.evaluate('e => e.scrollWidth <= e.clientWidth + 1'), width
         assert cards.nth(1).locator('.product-demo').count() == 1
