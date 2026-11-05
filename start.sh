@@ -80,7 +80,7 @@ unset VITE_API_BASE_URL
 echo "Building DataMosaic portal..."
 npm --prefix "$ROOT_DIR/web" run build -- --outDir "$BUILD_DIR/portal"
 echo "Building DocPilot frontend..."
-npm --prefix "$BUILD_DIR/docpilot" run build -- --base=/docmosaic/
+npm --prefix "$BUILD_DIR/docpilot" run build -- --base=/docmosaic/app/
 echo "Building DBMosaic frontend..."
 PUBLIC_URL=/dbmosaic REACT_APP_WEBSOCKET_URL=/dbmosaic/ws DISABLE_ESLINT_PLUGIN=true \
   npm --prefix "$BUILD_DIR/datamosaic" run build
@@ -148,7 +148,7 @@ node "$ROOT_DIR/web/local-server.cjs" "$ROOT_DIR" \
 PIDS+=("$!")
 wait_healthy 'Web portal' "http://127.0.0.1:$WEB_PORT/" "${PIDS[${#PIDS[@]}-1]}" "$LOG_DIR/web.log"
 
-echo "Open http://127.0.0.1:$WEB_PORT/ (DocMosaic: /docmosaic/, DBMosaic: /dbmosaic/)"
+echo "Open http://127.0.0.1:$WEB_PORT/ (DocMosaic introduction: /docmosaic/, workspace: /docmosaic/app/, DBMosaic: /dbmosaic/)"
 echo "Logs: $LOG_DIR · Press Ctrl+C to stop all local services."
 # macOS ships Bash 3.2, which has no wait -n.
 while true; do

@@ -13,7 +13,7 @@ test('DocPilot build uses the DocMosaic API and logo paths', () => {
     writeFileSync(join(folder, 'App.tsx'), '<img src="/docpilot-logo.png"/>');
     execFileSync(process.execPath, [fileURLToPath(new URL('../patch-docpilot-api.mjs', import.meta.url)), join(folder, 'api.ts')]);
     assert.match(readFileSync(join(folder, 'api.ts'), 'utf8'), /window\.location\.origin\}\/docmosaic/);
-    assert.match(readFileSync(join(folder, 'App.tsx'), 'utf8'), /src="\/docmosaic\/docpilot-logo\.png"/);
+    assert.match(readFileSync(join(folder, 'App.tsx'), 'utf8'), /src="\/docmosaic\/app\/docpilot-logo\.png"/);
   } finally {
     rmSync(folder, { recursive: true, force: true });
   }

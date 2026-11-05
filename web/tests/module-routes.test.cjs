@@ -16,6 +16,9 @@ test('module pages, API aliases and WebSockets use canonical paths', { timeout: 
     fs.mkdirSync(path.join(folder, name));
     fs.writeFileSync(path.join(folder, name, 'index.html'), name === 'portal' ? '<div id="root"></div>' : `${name} frontend`);
   }
+  fs.mkdirSync(path.join(folder, 'portal', 'docmosaic'));
+  fs.copyFileSync(path.join(root, 'web/public/docmosaic/index.html'), path.join(folder, 'portal/docmosaic/index.html'));
+  fs.copyFileSync(path.join(root, 'web/public/docmosaic/styles.css'), path.join(folder, 'portal/docmosaic/styles.css'));
   const upstream = http.createServer(async (request, response) => {
     const chunks = [];
     for await (const chunk of request) chunks.push(chunk);
@@ -70,17 +73,21 @@ Module._load = function(request) {
     assert.equal(await (await fetch(base + '/extract/deep-link')).text(), 'db frontend');
     for (const [url, destination] of [
       ['/docmosaic?tab=1', '/docmosaic/?tab=1'],
+      ['/docmosaic/app?tab=1', '/docmosaic/app/?tab=1'],
       ['/dbmosaic?tab=1', '/dbmosaic/?tab=1'],
-      ['/analyze?tab=1', '/docmosaic/?tab=1'],
+      ['/analyze?tab=1', '/docmosaic/app/?tab=1'],
       ['/extract?tab=1', '/dbmosaic/?tab=1'],
-      ['/analyze/deep%20link?tab=1', '/docmosaic/deep%20link?tab=1'],
+      ['/analyze/deep%20link?tab=1', '/docmosaic/app/deep%20link?tab=1'],
       ['/extract/deep-link?tab=1', '/dbmosaic/deep-link?tab=1'],
     ]) {
       const redirect = await fetch(base + url, { redirect: 'manual' });
       assert.equal(redirect.status, 308);
       assert.equal(redirect.headers.get('location'), destination);
     }
-    assert.equal(await (await fetch(base + '/docmosaic/deep-link')).text(), 'doc frontend');
+    assert.match(await (await fetch(base + '/docmosaic/')).text(), /Beyond the document\./);
+    assert.match(await (await fetch(base + '/docmosaic/styles.css')).text(), /\.hero-film/);
+    assert.equal(await (await fetch(base + '/docmosaic/app/')).text(), 'doc frontend');
+    assert.equal(await (await fetch(base + '/docmosaic/app/deep-link')).text(), 'doc frontend');
     assert.equal(await (await fetch(base + '/dbmosaic/deep-link')).text(), 'db frontend');
     for (const [url, expected, target] of [
       ['/docmosaic/api/health?x=1', '/api/health?x=1', 'http://127.0.0.1:8008'],

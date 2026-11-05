@@ -57,7 +57,7 @@ export default function App() {
   const isText2SQLPage = !isPagesPreview && /^\/(ontomosaic-db|ontomosaic-text2sql|ontology)\/?$/.test(path);
   const ontologyPlaceholder = ontologyPlaceholders.find(item => item.href === path.replace(/\/$/, ''));
   const previewRoutes: Record<string, 'analyze' | 'extract' | 'ontology'> = {
-    '/docmosaic': 'analyze',
+    '/docmosaic/app': 'analyze',
     '/ontomosaic-db': 'ontology', '/ontomosaic-text2sql': 'ontology', '/ontology': 'ontology',
   };
   const previewDemo = isPagesPreview ? previewRoutes[path.replace(/\/$/, '')] : undefined;

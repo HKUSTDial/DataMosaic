@@ -7,10 +7,10 @@ function productDirectories(): Plugin {
     const prefix = base === '/' ? '' : base.replace(/\/$/, '');
     const [path, query] = (request.url ?? '').split('?');
     const route = path.startsWith(prefix) ? path.slice(prefix.length) : path;
-    const product = /^\/(dbmosaic|structmosaic)\/?$/.exec(route)?.[1];
+    const product = /^\/(docmosaic|dbmosaic|structmosaic)\/?$/.exec(route)?.[1];
     if (!product) return;
-    if (route === '/structmosaic') {
-      response.writeHead(308, { Location: `${prefix}/structmosaic/${query ? `?${query}` : ''}` });
+    if (route === '/structmosaic' || route === '/docmosaic') {
+      response.writeHead(308, { Location: `${prefix}/${product}/${query ? `?${query}` : ''}` });
       response.end();
       return true;
     }

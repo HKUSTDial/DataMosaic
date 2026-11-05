@@ -1,0 +1,25 @@
+WEBVTT
+
+1
+00:00:00.600 --> 00:00:04.829
+Doc Mosaic turns complex documents into grounded answers.
+
+2
+00:00:06.300 --> 00:00:10.867
+An agent locates financial evidence across Nike's annual report.
+
+3
+00:00:13.300 --> 00:00:19.856
+Extract cost of sales and inventory. Keep every value linked to its source.
+
+4
+00:00:21.300 --> 00:00:26.305
+Generate Python from the evidence. Execute the code.
+
+5
+00:00:27.800 --> 00:00:29.824
+Three point four six times.
+
+6
+00:00:31.300 --> 00:00:36.715
+Verify the evidence and calculation. Return a grounded answer.

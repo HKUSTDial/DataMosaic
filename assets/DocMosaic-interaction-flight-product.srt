@@ -1,0 +1,27 @@
+1
+00:00:00,600 --> 00:00:03,893
+Doc Mosaic makes the path to an answer visible.
+
+2
+00:00:05,400 --> 00:00:09,016
+A paper plane follows the agent through Nike's report.
+
+3
+00:00:11,100 --> 00:00:16,559
+Page fifty nine. Cost of sales, captured as evidence E three.
+
+4
+00:00:18,800 --> 00:00:24,360
+Page sixty one. Inventory balances become evidence E four.
+
+5
+00:00:25,600 --> 00:00:31,421
+The calculation uses both sources. Every input stays connected.
+
+6
+00:00:32,200 --> 00:00:39,051
+Follow a citation back to the original page. See exactly what supports the answer.
+
+7
+00:00:40,000 --> 00:00:43,618
+A clear answer. A visible evidence trail.

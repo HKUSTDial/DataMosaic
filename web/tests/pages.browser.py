@@ -176,6 +176,13 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                     expect(page).to_have_url(base)
                 for name in ('DocMosaic', 'OntoMosaic-DB'):
                     page.get_by_role('link', name=f'Open {name}', exact=True).first.click()
+                    if name == 'DocMosaic':
+                        expect(page.locator('#hero-title')).to_have_text('Beyond the document.Intelligence in motion.')
+                        expect(page.locator('.hero-film video')).to_be_visible()
+                        expect(page.locator('.hero-film video source')).to_have_attribute('src', 'introduction.mp4')
+                        expect(page.locator('video')).to_have_count(4)
+                        assert page.reload().status == 200
+                        page.get_by_role('link', name='Get Started', exact=False).first.click()
                     expect(page.get_by_role('dialog')).to_be_visible()
                     expect(page.locator('#demo-title')).to_have_text('DocMosaic · Agentic demo' if name == 'DocMosaic' else f'{name} demo')
                     if name == 'DocMosaic':
@@ -205,7 +212,8 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                 assert page.goto(base).status == 200
                 page.get_by_role('button', name='Watch StructMosaic demo', exact=True).click()
                 expect(page.locator('#demo-title')).to_have_text('StructMosaic demo')
-                page.wait_for_function('document.querySelector("img.demo-video")?.naturalWidth > 0')
+                page.wait_for_function('document.querySelector("video.demo-video")?.readyState >= 1')
+                assert 'structmosaic/demo.mp4' in page.locator('video.demo-video').get_attribute('src')
                 page.get_by_role('button', name='Close demo', exact=True).click()
                 for route in ('ontomosaic-doc', 'ontomosaic-enterprise'):
                     assert page.goto(base + route + '?tab=1').status == 200

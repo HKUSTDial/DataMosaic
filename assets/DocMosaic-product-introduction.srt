@@ -1,0 +1,151 @@
+1
+00:00:00,800 --> 00:00:02,047
+Meet DocMosaic.
+
+2
+00:00:02,047 --> 00:00:05,213
+Agentic document understanding, powered by DocPilot.
+
+3
+00:00:05,213 --> 00:00:08,092
+Work across text, tables, and figures
+
+4
+00:00:08,092 --> 00:00:12,697
+to turn complex documents into answers you can inspect.
+
+5
+00:00:14,500 --> 00:00:16,993
+Let an agent solve the task.
+
+6
+00:00:16,993 --> 00:00:18,353
+Explore the evidence.
+
+7
+00:00:18,353 --> 00:00:21,601
+Then teach those capabilities to a compact model.
+
+8
+00:00:22,500 --> 00:00:23,506
+First.
+
+9
+00:00:23,506 --> 00:00:25,769
+Agentic document understanding.
+
+10
+00:00:26,600 --> 00:00:30,829
+Doc Mosaic turns complex documents into grounded answers.
+
+11
+00:00:32,300 --> 00:00:36,867
+An agent locates financial evidence across Nike's annual report.
+
+12
+00:00:39,300 --> 00:00:45,856
+Extract cost of sales and inventory. Keep every value linked to its source.
+
+13
+00:00:47,300 --> 00:00:52,305
+Generate Python from the evidence. Execute the code.
+
+14
+00:00:53,800 --> 00:00:55,824
+Three point four six times.
+
+15
+00:00:57,300 --> 00:01:02,715
+Verify the evidence and calculation. Return a grounded answer.
+
+16
+00:01:03,700 --> 00:01:04,542
+Second.
+
+17
+00:01:04,542 --> 00:01:06,963
+Make the evidence explorable.
+
+18
+00:01:07,800 --> 00:01:11,093
+Doc Mosaic makes the path to an answer visible.
+
+19
+00:01:12,600 --> 00:01:16,216
+A paper plane follows the agent through Nike's report.
+
+20
+00:01:18,300 --> 00:01:23,759
+Page fifty nine. Cost of sales, captured as evidence E three.
+
+21
+00:01:26,000 --> 00:01:31,560
+Page sixty one. Inventory balances become evidence E four.
+
+22
+00:01:32,800 --> 00:01:38,621
+The calculation uses both sources. Every input stays connected.
+
+23
+00:01:39,400 --> 00:01:46,251
+Follow a citation back to the original page. See exactly what supports the answer.
+
+24
+00:01:47,200 --> 00:01:50,818
+A clear answer. A visible evidence trail.
+
+25
+00:01:51,700 --> 00:01:52,429
+Third.
+
+26
+00:01:52,429 --> 00:01:55,891
+From large language models to small ones.
+
+27
+00:01:56,900 --> 00:01:59,465
+DocPilot first trains individual skills,
+
+28
+00:01:59,465 --> 00:02:03,364
+using thirty five thousand focused reasoning traces.
+
+29
+00:02:05,000 --> 00:02:08,168
+Then, five thousand interaction traces teach the model
+
+30
+00:02:08,168 --> 00:02:11,574
+to select and combine skills as evidence changes.
+
+31
+00:02:15,000 --> 00:02:18,115
+Against the same four billion parameter base model,
+
+32
+00:02:18,115 --> 00:02:22,397
+gains are four point two, seven point five, and eleven points
+
+33
+00:02:22,397 --> 00:02:24,188
+across these three benchmarks.
+
+34
+00:02:30,000 --> 00:02:31,856
+Across all three benchmarks,
+
+35
+00:02:31,856 --> 00:02:36,774
+DocPilot four B outperforms vanilla Gemini two point five Pro.
+
+36
+00:02:36,774 --> 00:02:41,692
+On DocBench, it nearly matches Gemini three point one Pro.
+
+37
+00:02:45,000 --> 00:02:46,102
+DocMosaic.
+
+38
+00:02:46,102 --> 00:02:50,650
+Understand documents, and inspect the reasoning.

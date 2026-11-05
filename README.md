@@ -18,11 +18,11 @@ Given a task **Q** and available sources, DataMosaic is built around three compl
 
 These capabilities are organized into task-oriented modules:
 
-The homepage uses a top navigation bar: **Applications → DBMosaic / DocMosaic** opens DBMosaic and DocPilot respectively; **Ontologies** lists the OntoMosaic modules; **Resources → Tools / Benchmarks / Publications** opens `/tools/`, `/benchmarks/`, and the existing `/research/` publication list. **Organization → Documentation / Members** opens the repository and `/members/`; Members lists faculty and students with portraits and available profile links; Tools groups related products into Agentic Document AI (LandingAI) and Extraction (LlamaExtract and Reducto), with product images, capability summaries, and official website links; Benchmarks groups DTBench and Doc2DB-Bench under Information Extraction, and LongDocURL, MMLongBench-Doc, MADQA, FinRAGBench-V, and OfficeQA Pro under DocVQA, with official figures and paper, code, and dataset links, and **Contact us** opens the repository's issue form. On smaller screens, navigation is available through the menu button. The research page groups the publications by year and provides PDF and code links where they are available; it supports direct access and refresh through the existing portal fallback.
+The homepage uses a top navigation bar: **Applications → DBMosaic / DocMosaic** opens DBMosaic and the DocMosaic product introduction respectively; **Ontologies** lists the OntoMosaic modules; **Resources → Tools / Benchmarks / Publications** opens `/tools/`, `/benchmarks/`, and the existing `/research/` publication list. **Organization → Documentation / Members** opens the repository and `/members/`; Members lists faculty and students with portraits and available profile links; Tools groups related products into Agentic Document AI (LandingAI) and Extraction (LlamaExtract and Reducto), with product images, capability summaries, and official website links; Benchmarks groups DTBench and Doc2DB-Bench under Information Extraction, and LongDocURL, MMLongBench-Doc, MADQA, FinRAGBench-V, and OfficeQA Pro under DocVQA, with official figures and paper, code, and dataset links, and **Contact us** opens the repository's issue form. On smaller screens, navigation is available through the menu button. The research page groups the publications by year and provides PDF and code links where they are available; it supports direct access and refresh through the existing portal fallback.
 
 | Engine / Module | Repository | What it does | Output |
 | --- | --- | --- | --- |
-| **DocMosaic** (`/docmosaic/`) | [DocPilot](https://github.com/HKUSTDial/DocPilot) | Investigates questions across long visual documents and follows evidence across pages | An answer with agent steps and navigable source evidence |
+| **DocMosaic** (introduction: `/docmosaic/`; workspace: `/docmosaic/app/`) | [DocPilot](https://github.com/HKUSTDial/DocPilot) | Investigates questions across long visual documents and follows evidence across pages | An answer with agent steps and navigable source evidence |
 | **DBMosaic** (`/dbmosaic/`) | [DBMosaic](https://github.com/HKUSTDial/DBMosaic) | Collects entities, fields, and relationships from documents under a target structure | Structured records and a database to inspect or export |
 
 ## Related Work
@@ -41,7 +41,7 @@ The portal can be published as a static preview at **https://hkustdial.github.io
 
 Later pushes affecting the website rebuild `gh-pages` and explicitly request a Pages build, since pushes made with `GITHUB_TOKEN` do not trigger one automatically. No extra personal access token is needed. A successful **Build website branch** run confirms that the generated branch was updated; check **pages build and deployment** and the public URL to confirm publication. Branch publishing still uses GitHub Pages and can encounter service-side delays or timeouts.
 
-The preview includes the homepage, animations, research page, the DBMosaic product page, module demos, and empty ontology placeholders. The DBMosaic card opens that product page. DocMosaic and OntoMosaic-DB links open demos. Document analysis, database extraction, and ontology training require the local deployment below. The workflow builds only the portal and needs neither engine submodules nor model credentials. The generated branch contains the build output and `.nojekyll`, with no application source or engine submodules.
+The preview includes the homepage, animations, research page, the DBMosaic and DocMosaic product pages, module demos, and empty ontology placeholders. The DBMosaic and DocMosaic cards open their product pages. On the static preview, Get Started opens an agentic demo, and OntoMosaic-DB opens its demo. Document analysis, database extraction, and ontology training require the local deployment below. The workflow builds only the portal and needs neither engine submodules nor model credentials. The generated branch contains the build output and `.nojekyll`, with no application source or engine submodules.
 
 To build and inspect the same preview locally:
 
@@ -108,7 +108,7 @@ With either method, open **http://127.0.0.1:8080** and choose the module for you
 
 Pair the workflow with a strong multimodal LLM for high-quality document analysis. DocPilot also supports compact models trained on individual document-solving abilities and complete interaction trajectories; trained action-tag models can be served through vLLM for a smaller, self-hosted deployment.
 
-1. Open **Analyze** from the home page. In **Model Settings**, choose **Custom** for a multimodal LLM or **vLLM** for a trained DocPilot action-tag model, then enter the endpoint, model, and any required key.
+1. Open **DocMosaic** from the home page, then choose **Get Started**. In **Model Settings**, choose **Custom** for a multimodal LLM or **vLLM** for a trained DocPilot action-tag model, then enter the endpoint, model, and any required key.
 2. Keep **Default** selected for the agentic workflow. Import a PDF into **Workspace**, wait until MinerU marks it **Ready**, then add it to the conversation.
 3. Ask your question. Follow the agent steps as the answer is produced, and click an evidence reference to locate it in the PDF viewer.
 
@@ -152,4 +152,4 @@ Open **`/ontomosaic-db`** to import a SQLite database and question–SQL example
 
 After installing the engine web dependencies, use `./start.sh --ontology-only` for independent development, or the full local/Docker stack for all modules. See [the integration guide](docs/ontomosaic-text2sql.md) for configuration, API paths, storage, current limits, and verification.
 
-Module entry paths are `/docmosaic/` and `/dbmosaic/`. Legacy `/analyze/` and `/extract/` pages redirect to them; legacy API and WebSocket paths remain compatible. Rebuild and restart the web gateway after changing paths.
+`/docmosaic/` opens the DocMosaic product introduction in both the static preview and full deployment. Its Get Started link opens `/docmosaic/app/`: the live workspace in the full deployment, or an agentic demo on GitHub Pages. `/dbmosaic/` remains the DBMosaic entry. Legacy `/analyze/` redirects to `/docmosaic/app/`, and `/extract/` redirects to `/dbmosaic/`; existing API and WebSocket paths remain compatible. Rebuild and restart the web gateway after changing paths.

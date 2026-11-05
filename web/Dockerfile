@@ -4,7 +4,7 @@ COPY module/DocPilot/demo/chat/frontend/package*.json ./
 RUN npm ci
 COPY module/DocPilot/demo/chat/frontend/ ./
 COPY web/patch-docpilot-api.mjs /tmp/patch-docpilot-api.mjs
-RUN node /tmp/patch-docpilot-api.mjs /app/src/api.ts && npm run build -- --base=/docmosaic/
+RUN node /tmp/patch-docpilot-api.mjs /app/src/api.ts && npm run build -- --base=/docmosaic/app/
 
 FROM node:20-alpine AS datamosaic-ui
 WORKDIR /app
@@ -25,7 +25,7 @@ RUN npm run build
 FROM nginx:1.27-alpine
 COPY web/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=portal-ui /app/dist/ /usr/share/nginx/html/
-COPY --from=docpilot-ui /app/dist/ /usr/share/nginx/html/docmosaic/
+COPY --from=docpilot-ui /app/dist/ /usr/share/nginx/html/docmosaic/app/
 # The portal build includes the DBMosaic product page at /dbmosaic/.
 # The full deployment serves the engine UI at that same path.
 RUN rm -rf /usr/share/nginx/html/dbmosaic
