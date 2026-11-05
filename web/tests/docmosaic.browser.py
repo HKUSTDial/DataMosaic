@@ -39,7 +39,10 @@ with sync_playwright() as p:
             assert page.locator('.hero-film').bounding_box()['width'] > page.locator('.hero-copy').bounding_box()['width'] * 1.3
         if width in (1920, 1440):
             assert abs(page.locator('.hero-grid').bounding_box()['width'] - min(1440, width - 96)) < 1
-            assert abs(page.locator('.hero-film').bounding_box()['height'] - page.locator('.hero-copy').bounding_box()['height']) < 2
+            assert page.locator('.hero-copy').bounding_box()['height'] < page.locator('.hero-film').bounding_box()['height']
+            lede = page.locator('.hero-copy .lede').bounding_box()
+            actions = page.locator('.hero-actions').bounding_box()
+            assert 15 <= actions['y'] - lede['y'] - lede['height'] <= 25
         if width in (1440, 390):
             introduction.evaluate('async (v)=>{v.muted=true;await v.play();v.currentTime=2;}')
             page.wait_for_function('(v)=>v.currentTime>2.1', arg=introduction.element_handle())
