@@ -1,0 +1,785 @@
+{
+  "sources": {
+    "docatlas": {
+      "label": "DocAtlas leaderboard",
+      "url": "https://officeintelligence.github.io/docatlas/#leaderboard",
+      "dataUrl": "https://officeintelligence.github.io/docatlas/edge.js?v=20260818-2",
+      "retrievedAt": "2026-11-05T11:33:53+00:00",
+      "sha256": "cb63067968216c4c965dc65af45e5d80ed54eb052027033c8fd9572bffbe0f02"
+    },
+    "docpilot": {
+      "label": "DocPilot · Table 1",
+      "url": "https://arxiv.org/pdf/2610.21327#page=7",
+      "retrievedAt": "2026-11-05T11:33:53+00:00",
+      "sha256": "292244b8591f59eae1a264f72b66b710d546dad090df1fb8f30fb13aa4c29228"
+    }
+  },
+  "metrics": [
+    {
+      "benchmark": "MMLongBench-Doc",
+      "label": "TXT"
+    },
+    {
+      "benchmark": "MMLongBench-Doc",
+      "label": "LAY"
+    },
+    {
+      "benchmark": "MMLongBench-Doc",
+      "label": "CHA"
+    },
+    {
+      "benchmark": "MMLongBench-Doc",
+      "label": "TAB"
+    },
+    {
+      "benchmark": "MMLongBench-Doc",
+      "label": "FIG"
+    },
+    {
+      "benchmark": "MMLongBench-Doc",
+      "label": "UNA"
+    },
+    {
+      "benchmark": "MMLongBench-Doc",
+      "label": "Acc"
+    },
+    {
+      "benchmark": "MMLongBench-Doc",
+      "label": "F1"
+    },
+    {
+      "benchmark": "MMLongBench-Doc",
+      "label": "LasJ"
+    },
+    {
+      "benchmark": "FinRAGBench-V",
+      "label": "TXT"
+    },
+    {
+      "benchmark": "FinRAGBench-V",
+      "label": "TAB"
+    },
+    {
+      "benchmark": "FinRAGBench-V",
+      "label": "CHA"
+    },
+    {
+      "benchmark": "FinRAGBench-V",
+      "label": "LasJ"
+    },
+    {
+      "benchmark": "LongDocURL",
+      "label": "LasJ"
+    },
+    {
+      "benchmark": "DocBench",
+      "label": "LasJ"
+    }
+  ],
+  "rows": [
+    {
+      "group": "vanilla",
+      "model": "GPT-5.2",
+      "source": "docatlas",
+      "values": [
+        45.8,
+        45.6,
+        45.3,
+        43.3,
+        33.5,
+        86.0,
+        52.8,
+        52.1,
+        57.6,
+        40.4,
+        28.9,
+        40.7,
+        36.0,
+        59.4,
+        null
+      ]
+    },
+    {
+      "group": "vanilla",
+      "model": "GPT-5.4",
+      "source": "docatlas",
+      "values": [
+        57.8,
+        57.7,
+        55.7,
+        61.1,
+        51.7,
+        75.6,
+        62.4,
+        59.4,
+        63.4,
+        64.6,
+        45.2,
+        59.9,
+        55.1,
+        66.9,
+        null
+      ]
+    },
+    {
+      "group": "vanilla",
+      "model": "Claude-4-Sonnet",
+      "source": "docatlas",
+      "values": [
+        50.4,
+        49.4,
+        50.5,
+        57.3,
+        43.9,
+        59.0,
+        53.4,
+        null,
+        null,
+        36.6,
+        20.2,
+        51.9,
+        33.8,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "vanilla",
+      "model": "Gemini-2.5-Flash",
+      "source": "docatlas",
+      "values": [
+        44.0,
+        53.2,
+        46.0,
+        43.9,
+        48.2,
+        56.7,
+        49.6,
+        null,
+        null,
+        49.0,
+        41.6,
+        41.0,
+        43.0,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "vanilla",
+      "model": "Gemini-2.5-Pro",
+      "source": "docatlas",
+      "values": [
+        52.1,
+        62.1,
+        55.5,
+        55.3,
+        54.0,
+        59.9,
+        58.1,
+        null,
+        null,
+        62.2,
+        55.3,
+        50.4,
+        54.9,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "vanilla",
+      "model": "Qwen3.5-4B",
+      "source": "docatlas",
+      "values": [
+        47.5,
+        48.7,
+        47.6,
+        55.4,
+        45.5,
+        63.4,
+        54.4,
+        53.1,
+        58.7,
+        66.2,
+        49.0,
+        48.8,
+        52.8,
+        52.4,
+        null
+      ]
+    },
+    {
+      "group": "vanilla",
+      "model": "Qwen3.5-9B",
+      "source": "docatlas",
+      "values": [
+        54.2,
+        53.8,
+        51.0,
+        55.7,
+        46.4,
+        66.9,
+        58.0,
+        55.0,
+        60.2,
+        64.2,
+        52.2,
+        54.7,
+        55.8,
+        55.5,
+        null
+      ]
+    },
+    {
+      "group": "vanilla",
+      "model": "Qwen3.5-397B-A13B",
+      "source": "docatlas",
+      "values": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        61.9,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "ocr",
+      "model": "Claude-4-Sonnet + OCR",
+      "source": "docatlas",
+      "values": [
+        52.7,
+        51.6,
+        50.0,
+        58.1,
+        45.3,
+        65.9,
+        56.0,
+        null,
+        null,
+        58.7,
+        21.6,
+        54.3,
+        41.0,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "ocr",
+      "model": "Gemini-2.5-Flash + OCR",
+      "source": "docatlas",
+      "values": [
+        55.9,
+        54.9,
+        52.7,
+        63.4,
+        50.3,
+        60.8,
+        58.5,
+        null,
+        null,
+        67.6,
+        64.4,
+        46.1,
+        58.3,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "ocr",
+      "model": "Gemini-2.5-Pro + OCR",
+      "source": "docatlas",
+      "values": [
+        59.7,
+        65.3,
+        60.8,
+        68.3,
+        55.7,
+        58.4,
+        63.3,
+        null,
+        null,
+        70.0,
+        70.0,
+        56.2,
+        64.9,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "agent",
+      "model": "M3DocRAG (Qwen2-VL-7B)†",
+      "source": "docatlas",
+      "values": [
+        30.0,
+        23.5,
+        18.9,
+        20.1,
+        20.8,
+        5.8,
+        21.0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "agent",
+      "model": "MDocAgent (GPT-4o)†",
+      "source": "docatlas",
+      "values": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        42.0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "agent",
+      "model": "DocDancer (GPT-5.2)",
+      "source": "docatlas",
+      "values": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        57.0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "agent",
+      "model": "SimpleDoc + Claude-4-Sonnet",
+      "source": "docatlas",
+      "values": [
+        52.1,
+        53.3,
+        58.3,
+        62.4,
+        46.9,
+        66.5,
+        58.6,
+        null,
+        null,
+        59.6,
+        68.9,
+        54.9,
+        61.7,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "agent",
+      "model": "SimpleDoc + Gemini-2.5-Flash",
+      "source": "docatlas",
+      "values": [
+        45.5,
+        57.4,
+        49.0,
+        51.6,
+        45.2,
+        66.5,
+        53.3,
+        null,
+        null,
+        70.2,
+        56.2,
+        53.6,
+        58.3,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "agent",
+      "model": "SimpleDoc + Gemini-2.5-Pro",
+      "source": "docatlas",
+      "values": [
+        48.4,
+        54.8,
+        55.7,
+        56.1,
+        52.5,
+        59.7,
+        56.6,
+        null,
+        null,
+        67.5,
+        64.0,
+        60.9,
+        63.6,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "agent",
+      "model": "DocLens + Claude-4-Sonnet",
+      "source": "docatlas",
+      "values": [
+        59.9,
+        58.2,
+        54.4,
+        63.9,
+        55.3,
+        74.0,
+        63.3,
+        null,
+        null,
+        70.2,
+        66.0,
+        60.3,
+        64.8,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "agent",
+      "model": "DocLens + Gemini-2.5-Flash",
+      "source": "docatlas",
+      "values": [
+        59.5,
+        61.5,
+        54.8,
+        66.9,
+        59.0,
+        73.8,
+        64.7,
+        null,
+        null,
+        69.9,
+        71.3,
+        64.5,
+        68.5,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "agent",
+      "model": "DocLens + Gemini-2.5-Pro",
+      "source": "docatlas",
+      "values": [
+        63.7,
+        64.6,
+        64.3,
+        69.7,
+        60.2,
+        72.2,
+        67.6,
+        null,
+        null,
+        68.9,
+        74.2,
+        67.1,
+        70.4,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "docatlas",
+      "model": "DocAtlas + Qwen3.5-4B",
+      "source": "docatlas",
+      "values": [
+        58.4,
+        54.6,
+        56.1,
+        67.0,
+        48.1,
+        70.6,
+        61.0,
+        58.7,
+        63.5,
+        73.3,
+        66.5,
+        65.4,
+        67.9,
+        72.5,
+        null
+      ]
+    },
+    {
+      "group": "docatlas",
+      "model": "DocAtlas + Qwen3.5-9B",
+      "source": "docatlas",
+      "values": [
+        58.8,
+        55.3,
+        56.2,
+        67.8,
+        51.9,
+        70.8,
+        61.6,
+        59.4,
+        64.7,
+        73.9,
+        67.1,
+        66.4,
+        69.8,
+        74.0,
+        null
+      ]
+    },
+    {
+      "group": "docatlas",
+      "model": "DocAtlas RL + Qwen3.5-4B",
+      "source": "docatlas",
+      "values": [
+        59.2,
+        55.9,
+        57.5,
+        67.8,
+        51.8,
+        74.6,
+        63.7,
+        62.4,
+        67.9,
+        75.2,
+        70.7,
+        68.5,
+        71.7,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "docatlas",
+      "model": "DocAtlas RL + Qwen3.5-9B",
+      "source": "docatlas",
+      "values": [
+        66.6,
+        60.5,
+        58.9,
+        70.1,
+        59.9,
+        59.3,
+        64.4,
+        63.1,
+        69.6,
+        75.8,
+        72.0,
+        70.7,
+        72.6,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "docatlas",
+      "model": "DocAtlas + GPT-5.2",
+      "source": "docatlas",
+      "values": [
+        67.0,
+        71.5,
+        68.0,
+        74.4,
+        67.6,
+        66.5,
+        70.6,
+        69.6,
+        73.9,
+        76.0,
+        76.2,
+        73.1,
+        75.2,
+        77.5,
+        null
+      ]
+    },
+    {
+      "group": "docatlas",
+      "model": "DocAtlas + GPT-5.4",
+      "source": "docatlas",
+      "values": [
+        68.8,
+        69.0,
+        68.2,
+        74.1,
+        69.8,
+        68.6,
+        71.4,
+        70.3,
+        74.6,
+        76.3,
+        77.4,
+        73.2,
+        75.6,
+        78.8,
+        null
+      ]
+    },
+    {
+      "group": "human",
+      "model": "Human Expert†",
+      "source": "docatlas",
+      "values": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        65.8,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "docpilot",
+      "model": "DocPilot + Qwen3.5-397B-A17B",
+      "source": "docpilot",
+      "values": [
+        71.8,
+        52.1,
+        65.5,
+        72.5,
+        63.3,
+        83.0,
+        72.1,
+        68.8,
+        null,
+        78.6,
+        66.8,
+        74.0,
+        72.1,
+        null,
+        84.3
+      ]
+    },
+    {
+      "group": "docpilot",
+      "model": "DocPilot + Gemini-2.5-Pro",
+      "source": "docpilot",
+      "values": [
+        76.9,
+        68.1,
+        70.4,
+        77.9,
+        70.7,
+        63.8,
+        72.8,
+        73.0,
+        null,
+        72.0,
+        72.6,
+        75.8,
+        73.4,
+        null,
+        84.1
+      ]
+    },
+    {
+      "group": "docpilot",
+      "model": "DocPilot + Gemini-3.1-Pro",
+      "source": "docpilot",
+      "values": [
+        75.4,
+        70.0,
+        74.6,
+        74.5,
+        74.2,
+        73.2,
+        75.6,
+        74.9,
+        null,
+        68.3,
+        79.4,
+        77.4,
+        75.8,
+        null,
+        86.8
+      ]
+    },
+    {
+      "group": "docpilot",
+      "model": "DocPilot + GPT-5.4",
+      "source": "docpilot",
+      "values": [
+        72.7,
+        68.4,
+        69.1,
+        71.6,
+        71.4,
+        75.0,
+        73.5,
+        72.4,
+        null,
+        59.3,
+        79.4,
+        78.7,
+        73.8,
+        null,
+        83.5
+      ]
+    },
+    {
+      "group": "docpilot",
+      "model": "DocPilot-4B",
+      "source": "docpilot",
+      "values": [
+        57.4,
+        47.9,
+        53.4,
+        58.7,
+        51.0,
+        70.0,
+        59.1,
+        58.5,
+        null,
+        68.7,
+        56.2,
+        59.6,
+        60.2,
+        null,
+        80.3
+      ]
+    }
+  ]
+}
