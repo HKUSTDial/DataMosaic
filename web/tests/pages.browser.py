@@ -49,6 +49,11 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                 expect(page.locator('#hero-title')).to_have_text('Efficient, Reliable, and Explainable AI for Documents, Databases, and Enterprise Workflows.')
                 assert page.locator('.overview-app-story').count() == 3
                 assert page.locator('.overview-plugin').count() == 3
+                doc_actions = page.locator('.analyze .card-actions')
+                entries = [doc_actions.locator('a').bounding_box(), *[button.bounding_box() for button in doc_actions.locator('button').all()]]
+                centers = [entry['y'] + entry['height'] / 2 for entry in entries]
+                assert len(entries) == 3 and max(centers) - min(centers) < 1, width
+                assert doc_actions.evaluate('(e)=>e.scrollWidth<=e.clientWidth+1'), width
                 assert page.locator('a[href^="/"]').evaluate_all('(links) => links.every(a => a.getAttribute("href").startsWith("/DataMosaic/"))')
                 assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'), width
                 mobile_navigation = page.get_by_role('button', name='Open navigation', exact=True)
