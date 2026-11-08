@@ -4,6 +4,7 @@ python3 -P tests/pages.browser.py /absolute/path/to/dist
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+import os
 import sys
 import tempfile
 from threading import Thread
@@ -32,7 +33,8 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
     base = f'http://127.0.0.1:{server.server_port}/DataMosaic/'
     try:
         with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
+            proxy = {'server': os.environ['HTTPS_PROXY'], 'bypass': '127.0.0.1,localhost'} if os.environ.get('HTTPS_PROXY') else None
+            browser = p.chromium.launch(headless=True, proxy=proxy)
             page = browser.new_page(viewport={'width': 1440, 'height': 1100})
             errors, failures, api_requests = [], [], []
             def record_failure(request):

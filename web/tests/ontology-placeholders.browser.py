@@ -2,17 +2,21 @@
 python3 -P tests/ontology-placeholders.browser.py http://127.0.0.1:21680
 """
 import json
+import os
 import re
 import sys
+from urllib.parse import urlsplit
 
 from playwright.sync_api import expect, sync_playwright
 
-base = sys.argv[1] if len(sys.argv) > 1 else 'http://127.0.0.1:21680'
+base = (sys.argv[1] if len(sys.argv) > 1 else 'http://127.0.0.1:21680').rstrip('/')
+prefix = urlsplit(base).path.rstrip('/')
 modules = [('OntoMosaic-Doc', '/ontomosaic-doc/'),
            ('OntoMosaic-DB', '/ontomosaic-db'),
            ('OntoMosaic-Enterprise', '/ontomosaic-enterprise/index.html')]
 with sync_playwright() as p:
-    browser = p.chromium.launch(headless=True)
+    proxy = {'server': os.environ['HTTPS_PROXY'], 'bypass': '127.0.0.1,localhost'} if os.environ.get('HTTPS_PROXY') else None
+    browser = p.chromium.launch(headless=True, proxy=proxy)
     page = browser.new_page(viewport={'width': 1440, 'height': 1100})
     errors, requests = [], []
     page.on('pageerror', lambda error: errors.append(str(error)))
@@ -25,11 +29,11 @@ with sync_playwright() as p:
     page.route('**/api/**', mock_api)
     for width in (1440, 1024, 768, 390, 360):
         page.set_viewport_size({'width': width, 'height': 1100})
-        page.goto(base)
+        page.goto(base + '/')
         cards = page.locator('.ontology-section .workflow-card')
-        assert cards.count() == 3
+        expect(cards).to_have_count(3)
         for index, (name, href) in enumerate(modules):
-            expect(cards.nth(index).get_by_role('link', name=f'Open {name}', exact=True).first).to_have_attribute('href', href)
+            expect(cards.nth(index).get_by_role('link', name=f'Open {name}', exact=True).first).to_have_attribute('href', prefix + href)
         assert cards.locator('.card-number').all_text_contents() == ['01', '02', '03']
         doc = cards.nth(0)
         expect(doc.locator('.card-description')).to_have_text('Let a context graph lead retrieval across the enterprise. Follow concepts, relationships, and evidence from the question to a grounded answer.')
@@ -57,7 +61,7 @@ with sync_playwright() as p:
         if mobile_navigation:
             page.get_by_role('button', name='Open navigation', exact=True).click()
         page.locator('#nav-ontology').click()
-        assert page.locator('#nav-ontology-panel a').evaluate_all('(es) => es.map(e => e.getAttribute("href"))') == [href for _, href in modules]
+        assert page.locator('#nav-ontology-panel a').evaluate_all('(es) => es.map(e => e.getAttribute("href"))') == [prefix + href for _, href in modules]
         page.locator('#nav-ontology').click()
         if mobile_navigation:
             page.get_by_role('button', name='Close navigation', exact=True).click()
@@ -70,7 +74,7 @@ with sync_playwright() as p:
                 expect(page.locator('#demo video')).to_be_visible()
             else:
                 expect(page.get_by_role('heading', level=1)).to_have_text('Connecting Your Business Workflows')
-            page.goto(base)
+            page.goto(base + '/')
     for index in (0, 2):
         name, href = modules[index]
         for suffix in ('', '/', '?tab=1'):
@@ -87,7 +91,7 @@ with sync_playwright() as p:
     page.goto(base + '/ontomosaic-db')
     expect(page.get_by_role('heading', name='Ontology workbench', exact=True)).to_be_visible()
     assert page.locator('main').inner_text().strip()
-    page.goto(base)
+    page.goto(base + '/')
     page.get_by_role('button', name='Watch OntoMosaic-Enterprise demo').click()
     expect(page.get_by_role('dialog')).to_be_visible()
     expect(page.locator('#demo-title')).to_have_text('OntoMosaic-Enterprise demo')
