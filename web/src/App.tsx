@@ -214,13 +214,13 @@ export default function App() {
               <div className="card-actions"><a href={siteUrl('/ontomosaic-db')}>Open OntoMosaic-DB <span aria-hidden="true">↗</span></a><button className="card-demo" type="button" onClick={() => setActiveDemo('ontology')} aria-label="Watch OntoMosaic-DB demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo</button></div>
             </article>
             <article className="workflow-card">
-              <a className="card-main" href={siteUrl('/ontomosaic-enterprise/')} aria-label="Open OntoMosaic-Enterprise">
+              <a className="card-main" href={siteUrl('/ontomosaic-enterprise/index.html')} aria-label="Open OntoMosaic-Enterprise">
                 <span className="card-header"><span className="card-title"><span className="card-number">03</span>OntoMosaic-Enterprise <span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 8v4M5 16v-4h14v4"/><rect x="9" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="16" width="6" height="6" rx="1.5"/><rect x="16" y="16" width="6" height="6" rx="1.5"/></svg></span></span><span className="service-status" role="status">Demo</span></span>
                 <span className="card-description">Turn business workflows into a shared enterprise ontology. Unify concepts and relationships, then connect them to databases, systems, and documents.</span>
                 <img className="product-demo" src={ontoEnterpriseDemo} alt="OntoMosaic-Enterprise workflow-to-ontology demonstration" loading="lazy" decoding="async"/>
                 <span className="card-features"><span>Workflow-to-ontology</span><span>Connected data sources</span></span>
               </a>
-              <div className="card-actions"><a href={siteUrl('/ontomosaic-enterprise/')}>Open OntoMosaic-Enterprise <span aria-hidden="true">↗</span></a><button className="card-demo" type="button" onClick={() => setActiveDemo('enterprise')} aria-label="Watch OntoMosaic-Enterprise demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo</button></div>
+              <div className="card-actions"><a href={siteUrl('/ontomosaic-enterprise/index.html')}>Open OntoMosaic-Enterprise <span aria-hidden="true">↗</span></a><button className="card-demo" type="button" onClick={() => setActiveDemo('enterprise')} aria-label="Watch OntoMosaic-Enterprise demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo</button></div>
             </article>
             <article className="coming-soon-card">
               <div className="coming-soon-visual" aria-hidden="true"><span><svg viewBox="0 0 24 24"><path d="M12 8v4M5 16v-4h14v4"/><rect x="9" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="16" width="6" height="6" rx="1.5"/><rect x="16" y="16" width="6" height="6" rx="1.5"/></svg></span><i></i><span><svg viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></svg></span></div>
