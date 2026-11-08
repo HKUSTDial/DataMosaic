@@ -14,6 +14,7 @@ const proxy = fromDBMosaic('http-proxy').createProxyServer({ changeOrigin: true,
 const sites = {
   '/docmosaic/app': { root: docpilotDist, serve: serveStatic(docpilotDist) },
   '/dbmosaic': { root: datamosaicBuild, serve: serveStatic(datamosaicBuild) },
+  '/ontomosaic-enterprise': { root: join(portalBuild, 'ontomosaic-enterprise'), serve: serveStatic(join(portalBuild, 'ontomosaic-enterprise')) },
   '': { root: portalBuild, serve: serveStatic(portalBuild) },
 };
 for (const site of Object.values(sites)) {
@@ -48,7 +49,7 @@ function serve(site, prefix, request, response) {
 
 const server = http.createServer((request, response) => {
   const pathname = new URL(request.url, 'http://localhost').pathname;
-  if (pathname === '/docmosaic' || pathname === '/docmosaic/app' || pathname === '/dbmosaic' || pathname === '/structmosaic' || pathname === '/ontomosaic-doc') {
+  if (pathname === '/docmosaic' || pathname === '/docmosaic/app' || pathname === '/dbmosaic' || pathname === '/structmosaic' || pathname === '/ontomosaic-doc' || pathname === '/ontomosaic-enterprise') {
     response.writeHead(308, { Location: `${pathname}/${new URL(request.url, 'http://localhost').search}` }).end();
   } else if (/^\/(docmosaic|analyze)\/(api|uploads)\//.test(pathname)) {
     request.url = request.url.replace(/^\/(docmosaic|analyze)/, '');
@@ -69,6 +70,8 @@ const server = http.createServer((request, response) => {
     response.writeHead(308, { Location: `/dbmosaic${pathname.slice('/extract'.length) || '/'}${new URL(request.url, 'http://localhost').search}` }).end();
   } else if (pathname.startsWith('/dbmosaic/')) {
     serve(sites['/dbmosaic'], '/dbmosaic', request, response);
+  } else if (pathname.startsWith('/ontomosaic-enterprise/')) {
+    serve(sites['/ontomosaic-enterprise'], '/ontomosaic-enterprise', request, response);
   } else {
     serve(sites[''], '', request, response);
   }

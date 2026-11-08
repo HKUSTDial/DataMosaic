@@ -16,7 +16,7 @@ test('module pages, API aliases and WebSockets use canonical paths', { timeout: 
     fs.mkdirSync(path.join(folder, name));
     fs.writeFileSync(path.join(folder, name, 'index.html'), name === 'portal' ? '<div id="root"></div>' : `${name} frontend`);
   }
-  for (const product of ['docmosaic', 'ontomosaic-doc']) {
+  for (const product of ['docmosaic', 'ontomosaic-doc', 'ontomosaic-enterprise']) {
     fs.mkdirSync(path.join(folder, 'portal', product));
     for (const name of ['index.html', 'styles.css']) {
       fs.copyFileSync(path.join(root, 'web/public', product, name), path.join(folder, 'portal', product, name));
@@ -69,17 +69,19 @@ Module._load = function(request) {
   try {
     await Promise.race([once(child.stdout, 'data'), once(child, 'exit').then(() => { throw Error(output); })]);
     const base = `http://127.0.0.1:${port}`;
-    for (const url of ['/', '/research/', '/ontomosaic-db', '/ontomosaic-enterprise', '/ontomosaic-enterprise/?tab=1', '/ontology/']) {
+    for (const url of ['/', '/research/', '/ontomosaic-db', '/ontology/']) {
       assert.match(await (await fetch(base + url)).text(), /id="root"/);
     }
     assert.match(await (await fetch(base + '/ontomosaic-doc/')).text(), /Evidence, connected/);
     assert.match(await (await fetch(base + '/ontomosaic-doc/styles.css')).text(), /semantic-preview/);
+    assert.match(await (await fetch(base + '/ontomosaic-enterprise/')).text(), /Connecting Your Business Workflows/);
     assert.equal(await (await fetch(base + '/analyze/deep-link')).text(), 'doc frontend');
     assert.equal(await (await fetch(base + '/extract/deep-link')).text(), 'db frontend');
     for (const [url, destination] of [
       ['/docmosaic?tab=1', '/docmosaic/?tab=1'],
       ['/docmosaic/app?tab=1', '/docmosaic/app/?tab=1'],
       ['/ontomosaic-doc?tab=1', '/ontomosaic-doc/?tab=1'],
+      ['/ontomosaic-enterprise?tab=1', '/ontomosaic-enterprise/?tab=1'],
       ['/dbmosaic?tab=1', '/dbmosaic/?tab=1'],
       ['/analyze?tab=1', '/docmosaic/app/?tab=1'],
       ['/extract?tab=1', '/dbmosaic/?tab=1'],

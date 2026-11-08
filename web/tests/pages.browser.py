@@ -181,6 +181,13 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                     expect(page).to_have_url(base)
                 for name in ('DocMosaic', 'OntoMosaic-DB'):
                     page.get_by_role('link', name=f'Open {name}', exact=True).first.click()
+                    if name == 'OntoMosaic-DB':
+                        expect(page.locator('#op-title')).to_contain_text('Your business knowledge,')
+                        expect(page.locator('video.op-video')).to_be_visible()
+                        assert page.reload().status == 200
+                        page.get_by_role('link', name='DATAMOSAIC', exact=True).click()
+                        expect(page).to_have_url(base)
+                        continue
                     if name == 'DocMosaic':
                         expect(page.locator('#hero-title')).to_have_text('Beyond the document.Intelligence in motion.')
                         expect(page.locator('.hero-film video')).to_be_visible()
@@ -228,8 +235,8 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                         expect(page.locator('#demo video source')).to_have_attribute('src', 'video.mp4')
                         page.locator('nav .home-key').click()
                     else:
-                        assert page.locator('main').inner_html().strip() == ''
-                        page.get_by_role('link', name='DataMosaic home').click()
+                        expect(page.get_by_role('heading', level=1)).to_have_text('Connecting Your Business Workflows')
+                        page.locator('header a[href="../"]').first.click()
                     expect(page).to_have_url(base)
                 for kind, video_name in [('agentic', 'DocMosaic-agentic-product-v2'), ('interactive', 'DocMosaic-interaction-flight-product')]:
                     page.get_by_role('button', name=f'Watch DocMosaic {kind} demo', exact=True).click()
@@ -262,7 +269,7 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                 ('application', 'DocMosaic', 'docmosaic/'),
                 ('ontology', 'OntoMosaic-Doc', 'ontomosaic-doc/'),
                 ('ontology', 'OntoMosaic-DB', 'ontomosaic-db/'),
-                ('ontology', 'OntoMosaic-Enterprise', 'ontomosaic-enterprise/'),
+                ('ontology', 'OntoMosaic-Enterprise', 'ontomosaic-enterprise/index.html'),
                 ('resource', 'Tools', 'tools/'),
                 ('resource', 'Benchmarks', 'benchmarks/'),
                 ('resource', 'Publications', 'research/'),

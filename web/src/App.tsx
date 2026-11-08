@@ -15,6 +15,7 @@ import BenchmarksPage from './BenchmarksPage';
 import SystemOverview from './SystemOverview';
 import { isPagesPreview, pagePath, siteUrl } from './site';
 const OntologyWorkbench = lazy(() => import('./features/ontology/OntologyWorkbench'));
+const OntoMosaicDBPage = lazy(() => import('./OntoMosaicDBPage'));
 const ontologyPlaceholders = [
   { name: 'OntoMosaic-Enterprise', href: '/ontomosaic-enterprise', number: '03' },
 ];
@@ -53,13 +54,14 @@ export default function App() {
   const path = pagePath();
   const isResearchPage = /^\/research\/?$/.test(path);
   const informationPage = informationPages.find(page => page.path === path.replace(/\/$/, ''));
+  const isOntoMosaicOverview = isPagesPreview && /^\/ontomosaic-db\/?$/.test(path);
   const isText2SQLPage = !isPagesPreview && /^\/(ontomosaic-db|ontomosaic-text2sql|ontology)\/?$/.test(path);
   const ontologyPlaceholder = ontologyPlaceholders.find(item => item.href === path.replace(/\/$/, ''));
   const previewRoutes: Record<string, 'analyze' | 'extract' | 'ontology'> = {
     '/docmosaic/app': 'analyze',
     '/ontomosaic-db': 'ontology', '/ontomosaic-text2sql': 'ontology', '/ontology': 'ontology',
   };
-  const previewDemo = isPagesPreview ? previewRoutes[path.replace(/\/$/, '')] : undefined;
+  const previewDemo = isPagesPreview && !isOntoMosaicOverview ? previewRoutes[path.replace(/\/$/, '')] : undefined;
   const previewTitle = previewDemo && { analyze: 'DocMosaic', extract: 'DBMosaic', ontology: 'OntoMosaic-DB' }[previewDemo];
   // const [previewPaused, setPreviewPaused] = useState(false);
   const [docDemo, setDocDemo] = useState<'agentic' | 'interaction'>('agentic');
@@ -68,7 +70,7 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(() => document.documentElement.dataset.theme === 'dark');
 
   useEffect(() => {
-    document.title = informationPage ? `${informationPage.title} | DataMosaic` : ontologyPlaceholder ? `${ontologyPlaceholder.name} | DataMosaic` : previewTitle ? `${previewTitle} | DataMosaic` : isText2SQLPage ? 'OntoMosaic-DB | DataMosaic' : isResearchPage ? 'Research Papers | DataMosaic' : 'DataMosaic';
+    document.title = isOntoMosaicOverview ? 'OntoMosaic-DB · Reusable database knowledge' : informationPage ? `${informationPage.title} | DataMosaic` : ontologyPlaceholder ? `${ontologyPlaceholder.name} | DataMosaic` : previewTitle ? `${previewTitle} | DataMosaic` : isText2SQLPage ? 'OntoMosaic-DB | DataMosaic' : isResearchPage ? 'Research Papers | DataMosaic' : 'DataMosaic';
     const theme = darkMode ? 'dark' : 'light';
     document.documentElement.dataset.theme = theme;
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', darkMode ? '#111720' : '#f4f6f8');
@@ -77,7 +79,9 @@ export default function App() {
     } catch {
       // Theme switching remains available when browser storage is blocked.
     }
-  }, [darkMode, isResearchPage, isText2SQLPage, ontologyPlaceholder?.name, previewTitle, informationPage?.title]);
+  }, [darkMode, isOntoMosaicOverview, isResearchPage, isText2SQLPage, ontologyPlaceholder?.name, previewTitle, informationPage?.title]);
+
+  if (isOntoMosaicOverview) return <Suspense fallback={<p role="status">Loading OntoMosaic-DB…</p>}><OntoMosaicDBPage/></Suspense>;
 
   return <div className="app-shell">
     <SiteHeader darkMode={darkMode} onToggleTheme={() => setDarkMode(value => !value)}/>
@@ -209,13 +213,13 @@ export default function App() {
               <div className="card-actions"><a href={siteUrl('/ontomosaic-db')}>Open OntoMosaic-DB <span aria-hidden="true">↗</span></a><button className="card-demo" type="button" onClick={() => setActiveDemo('ontology')} aria-label="Watch OntoMosaic-DB demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo</button></div>
             </article>
             <article className="workflow-card">
-              <div className="card-main">
+              <a className="card-main" href={siteUrl('/ontomosaic-enterprise/index.html')} aria-label="Open OntoMosaic-Enterprise">
                 <span className="card-header"><span className="card-title"><span className="card-number">03</span>OntoMosaic-Enterprise <span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 8v4M5 16v-4h14v4"/><rect x="9" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="16" width="6" height="6" rx="1.5"/><rect x="16" y="16" width="6" height="6" rx="1.5"/></svg></span></span><span className="service-status" role="status">Demo</span></span>
-                <span className="card-description">Turn business processes into a shared enterprise ontology. Unify concepts and relationships, then connect them to databases, systems, and documents.</span>
-                <img className="product-demo" src={ontoEnterpriseDemo} alt="OntoMosaic-Enterprise process-to-ontology demonstration" loading="lazy" decoding="async"/>
-                <span className="card-features"><span>Process-to-ontology</span><span>Connected data sources</span></span>
-              </div>
-              <div className="card-actions"><a href={siteUrl('/ontomosaic-enterprise')}>Open OntoMosaic-Enterprise <span aria-hidden="true">↗</span></a><button className="card-demo" type="button" onClick={() => setActiveDemo('enterprise')} aria-label="Watch OntoMosaic-Enterprise demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo</button></div>
+                <span className="card-description">Turn business workflows into a shared enterprise ontology. Unify concepts and relationships, then connect them to databases, systems, and documents.</span>
+                <img className="product-demo" src={ontoEnterpriseDemo} alt="OntoMosaic-Enterprise workflow-to-ontology demonstration" loading="lazy" decoding="async"/>
+                <span className="card-features"><span>Workflow-to-ontology</span><span>Connected data sources</span></span>
+              </a>
+              <div className="card-actions"><a href={siteUrl('/ontomosaic-enterprise/index.html')}>Open OntoMosaic-Enterprise <span aria-hidden="true">↗</span></a><button className="card-demo" type="button" onClick={() => setActiveDemo('enterprise')} aria-label="Watch OntoMosaic-Enterprise demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo</button></div>
             </article>
             <article className="coming-soon-card">
               <div className="coming-soon-visual" aria-hidden="true"><span><svg viewBox="0 0 24 24"><path d="M12 8v4M5 16v-4h14v4"/><rect x="9" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="16" width="6" height="6" rx="1.5"/><rect x="16" y="16" width="6" height="6" rx="1.5"/></svg></span><i></i><span><svg viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></svg></span></div>
