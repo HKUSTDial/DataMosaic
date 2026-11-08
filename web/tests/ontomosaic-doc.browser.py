@@ -66,10 +66,10 @@ with sync_playwright() as p:
             page.evaluate('window.scrollTo({top:0,behavior:"instant"})')
             page.screenshot(path=f'/tmp/ontomosaic-doc-{width}.png', full_page=True)
         print(f'{width}px: content, navigation, video, EN/中文, refresh, no overflow')
+    assert not api_requests, api_requests
     page.locator('nav .home-key').click()
     expect(page).to_have_url(base + '/')
     assert not errors, errors
     assert not failures, failures
-    assert not api_requests, api_requests
     browser.close()
 print('PASS: OntoMosaic-Doc product content, standalone route, video, language persistence, eight widths, no API calls')
