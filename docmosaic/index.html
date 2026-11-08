@@ -1,175 +1,24 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DocMosaic · Beyond the document. Intelligence in motion.</title>
-  <meta name="description" content="Explore the knowledge within your documents. Connect agentic reasoning, visual exploration, and model training to turn complex pages into insights you can trace, question, and build on.">
-  <link rel="icon" href="logo.png">
-  <link rel="stylesheet" href="styles.css">
-  <script src="locales.js" defer></script>
-  <script src="results.js" defer></script>
-</head>
-<body>
-  <a class="skip" href="#about">Skip to content</a>
-  <header class="topbar">
-    <div class="wrap header-inner">
-      <a class="wordmark" href="#about"><img src="logo.png" width="34" height="34" alt="">DocMosaic<span>.</span></a>
-      <nav aria-label="Product navigation">
-        <a class="home-key" href="../" aria-label="Back to DataMosaic"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 3.1 2.8 11.2h2.1V20c0 .7.6 1.3 1.3 1.3h4.3v-5.6h2.9V21.3h4.4c.7 0 1.3-.6 1.3-1.3v-8.8h2.1L12 3.1Z"/></svg></a>
-        <a href="#environment">Overview</a>
-        <a href="#demo">Demo</a>
-        <a href="#results">Results</a>
-        <a href="../research/">Research</a>
-        <a class="nav-cta" href="https://github.com/HKUSTDial/DocPilot" target="_blank" rel="noreferrer">GitHub ↗</a>
-      </nav>
-      <div class="language-switch" role="group" aria-label="选择语言 / Choose language">
-        <button type="button" data-language="en" lang="en" aria-pressed="true" aria-label="Switch to English">EN</button>
-        <button type="button" data-language="zh" lang="zh-CN" aria-pressed="false" aria-label="切换为中文">中文</button>
-      </div>
-    </div>
-  </header>
-  <main>
-    <section class="hero" id="about" aria-labelledby="hero-title">
-      <div class="wrap hero-grid">
-        <div class="hero-copy">
-          <span class="announcement"><i aria-hidden="true"></i> DOCUMENT INTELLIGENCE, ORCHESTRATED</span>
-          <h1 id="hero-title">Beyond the document.<br><em>Intelligence in motion.</em></h1>
-          <p class="lede">Explore the knowledge within your documents. DocMosaic connects agentic reasoning, visual exploration, and model training, turning complex pages into insights you can trace, question, and build on.</p>
-          <div class="hero-actions"><a class="button primary" href="app/">Get Started <span aria-hidden="true">↗</span></a><a class="button secondary" href="#environment">More Details <span aria-hidden="true">↓</span></a><a class="button paper-link" href="https://arxiv.org/abs/2610.21327" target="_blank" rel="noopener noreferrer">Paper <span aria-hidden="true">↗</span></a></div>
-        </div>
-        <figure class="hero-film" aria-label="DocMosaic product introduction">
-          <div class="film-heading"><i aria-hidden="true"></i> DOCMOSAIC / PRODUCT INTRODUCTION</div>
-          <video controls playsinline preload="metadata" width="1920" height="1080" poster="introduction-poster.jpg" aria-label="DocMosaic product introduction"><source src="introduction.mp4" type="video/mp4"><track kind="captions" src="introduction.vtt" srclang="en" label="English">Your browser does not support HTML video.</video>
-        </figure>
-      </div>
-      <div class="wrap hero-strip"><span>ONE WORKSPACE.<br> FOUR CONNECTED IDEAS.</span><a href="#environment"><b>Environment</b><small>Explore multimodal documents</small></a><a href="#framework"><b>Orchestrate</b><small>Coordinate specialized agents</small></a><a href="#workflow"><b>Interact</b><small>Explore every source</small></a><a href="#models"><b>Distill</b><small>Train document capabilities</small></a></div>
-    </section>
-
-    <section class="feature wrap" id="environment" aria-labelledby="environment-title">
-      <div class="section-copy">
-        <p class="kicker"><span>01.</span> THE ENVIRONMENT</p>
-        <h2 id="environment-title">Multimodal Document Environment</h2>
-        <p class="section-lede">One document. Multiple views. Every detail connected.</p>
-        <p>DocMosaic connects the big picture with the details that matter. Document overviews, page thumbnails, original page images, and structured elements share the same document and page identifiers, so agents can move from a global view to precise evidence.</p>
-        <ul class="features"><li><b>See the whole document</b><span>Scan numbered page thumbnails in a compact overview to find promising pages.</span></li><li><b>Look closer</b><span>Switch from lightweight thumbnails to original page images for visual inspection.</span></li><li><b>Access the elements</b><span>Read text, tables, figures, and formulas with their layout and source locations preserved.</span></li></ul>
-      </div>
-      <figure class="illustration environment-diagram" aria-labelledby="environment-diagram-caption">
-        <figcaption class="visual-caption" id="environment-diagram-caption">A SHARED MULTIMODAL DOCUMENT SPACE <span>01 / ENVIRONMENT</span></figcaption>
-        <div class="env-document"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 3h9l5 5v13H5zM14 3v6h5M8 13h8M8 17h5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>Source document</span><code>doc-01</code></div>
-        <div class="env-views">
-          <div class="env-view env-overview">
-            <h3>Doc overview</h3><p>Find the right page</p>
-            <div class="env-thumbnail-grid" role="img" aria-label="Six numbered page thumbnails. Page 06 is highlighted and linked to the page view.">
-              <div class="env-thumbnail"><i></i><i></i><i></i><span>01</span></div>
-              <div class="env-thumbnail has-chart"><i></i><i></i><i></i><span>02</span></div>
-              <div class="env-thumbnail"><i></i><i></i><i></i><span>03</span></div>
-              <div class="env-thumbnail has-table"><i></i><i></i><i></i><span>04</span></div>
-              <div class="env-thumbnail"><i></i><i></i><i></i><span>05</span></div>
-              <div class="env-thumbnail selected has-chart"><i></i><i></i><i></i><span>06</span></div>
-            </div>
-            <span class="env-view-note">Numbered thumbnails</span>
-          </div>
-          <span class="env-link" aria-hidden="true">↔</span>
-          <div class="env-view env-page-view">
-            <h3>Page view</h3><p>Inspect the detail</p>
-            <div class="env-page" role="img" aria-label="Page 06 with text, a chart, and a table highlighted at their original locations.">
-              <span class="env-page-number">06</span>
-              <div class="env-page-lines"><i></i><i></i><i></i></div>
-              <div class="env-page-chart"><i></i><i></i><i></i><i></i></div>
-              <div class="env-page-table"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-              <div class="env-page-lines"><i></i><i></i></div>
-            </div>
-            <span class="env-view-note">Thumbnail ↔ original image</span>
-          </div>
-          <span class="env-link" aria-hidden="true">↔</span>
-          <div class="env-view env-elements">
-            <h3>Layout &amp; elements</h3><p>Read the evidence</p>
-            <div class="env-element-list"><span class="env-element env-text"><i aria-hidden="true">≡</i>Text</span><span class="env-element env-table"><i aria-hidden="true">▦</i>Table</span><span class="env-element env-image"><i aria-hidden="true">▧</i>Image</span><span class="env-element env-chart"><i aria-hidden="true">▥</i>Chart</span><span class="env-element env-formula"><i aria-hidden="true">ƒ</i>Formula</span><span class="env-element env-layout"><i aria-hidden="true">⊞</i>Layout</span></div>
-            <span class="env-view-note">Content · type · position</span>
-          </div>
-        </div>
-        <div class="env-shared-id"><span>Shared document &amp; page IDs</span><code>doc-01 / page-06</code></div>
-        <p class="visual-footnote">From a global overview to source-grounded evidence.</p>
-      </figure>
-    </section>
-
-    <section class="feature wrap reverse" id="framework" aria-labelledby="framework-title">
-      <div class="section-copy">
-        <p class="kicker"><span>02.</span> THE FRAMEWORK</p>
-        <h2 id="framework-title">Agentic Orchestration<br>Framework</h2>
-        <p class="section-lede">One question. The right agents. A connected investigation.</p>
-        <p>DocMosaic breaks a document task into focused steps. A coordinating agent chooses what to inspect next, delegates to specialized tools, and refines the workflow as evidence arrives.</p>
-        <ul class="features"><li><b>Navigate &amp; retrieve</b><span>Locate relevant pages, passages, tables, and figures.</span></li><li><b>Inspect &amp; compute</b><span>Read visual details and calculate from collected evidence.</span></li><li><b>Check &amp; refine</b><span>Assess what is known and continue searching when evidence is incomplete.</span></li></ul>
-      </div>
-      <figure class="feature-film">
-        <figcaption class="visual-caption">AGENTIC ORCHESTRATION IN ACTION <span>02 / ORCHESTRATE</span></figcaption>
-        <video controls playsinline preload="metadata" poster="agentic-poster.jpg" aria-label="DocMosaic agentic orchestration demo"><source src="agentic.mp4" type="video/mp4"><track kind="captions" src="agentic.vtt" srclang="en" label="English">Your browser does not support HTML video.</video>
-      </figure>
-    </section>
-
-    <section class="feature wrap" id="workflow" aria-labelledby="workflow-title">
-      <div class="section-copy">
-        <p class="kicker"><span>03.</span> THE EXPERIENCE</p>
-        <h2 id="workflow-title">Interaction Workflow</h2>
-        <p class="section-lede">Ask naturally. Explore visually. Stay close to the source.</p>
-        <p>Bring your documents into a shared reading space. Follow the agent’s investigation, inspect its supporting evidence, and move between an answer and the page that supports it.</p>
-        <ul class="features"><li><b>Ask across documents</b><span>Investigate questions that span pages and files.</span></li><li><b>Follow the investigation</b><span>See the steps and tools used to gather evidence.</span></li><li><b>Return to the source</b><span>Open cited pages and inspect the relevant content in context.</span></li></ul>
-      </div>
-      <figure class="feature-film">
-        <figcaption class="visual-caption">FOLLOW THE EVIDENCE <span>03 / INTERACT</span></figcaption>
-        <video controls playsinline preload="metadata" poster="interaction-poster.jpg" aria-label="DocMosaic interaction workflow demo"><source src="interaction.mp4" type="video/mp4"><track kind="captions" src="interaction.vtt" srclang="en" label="English">Your browser does not support HTML video.</video>
-      </figure>
-    </section>
-
-    <section class="feature wrap reverse" id="models" aria-labelledby="models-title">
-      <div class="section-copy">
-        <p class="kicker"><span>04.</span> THE LEARNING PATH</p>
-        <h2 id="models-title">From LLM to SLM</h2>
-        <p class="section-lede">Let capable models teach. Let compact models take the next step.</p>
-        <p>Use strong multimodal models to produce document-solving trajectories, then train smaller models on individual abilities and complete workflows. Keep the connection between the question, the action, and its evidence.</p>
-        <ul class="features"><li><b>Collect expert trajectories</b><span>Capture tool use, document navigation, and evidence-grounded reasoning.</span></li><li><b>Train focused capabilities</b><span>Learn individual document skills and end-to-end task execution.</span></li><li><b>Serve compact models</b><span>Deploy trained models through vLLM for a self-hosted document agent.</span></li></ul>
-      </div>
-      <div class="illustration learning" role="img" aria-label="A capable multimodal LLM generates expert trajectories. Ability and workflow training transfer those capabilities to a compact document agent.">
-        <div class="visual-caption">CAPTURE THE WORKFLOW. TRANSFER THE SKILL. <span>04 / DISTILL</span></div>
-        <div class="model teacher"><span class="model-icon" aria-hidden="true">✦</span><div><span>TEACHER</span><b>Multimodal LLM</b><small>Navigate · inspect · reason · use tools</small></div></div>
-        <div class="training-track"><div class="trajectory"><span>EXPERT TRAJECTORY</span><div><code>Question</code><i>→</i><code>Action</code><i>→</i><code>Evidence</code><i>→</i><code>Answer</code></div></div><div class="training-stages"><span>Ability training</span><span>Workflow training</span></div></div>
-        <div class="model student"><span class="model-icon" aria-hidden="true">✧</span><div><span>STUDENT</span><b>Compact document agent</b><small>Trained capabilities · self-hosted inference</small></div><span class="model-tag">SLM</span></div>
-        <p class="visual-footnote">Evaluate accuracy, tool use, and evidence grounding for your task.</p>
-      </div>
-    </section>
-    <section class="theater" id="demo" aria-labelledby="demo-title">
-      <div class="wrap">
-        <p class="kicker">SEE IT IN ACTION</p>
-        <h2 id="demo-title">From a question,<br>to a grounded answer.</h2>
-        <p class="section-intro">Watch DocMosaic navigate a document, gather evidence, and reason through an answer in one walkthrough.</p>
-        <ol class="steps">
-          <li>Start with a question about your document.</li>
-          <li>Follow the agent as it locates relevant pages.</li>
-          <li>Inspect the text, tables, and visual evidence it collects.</li>
-          <li>See tool calls and calculations as the answer takes shape.</li>
-          <li>Trace the final answer back to its supporting sources.</li>
-        </ol>
-        <figure class="player">
-          <figcaption class="player-chrome"><span aria-hidden="true"><i></i><i></i><i></i></span><span>DocMosaic / Product walkthrough</span><span>DEMO</span></figcaption>
-          <video controls playsinline preload="metadata" poster="demo-poster.jpg" aria-label="DocMosaic document agent walkthrough"><source src="demo.mp4" type="video/mp4">Your browser does not support HTML video.</video>
-        </figure>
-      </div>
-    </section>
-    <section class="results wrap" id="results" aria-labelledby="results-title">
-      <p class="kicker">RESULTS</p>
-      <h2 id="results-title">The results behind the reasoning.</h2>
-      <p class="results-lead">Reported performance across long-document benchmarks, from frontier models to compact agents.</p>
-      <div class="results-toolbar">
-        <div class="results-controls" role="group" aria-label="Results view"><button type="button" data-result-view="overall" aria-pressed="true">Overall results</button><button type="button" data-result-view="detailed" aria-pressed="false">Full results</button></div>
-        <div class="results-controls results-filters" role="group" aria-label="System group"><button type="button" data-result-filter="all" aria-pressed="true">All systems</button><button type="button" data-result-filter="baseline" aria-pressed="false">Direct / OCR</button><button type="button" data-result-filter="agent" aria-pressed="false">Agentic Framework</button><button type="button" data-result-filter="docpilot" aria-pressed="false">DocPilot</button></div>
-      </div>
-      <p id="results-status" class="results-status" role="status">Loading results…</p>
-      <div class="results-scroll" role="region" aria-label="Benchmark results table. Scroll horizontally for all metrics." tabindex="0"><table id="results-table" aria-describedby="results-note"><caption>Reported benchmark results</caption></table></div>
-      <p id="results-note" class="results-note">DocPilot and DocMosaic refer to the same project. DocPilot is the name used in the research paper and the results above. Published results; evaluation settings may differ. Missing results are shown as —. DocPilot reports DocBench, not LongDocURL.</p>
-      <p class="results-note">Acc = accuracy; F1 = answer F1; LasJ = LLM-as-a-judge. TXT / LAY / CHA / TAB / FIG / UNA = text / layout / chart / table / figure / unanswerable.</p>
-    </section>
-  </main>
-  <footer><div class="wrap"><span>DocMosaic</span><a href="../">Back to DataMosaic ↗</a><a href="#about">Back to top ↑</a></div></footer>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f6f8">
+    <script>
+      try {
+        const savedTheme = localStorage.getItem('docsensaai-theme');
+        document.documentElement.dataset.theme = savedTheme === 'dark' || savedTheme === 'light'
+          ? savedTheme : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      } catch {
+        document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+    </script>
+    <meta name="description" content="Analyze documents with DocPilot or extract structured data with DBMosaic in one DataMosaic workspace.">
+    <title>DataMosaic</title>
+    <script type="module" crossorigin src="/DataMosaic/assets/index-DFKwq8YF.js"></script>
+    <link rel="stylesheet" crossorigin href="/DataMosaic/assets/index-CNId6dgQ.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>
