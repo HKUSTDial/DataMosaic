@@ -223,8 +223,13 @@ with tempfile.TemporaryDirectory(prefix='datamosaic-pages-test-') as folder:
                 for route in ('ontomosaic-doc', 'ontomosaic-enterprise'):
                     assert page.goto(base + route + '?tab=1').status == 200
                     assert page.reload().status == 200
-                    assert page.locator('main').inner_html().strip() == ''
-                    page.get_by_role('link', name='DataMosaic home').click()
+                    if route == 'ontomosaic-doc':
+                        expect(page.locator('#hero-title')).to_contain_text('Evidence, connected.')
+                        expect(page.locator('#demo video source')).to_have_attribute('src', 'video.mp4')
+                        page.locator('nav .home-key').click()
+                    else:
+                        assert page.locator('main').inner_html().strip() == ''
+                        page.get_by_role('link', name='DataMosaic home').click()
                     expect(page).to_have_url(base)
                 for kind, video_name in [('agentic', 'DocMosaic-agentic-product-v2'), ('interactive', 'DocMosaic-interaction-flight-product')]:
                     page.get_by_role('button', name=f'Watch DocMosaic {kind} demo', exact=True).click()

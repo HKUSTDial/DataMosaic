@@ -8,7 +8,7 @@ import sys
 from playwright.sync_api import expect, sync_playwright
 
 base = sys.argv[1] if len(sys.argv) > 1 else 'http://127.0.0.1:21680'
-modules = [('OntoMosaic-Doc', '/ontomosaic-doc'),
+modules = [('OntoMosaic-Doc', '/ontomosaic-doc/'),
            ('OntoMosaic-DB', '/ontomosaic-db'),
            ('OntoMosaic-Enterprise', '/ontomosaic-enterprise')]
 with sync_playwright() as p:
@@ -35,8 +35,8 @@ with sync_playwright() as p:
         expect(doc.locator('.card-description')).to_have_text('Let a context graph lead retrieval across the enterprise. Follow concepts, relationships, and evidence from the question to a grounded answer.')
         assert doc.locator('.product-demo').get_attribute('src')
         assert doc.locator('.card-features span').all_text_contents() == ['Context graph', 'Enterprise retrieval']
-        expect(doc.locator('.service-status')).to_have_text('Unavailable')
-        expect(doc.locator('.service-status')).to_have_class('service-status bad')
+        expect(doc.locator('.service-status')).to_have_text('Overview')
+        expect(doc.locator('.service-status')).to_have_class('service-status')
         assert doc.evaluate('e => e.scrollWidth <= e.clientWidth + 1'), width
         enterprise = cards.nth(2)
         expect(enterprise.locator('.card-description')).to_contain_text('Turn business processes into a shared enterprise ontology.')
@@ -65,17 +65,25 @@ with sync_playwright() as p:
             name, href = modules[index]
             cards.nth(index).get_by_role('link', name=f'Open {name}', exact=True).first.click()
             expect(page).to_have_url(base + href)
-            expect(page).to_have_title(f'{name} | DataMosaic')
-            assert page.locator('main').inner_html().strip() == ''
+            if index == 0:
+                expect(page.locator('#hero-title')).to_contain_text('Evidence, connected.')
+                expect(page.locator('#demo video')).to_be_visible()
+            else:
+                expect(page).to_have_title(f'{name} | DataMosaic')
+                assert page.locator('main').inner_html().strip() == ''
             page.goto(base)
     for index in (0, 2):
         name, href = modules[index]
         for suffix in ('', '/', '?tab=1'):
-            page.goto(base + href + suffix)
+            page.goto(base + href.rstrip('/') + suffix)
             requests.clear()
             page.reload()
-            expect(page).to_have_title(f'{name} | DataMosaic')
-            assert page.locator('main').inner_html().strip() == ''
+            if index == 0:
+                expect(page.locator('#hero-title')).to_contain_text('Evidence, connected.')
+                expect(page.locator('#framework')).to_be_visible()
+            else:
+                expect(page).to_have_title(f'{name} | DataMosaic')
+                assert page.locator('main').inner_html().strip() == ''
             assert not requests, requests
     page.goto(base + '/ontomosaic-db')
     expect(page.get_by_role('heading', name='Ontology workbench', exact=True)).to_be_visible()
@@ -91,4 +99,4 @@ with sync_playwright() as p:
     expect(page.get_by_role('dialog')).to_have_count(0)
     assert not errors, errors
     browser.close()
-print('PASS: card/menu order, blank routes, direct access, refresh, responsive cards, Text2SQL workbench, no mutations or JS errors')
+print('PASS: ontology card/menu order, Doc product page, Enterprise placeholder, refresh, responsive cards, Text2SQL, no mutations')

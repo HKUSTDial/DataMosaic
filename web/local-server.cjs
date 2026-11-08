@@ -48,7 +48,7 @@ function serve(site, prefix, request, response) {
 
 const server = http.createServer((request, response) => {
   const pathname = new URL(request.url, 'http://localhost').pathname;
-  if (pathname === '/docmosaic' || pathname === '/docmosaic/app' || pathname === '/dbmosaic' || pathname === '/structmosaic') {
+  if (pathname === '/docmosaic' || pathname === '/docmosaic/app' || pathname === '/dbmosaic' || pathname === '/structmosaic' || pathname === '/ontomosaic-doc') {
     response.writeHead(308, { Location: `${pathname}/${new URL(request.url, 'http://localhost').search}` }).end();
   } else if (/^\/(docmosaic|analyze)\/(api|uploads)\//.test(pathname)) {
     request.url = request.url.replace(/^\/(docmosaic|analyze)/, '');
