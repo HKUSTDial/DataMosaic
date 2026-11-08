@@ -19,10 +19,18 @@ with sync_playwright() as p:
         expect(page).to_have_url(base + '/ontomosaic-doc/?source=home')
         expect(page).to_have_title('OntoMosaic-Doc · Evidence, connected. Meaning, preserved.')
         expect(page.locator('#hero-title')).to_contain_text('Evidence, connected.')
+        expect(page.locator('.announcement')).to_have_text('DOMAIN-GROUNDED KNOWLEDGE')
         expect(page.locator('main')).to_be_visible()
         expect(page.locator('.problem-grid article')).to_have_count(3)
         assert page.locator('.schema-grid h3').all_text_contents() == ['Concept', 'Relation', 'Mapping', 'Evidence', 'Constraint']
         expect(page.locator('.case-study')).to_have_count(2)
+        expect(page.locator('.calculation-value strong')).to_have_text('14,275')
+        assert page.locator('.case-answers strong').all_text_contents() == ['9,068', '16.52%']
+        expect(page.locator('.chart-row')).to_have_count(4)
+        assert page.locator('.chart-values').all_text_contents() == ['97 / 3', '92 / 8', '77 / 23', '50 / 50']
+        expect(page.locator('.applications-grid article')).to_have_count(6)
+        expect(page.locator('.application-icon svg')).to_have_count(6)
+        expect(page.locator('[data-zh] [data-zh]')).to_have_count(0)
         assert page.locator('.profit-example strong').all_text_contents() == ['11,512', '12,325']
         expect(page.locator('.build-track > p')).to_contain_text('do not establish a gain')
         expect(page.locator('.evolve-track > p')).to_contain_text('parent is empty')
@@ -55,6 +63,8 @@ with sync_playwright() as p:
         expect(page.locator('#hero-title')).to_have_text('让证据连起来，让含义留得住。')
         expect(page.locator('#demo video')).to_have_attribute('aria-label', 'OntoMosaic-Doc 本体构建流程演示')
         expect(page.locator('#scenarios-title')).to_have_text('当定义改变了答案。')
+        expect(page.locator('.case-story h3').first).to_have_text('读对一次，两个答案都有依据。')
+        expect(page.locator('.applications-grid h4').last).to_have_text('采购与招投标')
         assert page.locator('.profit-example strong').all_text_contents() == ['11,512', '12,325']
         assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'), ('zh', width)
         assert page.locator('.schema-grid article,.pipeline,.case-study').evaluate_all('(els)=>els.every(e=>e.scrollWidth<=e.clientWidth+1)'), ('zh cards', width)
