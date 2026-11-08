@@ -15,6 +15,7 @@ import BenchmarksPage from './BenchmarksPage';
 import SystemOverview from './SystemOverview';
 import { isPagesPreview, pagePath, siteUrl } from './site';
 const OntologyWorkbench = lazy(() => import('./features/ontology/OntologyWorkbench'));
+const OntoMosaicDBPage = lazy(() => import('./OntoMosaicDBPage'));
 const ontologyPlaceholders = [
   { name: 'OntoMosaic-Doc', href: '/ontomosaic-doc', number: '01' },
   { name: 'OntoMosaic-Enterprise', href: '/ontomosaic-enterprise', number: '03' },
@@ -54,13 +55,14 @@ export default function App() {
   const path = pagePath();
   const isResearchPage = /^\/research\/?$/.test(path);
   const informationPage = informationPages.find(page => page.path === path.replace(/\/$/, ''));
+  const isOntoMosaicOverview = isPagesPreview && /^\/ontomosaic-db\/?$/.test(path);
   const isText2SQLPage = !isPagesPreview && /^\/(ontomosaic-db|ontomosaic-text2sql|ontology)\/?$/.test(path);
   const ontologyPlaceholder = ontologyPlaceholders.find(item => item.href === path.replace(/\/$/, ''));
   const previewRoutes: Record<string, 'analyze' | 'extract' | 'ontology'> = {
     '/docmosaic/app': 'analyze',
     '/ontomosaic-db': 'ontology', '/ontomosaic-text2sql': 'ontology', '/ontology': 'ontology',
   };
-  const previewDemo = isPagesPreview ? previewRoutes[path.replace(/\/$/, '')] : undefined;
+  const previewDemo = isPagesPreview && !isOntoMosaicOverview ? previewRoutes[path.replace(/\/$/, '')] : undefined;
   const previewTitle = previewDemo && { analyze: 'DocMosaic', extract: 'DBMosaic', ontology: 'OntoMosaic-DB' }[previewDemo];
   // const [previewPaused, setPreviewPaused] = useState(false);
   const [docDemo, setDocDemo] = useState<'agentic' | 'interaction'>('agentic');
@@ -69,7 +71,7 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(() => document.documentElement.dataset.theme === 'dark');
 
   useEffect(() => {
-    document.title = informationPage ? `${informationPage.title} | DataMosaic` : ontologyPlaceholder ? `${ontologyPlaceholder.name} | DataMosaic` : previewTitle ? `${previewTitle} | DataMosaic` : isText2SQLPage ? 'OntoMosaic-DB | DataMosaic' : isResearchPage ? 'Research Papers | DataMosaic' : 'DataMosaic';
+    document.title = isOntoMosaicOverview ? 'OntoMosaic-DB · Reusable database knowledge' : informationPage ? `${informationPage.title} | DataMosaic` : ontologyPlaceholder ? `${ontologyPlaceholder.name} | DataMosaic` : previewTitle ? `${previewTitle} | DataMosaic` : isText2SQLPage ? 'OntoMosaic-DB | DataMosaic' : isResearchPage ? 'Research Papers | DataMosaic' : 'DataMosaic';
     const theme = darkMode ? 'dark' : 'light';
     document.documentElement.dataset.theme = theme;
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', darkMode ? '#111720' : '#f4f6f8');
@@ -78,7 +80,9 @@ export default function App() {
     } catch {
       // Theme switching remains available when browser storage is blocked.
     }
-  }, [darkMode, isResearchPage, isText2SQLPage, ontologyPlaceholder?.name, previewTitle, informationPage?.title]);
+  }, [darkMode, isOntoMosaicOverview, isResearchPage, isText2SQLPage, ontologyPlaceholder?.name, previewTitle, informationPage?.title]);
+
+  if (isOntoMosaicOverview) return <Suspense fallback={<p role="status">Loading OntoMosaic-DB…</p>}><OntoMosaicDBPage/></Suspense>;
 
   return <div className="app-shell">
     <SiteHeader darkMode={darkMode} onToggleTheme={() => setDarkMode(value => !value)}/>
