@@ -1,24 +1,121 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#f4f6f8">
-    <script>
-      try {
-        const savedTheme = localStorage.getItem('docsensaai-theme');
-        document.documentElement.dataset.theme = savedTheme === 'dark' || savedTheme === 'light'
-          ? savedTheme : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      } catch {
-        document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      }
-    </script>
-    <meta name="description" content="Analyze documents with DocPilot or extract structured data with DBMosaic in one DataMosaic workspace.">
-    <title>DataMosaic</title>
-    <script type="module" crossorigin src="/DataMosaic/assets/index-DFKwq8YF.js"></script>
-    <link rel="stylesheet" crossorigin href="/DataMosaic/assets/index-CNId6dgQ.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OntoMosaic-Doc · Evidence, connected. Meaning, preserved.</title>
+  <meta name="description" content="A reusable semantic layer for long visual documents. Connect concepts, source evidence, and conditions to guide document agents.">
+  <link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css?v=1">
+  <script src="site.js?v=1" defer></script>
+</head>
+<body>
+  <a class="skip" href="#about" data-zh="跳到正文">Skip to content</a>
+  <header class="topbar">
+    <div class="wrap header-inner">
+      <a class="wordmark" href="#about"><img src="logo.svg" width="34" height="34" alt="">OntoMosaic-Doc<span>.</span></a>
+      <nav aria-label="Product navigation" data-zh-label="产品导航">
+        <a class="home-key" href="../" aria-label="Back to DataMosaic" data-zh-label="返回 DataMosaic 主页"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 3.1 2.8 11.2h2.1V20c0 .7.6 1.3 1.3 1.3h4.3v-5.6h2.9V21.3h4.4c.7 0 1.3-.6 1.3-1.3v-8.8h2.1L12 3.1Z"/></svg></a>
+        <a href="#overview" data-zh="概览">Overview</a>
+        <a href="#framework" data-zh="工作原理">Framework</a>
+        <a href="#scenarios" data-zh="应用场景">Use Cases</a>
+        <a href="#demo" data-zh="演示">Demo</a>
+        <a class="nav-cta" href="https://github.com/HKUSTDial/DocPilot" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      </nav>
+      <div class="language-switch" role="group" aria-label="Choose language / 选择语言">
+        <button type="button" data-language="en" lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-language="zh" lang="zh-CN" aria-pressed="false">中文</button>
+      </div>
+    </div>
+  </header>
+  <main>
+    <section class="hero" id="about" aria-labelledby="hero-title">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="announcement"><i aria-hidden="true"></i><span data-zh="有来源的知识，可复用的语义">DOCUMENT-GROUNDED KNOWLEDGE</span></p>
+          <h1 id="hero-title"><span data-zh="让证据连起来，">Evidence, connected.</span><br><em data-zh="让含义留得住。">Meaning, preserved.</em></h1>
+          <p class="lede" data-zh="文档里散落着定义、口径与适用条件。OntoMosaic-Doc 将它们与原始证据连接，构建可复用的语义层，帮助智能体找对信息、理解其含义，并将已有知识用于下一个问题。">Definitions, measurement rules, and conditions are scattered across documents. OntoMosaic-Doc connects them to their original evidence, building a reusable semantic layer that helps agents find the right information, understand it, and carry that knowledge into the next question.</p>
+          <div class="hero-actions"><a class="button primary" href="#demo"><span data-zh="观看演示">Watch the Demo</span><span aria-hidden="true">↗</span></a><a class="button secondary" href="#framework"><span data-zh="了解原理">Explore the Framework</span><span aria-hidden="true">↓</span></a></div>
+        </div>
+        <figure class="semantic-preview" aria-labelledby="bridge-caption">
+          <figcaption class="visual-heading" id="bridge-caption"><span data-zh="文档 → 语义 → 智能体">DOCUMENT → MEANING → AGENT</span><span class="diagram-index">01 / SEMANTIC BRIDGE</span></figcaption>
+          <div class="source-row"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h9l5 5v13H5zM14 3v6h5M8 13h8M8 17h5"/></svg><div><b data-zh="原始文档">Original documents</b><span data-zh="文字 · 表格 · 图表 · 脚注">Text · tables · charts · footnotes</span></div><span class="source-tag">PDF</span></div>
+          <div class="bridge-connector" aria-hidden="true"><span>↓</span></div>
+          <div class="meaning-layer">
+            <div class="layer-label"><i aria-hidden="true"></i><span data-zh="共享语义层">SHARED SEMANTIC LAYER</span></div>
+            <div class="concept-pair"><div><small>GAAP</small><b data-zh="报告营业利润">Reported profit</b></div><span class="relation-label" data-zh="不同口径">distinct</span><div><small>NON-GAAP</small><b data-zh="核心营业利润">Core profit</b></div></div>
+            <div class="meaning-details"><div><span data-zh="来源映射">SOURCE MAPPING</span><b data-zh="营业利润 × 2022 年列">Operating Profit × 2022</b><small data-zh="利润表 · PDF 第 73 页">Income statement · PDF p.73</small></div><div><span data-zh="适用条件">CONDITIONS</span><b>FY2022 · USD million</b><small data-zh="保留期间与计量口径">Period and measurement basis</small></div></div>
+          </div>
+          <div class="bridge-connector" aria-hidden="true"><span>↓</span></div>
+          <div class="agent-row"><strong data-zh="文档智能体">Document agent</strong><div><span data-zh="寻找证据">Seek</span><span data-zh="理解含义">Interpret</span><span data-zh="复核答案">Verify</span></div></div>
+          <p class="visual-note" data-zh="语义桥接示意 · 每项知识都保留与来源的连接">Illustrative semantic bridge · knowledge stays connected to its sources</p>
+        </figure>
+      </div>
+      <div class="wrap hero-strip"><span data-zh="让知识跨越一次提问。">KNOWLEDGE BEYOND ONE QUESTION.</span><div><b data-zh="有据可循">Source-linked</b><small data-zh="保留原始证据位置">Keep original evidence locations</small></div><div><b data-zh="理解适用边界">Scope-aware</b><small data-zh="保留定义、单位与条件">Preserve definitions and conditions</small></div><div><b data-zh="跨问题复用">Reusable</b><small data-zh="让已有知识支持后续问题">Carry knowledge across questions</small></div></div>
+    </section>
+
+    <section class="block wrap" id="overview" aria-labelledby="overview-title">
+      <p class="kicker"><span>01 /</span><span data-zh="为什么需要本体">WHY ONTOLOGY</span></p>
+      <h2 id="overview-title" data-zh="找到信息，只完成了一半。">Finding information is only half the task.</h2>
+      <p class="section-intro" data-zh="找到了一行数据，不代表读懂了它。真正影响答案的定义、限定条件和视觉对应关系，常常分散在不同页面与模态之中。">A retrieved row is not yet an understood fact. Definitions, qualifiers, and visual correspondences that determine an answer can sit on different pages and in different modalities.</p>
+      <div class="problem-grid">
+        <article><span class="index">01</span><h3 data-zh="同样的名字，不同的含义">Similar names. Different meanings.</h3><p data-zh="“报告利润”与“核心利润”可以对应同一年、同一单位，却采用不同的会计口径。单纯匹配关键词，容易选错概念。">Reported profit and core profit can share a year and unit while using different accounting definitions. Matching a label can select the wrong concept.</p></article>
+        <article><span class="index">02</span><h3 data-zh="关键条件不在答案旁边">The qualifier is somewhere else.</h3><p data-zh="决定含义的细节可能在图例、公式、页脚或另一份定义中。找到了数值，也可能遗漏了解读它所需的证据。">The decisive detail may be in a legend, a formula, a footnote, or a separate definition. Finding a value can still miss what makes it meaningful.</p></article>
+        <article><span class="index">03</span><h3 data-zh="下一个问题，又从头找起">The next question starts over.</h3><p data-zh="相关问题往往需要相同的定义、证据位置与计算。如果没有显式的语义层，这些知识很容易被反复查找、重新拼接。">Related questions often need the same definitions, source locations, and calculations. Without an explicit semantic layer, that work is rediscovered and reconstructed.</p></article>
+      </div>
+      <aside class="profit-example" aria-label="Illustrative financial semantics" data-zh-label="财务语义示例"><div><span data-zh="同一年度，同一单位">SAME YEAR. SAME UNIT.</span><b>PepsiCo FY2022</b><small data-zh="来源：年度报告，PDF 第 143 页">Source: annual report, PDF p.143</small></div><div><span data-zh="报告营业利润 · GAAP">Reported operating profit · GAAP</span><strong>11,512</strong></div><span class="not-equal" aria-hidden="true">≠</span><div><span data-zh="核心营业利润 · 非 GAAP">Core operating profit · non-GAAP</span><strong>12,325</strong></div><p data-zh="单位：百万美元。含义不同的指标，应保留为不同概念。">USD millions. Different definitions belong to different concepts.</p></aside>
+    </section>
+
+    <section class="framework-section" id="framework" aria-labelledby="framework-title">
+      <div class="wrap">
+        <p class="kicker"><span>02 /</span><span data-zh="语义桥接">THE SEMANTIC BRIDGE</span></p>
+        <h2 id="framework-title" data-zh="连接文档来源与智能体行动。">A shared language for sources and agents.</h2>
+        <p class="section-intro" data-zh="本体记录的不只是“有哪些事实”，还包括概念如何关联、证据在哪里，以及哪些条件约束了它的含义。">The ontology records more than facts. It connects what a concept means, how it relates to other concepts, where its evidence lives, and which conditions govern its use.</p>
+        <div class="schema-grid">
+          <article><span class="schema-number">01</span><h3 data-zh="Concept · 概念">Concept</h3><p data-zh="用明确的概念区分实体、指标、维度、事件和类别。">Distinguish entities, metrics, dimensions, events, and categories.</p><code data-zh="报告营业利润">Reported profit</code></article>
+          <article><span class="schema-number">02</span><h3 data-zh="Relation · 关系">Relation</h3><p data-zh="显式表示概念之间的区别、组成与推导关系。">Represent distinctions, composition, and derivation between concepts.</p><code data-zh="利润 + D&amp;A → EBITDA">Profit + D&amp;A → EBITDA</code></article>
+          <article><span class="schema-number">03</span><h3 data-zh="Mapping · 映射">Mapping</h3><p data-zh="将概念绑定到文字片段、表格单元、图表序列或视觉元素。">Bind meaning to a text span, table cell, chart series, or visual element.</p><code data-zh="行 × 年度列">Row × year column</code></article>
+          <article><span class="schema-number">04</span><h3 data-zh="Evidence · 证据">Evidence</h3><p data-zh="保留文字、表格、图像和公式，以及它们在 PDF 中的位置。">Retain text, tables, images, and formulas with their PDF locations.</p><code>PDF p.73 / p.75</code></article>
+          <article><span class="schema-number">05</span><h3 data-zh="Constraint · 约束">Constraint</h3><p data-zh="记录来源支持的单位、期间、类型、范围与公式等规则。">Capture source-supported units, periods, types, ranges, and formulas.</p><code>FY2022 · USD million</code></article>
+        </div>
+        <div class="agent-interface"><span data-zh="智能体如何使用这些知识">HOW THE AGENT USES IT</span><div><b data-zh="检索">Retrieve</b><i aria-hidden="true">→</i><b data-zh="解析">Resolve</b><i aria-hidden="true">→</i><b data-zh="查阅">Inspect</b><i aria-hidden="true">→</i><b data-zh="维护">Maintain</b></div><p data-zh="检索相关知识，补全语义上下文，查阅原始证据，并维护后续修订。">Retrieve relevant knowledge, expand semantic context, inspect original evidence, and maintain revisions.</p></div>
+      </div>
+    </section>
+
+    <section class="block wrap" id="lifecycle" aria-labelledby="lifecycle-title">
+      <p class="kicker"><span>03 /</span><span data-zh="构建与演化">CONSTRUCTION &amp; EVOLUTION</span></p>
+      <h2 id="lifecycle-title"><span data-zh="从来源中构建，">Build from sources.</span><br><em data-zh="从任务中改进。">Improve from experience.</em></h2>
+      <p class="section-intro" data-zh="两条互补的路径：Build 通过文档与问题建立初始语义；Evolve 通过任务轨迹发现缺口、提出修订，并与固定的父版本比较。">Two complementary paths: Build establishes initial semantics from questions and documents. Evolve uses task trajectories to reveal gaps, propose changes, and compare them against a frozen parent.</p>
+      <article class="lifecycle-track build-track"><header><div><span class="track-icon" aria-hidden="true">O₀</span><h3 data-zh="来源驱动的 Build">Source-driven Build</h3></div><span class="track-tag" data-zh="冷启动">COLD START</span></header><ol class="pipeline"><li data-zh="问题与文档">Questions &amp; documents</li><li data-zh="语义探索">Semantic exploration</li><li data-zh="本体草稿">Ontology draft</li><li data-zh="来源审核与检查">Source audit &amp; checks</li><li class="pipeline-output" data-zh="初始本体 O₀">Initial ontology O₀</li></ol><p data-zh="检查来源支持、概念定义与覆盖情况。Build 的检查本身不代表已经验证了问答收益。">Check source support, definitions, and coverage. Build checks alone do not establish a gain in question-answering performance.</p></article>
+      <p class="lifecycle-link"><span aria-hidden="true">↓</span><span data-zh="可用初始本体 O₀ 启动 Evolve，也可从空基线开始">Start Evolve from O₀, or bootstrap from an empty baseline</span></p>
+      <article class="lifecycle-track evolve-track"><header><div><span class="track-icon" aria-hidden="true">Oₜ</span><h3 data-zh="轨迹驱动的 Evolve">Trajectory-driven Evolve</h3></div><span class="track-tag" data-zh="自举与改进">BOOTSTRAP / REFINE</span></header><ol class="pipeline"><li data-zh="固定父版本">Freeze parent</li><li data-zh="执行任务与提炼">Execute &amp; distill</li><li data-zh="构建与修订">Construct &amp; patch</li><li data-zh="审核与复查">Audit &amp; recheck</li><li data-zh="配对验证">Paired validation</li><li class="pipeline-output" data-zh="发布或保留父版本">Publish or retain parent</li></ol><p data-zh="先固定父版本基线，再比较候选版本。候选未通过时保留父版本，即使父版本仍为空。">Freeze the baseline before comparison. If a candidate is rejected, retain the parent, including when that parent is empty.</p></article>
+      <div class="review-note"><span aria-hidden="true">↳</span><p><strong data-zh="结构合法，不等于语义正确。">Schema validity is not semantic correctness.</strong> <span data-zh="来源审核仍需检查支持、矛盾与遗漏；有冲突的知识可以合并、修订、保持独立，或暂时标记为未解决。">Source review still needs to examine support, conflicts, and omissions. Conflicting knowledge can be merged, revised, kept separate, or left unresolved.</span></p></div>
+    </section>
+
+    <section class="scenarios-section" id="scenarios" aria-labelledby="scenarios-title">
+      <div class="wrap">
+        <p class="kicker"><span>04 /</span><span data-zh="应用场景">WHERE IT MATTERS</span></p>
+        <h2 id="scenarios-title" data-zh="当定义改变了答案。">Where the definition changes the answer.</h2>
+        <p class="section-intro" data-zh="两个来自研究材料的具体案例，展示如何保留概念边界、证据对应关系与可复用的中间计算。">Two cases from the research overview show how concept boundaries, evidence correspondences, and shared calculations can be preserved.</p>
+        <div class="case-grid">
+          <article class="case-study finance-case"><span class="case-kicker" data-zh="案例 01 / 财报分析">CASE 01 / FINANCIAL ANALYSIS</span><h3 data-zh="两个问题，共用一个中间计算。">Two questions. One reusable intermediate.</h3><p data-zh="PepsiCo FY2022：为这两个问题保留一致的利润口径、来源单元格、期间与单位。">PepsiCo FY2022: preserve the profit definition, source cells, period, and units shared by both questions.</p><div class="formula"><small data-zh="这两个问题给定的定义">AS DEFINED BY THESE QUESTIONS</small><b>EBITDA = <span data-zh="报告营业利润">reported profit</span> + D&amp;A</b></div><div class="question-branches"><div><span>Q1</span><b data-zh="EBITDA 减 CapEx">EBITDA less CapEx</b><code>EBITDA − CapEx</code></div><div><span>Q2</span><b data-zh="EBITDA 利润率">EBITDA margin</b><code>EBITDA / Revenue × 100%</code></div></div><p class="case-note" data-zh="使用报告营业利润，而非核心利润；复用 PDF 第 73、75、143 页的依据，同时保留资本支出的来源符号约定。">Use reported profit rather than core profit. Reuse the grounding on PDF pp.73, 75, and 143, while preserving the source sign convention for capital spending.</p></article>
+          <article class="case-study survey-case"><span class="case-kicker" data-zh="案例 02 / 调查与社会研究">CASE 02 / SURVEYS &amp; SOCIAL RESEARCH</span><h3 data-zh="图表里的标签，也有适用边界。">A chart label has a scope, too.</h3><p data-zh="Hispanic Identity 报告：连接图例颜色、代际标签与百分比，并保留群体、加权方式和分类条件。">The Hispanic Identity report: connect legend colors, generation labels, and percentages while retaining population, weighting, and classification conditions.</p><div class="scope-comparison"><div><small data-zh="报告定义">REPORT DEFINITION</small><b>Puerto Rico</b><span data-zh="归入 foreign born">classified as foreign born</span></div><span aria-hidden="true">≠</span><div><small data-zh="样本表格">SAMPLE TABLE</small><b>Puerto Rico</b><span data-zh="归入 U.S. born">classified as U.S. born</span></div></div><p class="case-note" data-zh="这是该报告中两个不同的分类语境，应分别保留，不能无条件地合并为同一条规则。">These are distinct classification contexts in the illustrated report. Preserve both instead of merging them into an unconditional rule.</p></article>
+        </div>
+        <div class="further-cases"><span data-zh="进一步的应用场景">FURTHER APPLICATIONS</span><article><h3 data-zh="法律合同">Legal contracts</h3><p data-zh="把定义条款、义务、例外与交叉引用连接起来，让适用条件始终与证据同行。">Connect defined terms, obligations, exceptions, and cross-references so applicable conditions travel with the evidence.</p></article><article><h3 data-zh="医学研究">Medical research</h3><p data-zh="保留研究人群、终点定义和分析／随访条件，让跨段落的证据得到一致解读。">Retain study populations, endpoint definitions, and analysis or follow-up conditions when interpreting evidence across a paper.</p></article></div>
+      </div>
+    </section>
+
+    <section class="theater" id="demo" aria-labelledby="demo-title">
+      <div class="wrap">
+        <p class="kicker"><span>05 /</span><span data-zh="观看构建过程">SEE IT IN ACTION</span></p>
+        <h2 id="demo-title"><span data-zh="跟随原始来源，">Follow the source.</span><br><em data-zh="构建文档语义。">Build the meaning.</em></h2>
+        <p class="section-intro" data-zh="64 秒的构建流程示意，以 Hispanic Identity 报告为例，展示如何查阅来源、建立语义图、审核并发布。">A 64-second illustrated Build walkthrough using the Hispanic Identity report: inspect the sources, construct the semantic graph, review it, and publish.</p>
+        <ol class="demo-steps"><li data-zh="从问题与原始 PDF 开始。">Start with a question and the original PDF.</li><li data-zh="查阅相关页面与多模态元素。">Inspect relevant pages and multimodal elements.</li><li data-zh="连接概念、关系与来源映射。">Connect concepts, relations, and source mappings.</li><li data-zh="保留证据和适用条件。">Preserve evidence and applicable conditions.</li><li data-zh="审核来源，再发布本体。">Review source support, then publish the ontology.</li></ol>
+        <figure class="player"><figcaption class="player-chrome"><span aria-hidden="true"><i></i><i></i><i></i></span><span data-zh="OntoMosaic-Doc / 有来源依据的 Build">OntoMosaic-Doc / Source-grounded Build</span><span data-zh="流程示意">WALKTHROUGH</span></figcaption><video controls playsinline preload="metadata" poster="video-poster.jpg" width="1920" height="1080" aria-label="OntoMosaic-Doc ontology construction walkthrough" data-zh-label="OntoMosaic-Doc 本体构建流程演示"><source src="video.mp4" type="video/mp4"><span data-zh="你的浏览器不支持 HTML 视频播放。">Your browser does not support HTML video.</span></video></figure>
+        <p class="demo-note" data-zh="视频展示的是基于原始 PDF 的构建流程示意，并非实时问答评测。">The film illustrates a Build workflow grounded in the original PDF, rather than a live question-answering evaluation.</p>
+      </div>
+    </section>
+  </main>
+  <footer><div class="wrap"><span>OntoMosaic-Doc</span><span class="research-note" data-zh="内容依据 DocRSI 本体研究介绍整理。">Based on the DocRSI ontology research overview.</span><a href="../" data-zh="返回 DataMosaic ↗">Back to DataMosaic ↗</a><a href="#about" data-zh="回到顶部 ↑">Back to top ↑</a></div></footer>
+</body>
 </html>
