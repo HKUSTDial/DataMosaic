@@ -10,7 +10,7 @@ const dropdowns = [
   { id: 'ontology', label: 'Ontologies', icon: 'M12 8v4M5 16v-4h14v4M9 2h6v6H9zM2 16h6v6H2zM16 16h6v6h-6z', links: [
     { label: 'OntoMosaic-Doc', description: 'Context-graph retrieval across the enterprise', href: '/ontomosaic-doc', icon: 'M12 8v4M5 16v-4h14v4M9 2h6v6H9zM2 16h6v6H2zM16 16h6v6h-6z' },
     { label: 'OntoMosaic-DB', description: 'Build and explore database knowledge from SQL examples', href: '/ontomosaic-db', icon: 'M12 8v4M5 16v-4h14v4M9 2h6v6H9zM2 16h6v6H2zM16 16h6v6h-6z' },
-    { label: 'OntoMosaic-Enterprise', description: 'Connect business processes and data through a shared ontology', href: '/ontomosaic-enterprise', icon: 'M12 8v4M5 16v-4h14v4M9 2h6v6H9zM2 16h6v6H2zM16 16h6v6h-6z' },
+    { label: 'OntoMosaic-Enterprise', description: 'Connect business processes and data through a shared ontology', href: '/ontomosaic-enterprise/index.html', icon: 'M12 8v4M5 16v-4h14v4M9 2h6v6H9zM2 16h6v6H2zM16 16h6v6h-6z' },
   ] },
   { id: 'resource', label: 'Resources', icon: 'M12 5v15M3 5c3-1.5 6-1.5 9 0 3-1.5 6-1.5 9 0v15c-3-1.5-6-1.5-9 0-3-1.5-6-1.5-9 0z', links: [
     { label: 'Tools', description: 'Explore tools for working with data', href: '/tools/', icon: 'M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z' },
