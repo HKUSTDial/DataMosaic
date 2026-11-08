@@ -6,7 +6,7 @@
   <title>OntoMosaic-Doc · Evidence, connected. Meaning, preserved.</title>
   <meta name="description" content="A reusable semantic layer for long visual documents. Connect concepts, source evidence, and conditions to guide document agents.">
   <link rel="icon" href="logo.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=1">
+  <link rel="stylesheet" href="styles.css?v=2">
   <script src="site.js?v=1" defer></script>
 </head>
 <body>
@@ -32,7 +32,7 @@
     <section class="hero" id="about" aria-labelledby="hero-title">
       <div class="wrap hero-grid">
         <div class="hero-copy">
-          <p class="announcement"><i aria-hidden="true"></i><span data-zh="有来源的知识，可复用的语义">DOCUMENT-GROUNDED KNOWLEDGE</span></p>
+          <p class="announcement"><i aria-hidden="true"></i><span data-zh="立足领域的知识，可复用的语义">DOMAIN-GROUNDED KNOWLEDGE</span></p>
           <h1 id="hero-title"><span data-zh="让证据连起来，">Evidence, connected.</span><br><em data-zh="让含义留得住。">Meaning, preserved.</em></h1>
           <p class="lede" data-zh="文档里散落着定义、口径与适用条件。OntoMosaic-Doc 将它们与原始证据连接，构建可复用的语义层，帮助智能体找对信息、理解其含义，并将已有知识用于下一个问题。">Definitions, measurement rules, and conditions are scattered across documents. OntoMosaic-Doc connects them to their original evidence, building a reusable semantic layer that helps agents find the right information, understand it, and carry that knowledge into the next question.</p>
           <div class="hero-actions"><a class="button primary" href="#demo"><span data-zh="观看演示">Watch the Demo</span><span aria-hidden="true">↗</span></a><a class="button secondary" href="#framework"><span data-zh="了解原理">Explore the Framework</span><span aria-hidden="true">↓</span></a></div>
@@ -96,12 +96,73 @@
       <div class="wrap">
         <p class="kicker"><span>04 /</span><span data-zh="应用场景">WHERE IT MATTERS</span></p>
         <h2 id="scenarios-title" data-zh="当定义改变了答案。">Where the definition changes the answer.</h2>
-        <p class="section-intro" data-zh="两个来自研究材料的具体案例，展示如何保留概念边界、证据对应关系与可复用的中间计算。">Two cases from the research overview show how concept boundaries, evidence correspondences, and shared calculations can be preserved.</p>
+        <p class="section-intro" data-zh="从一份财报到一张调查图表，看看本体如何连接原始证据、保留领域含义，并让下一个问题用上已有知识。">From a financial report to a survey chart: see how ontology connects the evidence, preserves domain meaning, and gives the next question something to build on.</p>
         <div class="case-grid">
-          <article class="case-study finance-case"><span class="case-kicker" data-zh="案例 01 / 财报分析">CASE 01 / FINANCIAL ANALYSIS</span><h3 data-zh="两个问题，共用一个中间计算。">Two questions. One reusable intermediate.</h3><p data-zh="PepsiCo FY2022：为这两个问题保留一致的利润口径、来源单元格、期间与单位。">PepsiCo FY2022: preserve the profit definition, source cells, period, and units shared by both questions.</p><div class="formula"><small data-zh="这两个问题给定的定义">AS DEFINED BY THESE QUESTIONS</small><b>EBITDA = <span data-zh="报告营业利润">reported profit</span> + D&amp;A</b></div><div class="question-branches"><div><span>Q1</span><b data-zh="EBITDA 减 CapEx">EBITDA less CapEx</b><code>EBITDA − CapEx</code></div><div><span>Q2</span><b data-zh="EBITDA 利润率">EBITDA margin</b><code>EBITDA / Revenue × 100%</code></div></div><p class="case-note" data-zh="使用报告营业利润，而非核心利润；复用 PDF 第 73、75、143 页的依据，同时保留资本支出的来源符号约定。">Use reported profit rather than core profit. Reuse the grounding on PDF pp.73, 75, and 143, while preserving the source sign convention for capital spending.</p></article>
-          <article class="case-study survey-case"><span class="case-kicker" data-zh="案例 02 / 调查与社会研究">CASE 02 / SURVEYS &amp; SOCIAL RESEARCH</span><h3 data-zh="图表里的标签，也有适用边界。">A chart label has a scope, too.</h3><p data-zh="Hispanic Identity 报告：连接图例颜色、代际标签与百分比，并保留群体、加权方式和分类条件。">The Hispanic Identity report: connect legend colors, generation labels, and percentages while retaining population, weighting, and classification conditions.</p><div class="scope-comparison"><div><small data-zh="报告定义">REPORT DEFINITION</small><b>Puerto Rico</b><span data-zh="归入 foreign born">classified as foreign born</span></div><span aria-hidden="true">≠</span><div><small data-zh="样本表格">SAMPLE TABLE</small><b>Puerto Rico</b><span data-zh="归入 U.S. born">classified as U.S. born</span></div></div><p class="case-note" data-zh="这是该报告中两个不同的分类语境，应分别保留，不能无条件地合并为同一条规则。">These are distinct classification contexts in the illustrated report. Preserve both instead of merging them into an unconditional rule.</p></article>
+          <article class="case-study finance-case">
+            <div class="case-story">
+              <span class="case-kicker" data-zh="案例 01 / 财报分析">CASE 01 / FINANCIAL ANALYSIS</span>
+              <div class="case-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 3h10l4 4v14H5zM14 3v5h5M8 12h8M8 16h3"/><path d="m13 18 2-2 2 1 3-4"/></svg></div>
+              <h3><span data-zh="读对一次，">Read it right once.</span><br><em data-zh="两个答案都有依据。">Ground both answers.</em></h3>
+              <p data-zh="PepsiCo FY2022 财报中，报告利润与核心利润看起来很像，却不能互换。本体先选对口径、连接跨页数据，再把同一个 EBITDA 计算用于两个问题。">PepsiCo’s FY2022 report contains two similar-looking profit measures. Ontology keeps them distinct, connects inputs across pages, and reuses one EBITDA calculation for two questions.</p>
+              <div class="case-takeaway"><span data-zh="本体的作用">WHAT ONTOLOGY ADDS</span><p data-zh="同名指标不混用。跨页数据有出处。共享计算可复用。">Keep measures distinct. Link every input to its source. Reuse the shared calculation.</p></div>
+              <p class="case-source" data-zh="来源：研究材料中的 PepsiCo FY2022 案例 · 原始 PDF 第 73、75、143 页">Source: PepsiCo FY2022 case in the research overview · original PDF pp.73, 75, 143</p>
+            </div>
+            <div class="case-canvas">
+              <div class="canvas-heading"><span class="step-label" data-zh="01 / 对齐原始证据">01 / CONNECT THE EVIDENCE</span><span class="source-chip">FY2022 · USD million</span></div>
+              <div class="evidence-table" role="table" aria-label="PepsiCo FY2022 source values" data-zh-label="PepsiCo FY2022 原始数据">
+                <div class="evidence-head" role="row"><span role="columnheader" data-zh="指标">Measure</span><span role="columnheader">2022</span><span role="columnheader" data-zh="PDF 页码">PDF page</span></div>
+                <div class="selected-evidence" role="row"><span role="cell"><i aria-hidden="true"></i><span data-zh="报告营业利润 · GAAP">Reported operating profit · GAAP</span></span><b role="cell">11,512</b><span role="cell">73 / 143</span></div>
+                <div class="alternate-evidence" role="row"><span role="cell" data-zh="核心营业利润 · 非 GAAP">Core operating profit · non-GAAP</span><b role="cell">12,325</b><span role="cell">143</span></div>
+                <div role="row"><span role="cell" data-zh="折旧与摊销 · D&amp;A">Depreciation &amp; amortization</span><b role="cell">2,763</b><span role="cell">75</span></div>
+              </div>
+              <div class="calculation-link" aria-hidden="true"><span></span>↓<span></span></div>
+              <div class="shared-calculation">
+                <div><span class="step-label" data-zh="02 / 一个共享计算">02 / ONE SHARED CALCULATION</span><h4 data-zh="未调整 EBITDA">Unadjusted EBITDA</h4><p data-zh="按这两个问题给定的定义：报告利润 + D&amp;A">As defined by these questions: reported profit + D&amp;A</p></div>
+                <div class="calculation-value"><strong>14,275</strong><span>11,512 + 2,763</span></div>
+              </div>
+              <div class="answer-branch" aria-hidden="true"><span></span><span></span></div>
+              <div class="case-answers">
+                <div><span class="answer-question">Q1 <span data-zh="扣除资本支出后，还剩多少？">What remains after CapEx?</span></span><strong>9,068</strong><code>14,275 − 5,207</code><small data-zh="百万美元 · EBITDA 减 CapEx">USD million · EBITDA less CapEx</small></div>
+                <div><span class="answer-question">Q2 <span data-zh="EBITDA 占营收的比例？">What is the EBITDA margin?</span></span><strong>16.52<small>%</small></strong><code>14,275 / 86,392 × 100%</code><small data-zh="相同 EBITDA，不同问题">Same EBITDA, a different question</small></div>
+              </div>
+              <p class="case-note" data-zh="示例计算依据原始数据；营收为 86,392（第 73 页）。资本支出在现金流中记为 (5,207)（第 75 页）；这里以支出金额 5,207 计算，保留原始现金流符号。">Illustrative calculations from source values. Revenue: 86,392 (p.73). Capital spending is recorded as (5,207) (p.75); the calculation uses its expenditure magnitude, 5,207, while retaining the original cash-flow sign.</p>
+            </div>
+          </article>
+          <article class="case-study survey-case">
+            <div class="case-story">
+              <span class="case-kicker" data-zh="案例 02 / 调查与社会研究">CASE 02 / SURVEYS &amp; SOCIAL RESEARCH</span>
+              <div class="case-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4v16h17M8 15v-4M13 15V7M18 15V4"/><circle cx="8" cy="6" r="2"/></svg></div>
+              <h3><span data-zh="看见 3%，">See the 3%.</span><br><em data-zh="还要知道它属于谁。">Know who it describes.</em></h3>
+              <p data-zh="图中最小的部分是 3%。但要读懂这个数，还得连接颜色图例、移民代际与调查人群。本体把这些条件一起保留，而不是只提取一个百分比。">The smallest segment is 3%. Reading it correctly means connecting the color legend, immigrant generation, and survey population. Ontology carries that context alongside the number.</p>
+              <div class="case-takeaway"><span data-zh="本体的作用">WHAT ONTOLOGY ADDS</span><p data-zh="把“颜色—类别—群体—数值”连起来，同时保留不同语境中的分类规则。">Connect color, category, population, and value. Keep classification rules tied to their context.</p></div>
+              <p class="case-source" data-zh="来源：研究材料中的 Hispanic Identity 案例 · 图表按原图数据重绘">Source: Hispanic Identity case in the research overview · chart redrawn from the source values</p>
+            </div>
+            <div class="case-canvas">
+              <div class="canvas-heading"><span class="step-label" data-zh="01 / 读取图表与图例">01 / READ THE CHART &amp; LEGEND</span><span class="source-chip" data-zh="人群加权 · 成年人">Population-weighted · Adults</span></div>
+              <h4 class="chart-title" data-zh="有西班牙裔血统的美国成年人，如何自我认同？">How do U.S. adults with Hispanic ancestry identify?</h4>
+              <div class="chart-legend"><span><i class="hispanic-color" aria-hidden="true"></i><span data-zh="西班牙裔">Hispanic</span></span><span><i class="nonhispanic-color" aria-hidden="true"></i><span data-zh="非西班牙裔">Non-Hispanic</span></span></div>
+              <div class="survey-chart" role="img" aria-label="Hispanic and non-Hispanic identity, respectively: foreign born 97% and 3%; second generation 92% and 8%; third generation 77% and 23%; fourth or higher generation 50% and 50%." data-zh-label="西班牙裔与非西班牙裔认同比例依次为：境外出生 97% 与 3%；第二代 92% 与 8%；第三代 77% 与 23%；第四代及以后 50% 与 50%。">
+                <div class="chart-row"><span data-zh="境外出生">Foreign born</span><div class="chart-bar" aria-hidden="true"><i style="width:97%"></i><i style="width:3%"></i></div><span class="chart-values"><b>97</b> / <b>3</b></span></div>
+                <div class="chart-row"><span data-zh="第二代">2nd generation</span><div class="chart-bar" aria-hidden="true"><i style="width:92%"></i><i style="width:8%"></i></div><span class="chart-values"><b>92</b> / <b>8</b></span></div>
+                <div class="chart-row"><span data-zh="第三代">3rd generation</span><div class="chart-bar" aria-hidden="true"><i style="width:77%"></i><i style="width:23%"></i></div><span class="chart-values"><b>77</b> / <b>23</b></span></div>
+                <div class="chart-row"><span data-zh="第四代及以后">4th+ generation</span><div class="chart-bar" aria-hidden="true"><i style="width:50%"></i><i style="width:50%"></i></div><span class="chart-values"><b>50</b> / <b>50</b></span></div>
+              </div>
+              <div class="chart-reading"><strong>3<small>%</small></strong><div><span class="step-label" data-zh="02 / 将数值与含义绑定">02 / BIND VALUE TO MEANING</span><p data-zh="有西班牙裔血统、境外出生的美国成年人中，3% 自我认同为非西班牙裔。">Of foreign-born U.S. adults with Hispanic ancestry, 3% identify as non-Hispanic.</p></div></div>
+              <div class="scope-heading"><span class="step-label" data-zh="03 / 保留分类语境">03 / PRESERVE THE CLASSIFICATION CONTEXT</span><span data-zh="同一个地名，两种口径">One place, two scopes</span></div>
+              <div class="scope-records"><div><span data-zh="报告正文定义">Report definition</span><b>Puerto Rico</b><span class="scope-tag" data-zh="归入 foreign born">Foreign born</span></div><div><span data-zh="样本表格定义">Sample-table definition</span><b>Puerto Rico</b><span class="scope-tag" data-zh="归入 U.S. born">U.S. born</span></div></div>
+              <p class="case-note" data-zh="这是报告中的两个不同分类语境。按所用来源选择对应规则，并保留调查人群与加权条件，不能直接合并成一条通用定义。">These are distinct classification contexts in the report. Use the rule attached to the relevant source, retaining its population and weighting conditions.</p>
+            </div>
+          </article>
         </div>
-        <div class="further-cases"><span data-zh="进一步的应用场景">FURTHER APPLICATIONS</span><article><h3 data-zh="法律合同">Legal contracts</h3><p data-zh="把定义条款、义务、例外与交叉引用连接起来，让适用条件始终与证据同行。">Connect defined terms, obligations, exceptions, and cross-references so applicable conditions travel with the evidence.</p></article><article><h3 data-zh="医学研究">Medical research</h3><p data-zh="保留研究人群、终点定义和分析／随访条件，让跨段落的证据得到一致解读。">Retain study populations, endpoint definitions, and analysis or follow-up conditions when interpreting evidence across a paper.</p></article></div>
+        <div class="applications-heading"><p class="kicker" data-zh="更多应用场景">FURTHER APPLICATIONS</p><h3 data-zh="每个领域，都有需要读懂的含义。">Every domain has a meaning to preserve.</h3><p data-zh="以下是可拓展的应用方向：让分散在文档中的定义、条件与证据一起被理解。">Illustrative applications for connecting definitions, conditions, and evidence scattered across documents.</p></div>
+        <div class="applications-grid">
+          <article><div class="application-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v17M5 20h14M4 7h16M6 7l-4 7h8L6 7ZM18 7l-4 7h8l-4-7Z"/><path d="M2 14c0 3 8 3 8 0m4 0c0 3 8 3 8 0"/></svg></div><h4 data-zh="法律合同">Legal contracts</h4><p data-zh="连接定义、义务与例外，理解一条条款在什么条件下适用。">Connect definitions, obligations, and exceptions to establish when a clause applies.</p><span data-zh="条款 · 例外 · 交叉引用">Terms · Exceptions · Cross-references</span></article>
+          <article><div class="application-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3v5a4 4 0 0 0 8 0V3M5 3h3m4 0h3M10 12v4a5 5 0 0 0 10 0v-2"/><circle cx="20" cy="11" r="3"/></svg></div><h4 data-zh="医学研究">Medical research</h4><p data-zh="把研究人群、终点定义与随访条件连接到具体研究结果。">Link study results to their population, endpoint definitions, and follow-up conditions.</p><span data-zh="人群 · 终点 · 研究条件">Cohorts · Endpoints · Study conditions</span></article>
+          <article><div class="application-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Z"/><path d="m8 12 3 3 5-6"/></svg></div><h4 data-zh="监管与合规">Regulatory compliance</h4><p data-zh="保留规则的适用主体、地区与生效时间，关联具体要求和证据。">Keep obligations tied to the applicable entity, jurisdiction, and effective date.</p><span data-zh="要求 · 地区 · 版本">Requirements · Jurisdictions · Versions</span></article>
+          <article><div class="application-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4h6c2 0 2 2 2 2s0-2 2-2h6v16h-6c-2 0-2 1-2 1s0-1-2-1H4V4ZM12 6v15M7 8h2M7 12h2M15 8h2M15 12h2"/></svg></div><h4 data-zh="工程与技术手册">Engineering manuals</h4><p data-zh="连接图纸、型号、单位与操作条件，找到适用于具体设备的步骤。">Connect diagrams, model numbers, units, and operating conditions to the right procedure.</p><span data-zh="规格 · 图纸 · 操作步骤">Specifications · Diagrams · Procedures</span></article>
+          <article><div class="application-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 11a9 9 0 0 1 18 0H3ZM12 2v1M12 11v7a3 3 0 0 0 6 0M7 11c0-4 2-7 5-8 3 1 5 4 5 8"/></svg></div><h4 data-zh="保险条款与理赔">Insurance policies</h4><p data-zh="关联承保范围、除外责任和批单，读清理赔需要满足的条件。">Connect coverage, exclusions, and endorsements to the conditions attached to a claim.</p><span data-zh="保障 · 除外 · 批单">Coverage · Exclusions · Endorsements</span></article>
+          <article><div class="application-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 4H5v17h14V4h-4M9 2h6v5H9zM8 12l1 1 2-2M13 12h3M8 17l1 1 2-2M13 17h3"/></svg></div><h4 data-zh="采购与招投标">Procurement &amp; tenders</h4><p data-zh="跨正文与附件连接资格要求、评分规则和供应商提交的依据。">Link eligibility requirements and scoring rules to supplier evidence across attachments.</p><span data-zh="资质 · 标准 · 附件">Eligibility · Criteria · Attachments</span></article>
+        </div>
       </div>
     </section>
 
