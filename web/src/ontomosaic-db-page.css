@@ -45,8 +45,8 @@
 #ontomosaic-public .op-hero { padding: 42px 0 30px; }
 #ontomosaic-public .op-hero-grid { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: 48px; align-items: center; margin-bottom: 36px; }
 #ontomosaic-public .op-hero-copy, #ontomosaic-public .op-hero-media { min-width: 0; }
-#ontomosaic-public .op-hero-media { scroll-margin-top: 24px; }
-#ontomosaic-public .op-hero-media figcaption { margin-top: 10px; font-size: 12px; color: var(--op-muted); }
+#ontomosaic-public .op-hero-media { scroll-margin-top: 24px; position: relative; }
+#ontomosaic-public .op-hero-media figcaption { position: absolute; top: 100%; left: 0; margin-top: 10px; font-size: 12px; color: var(--op-muted); }
 #ontomosaic-public .op-eyebrow { font: 11px/1.6 ui-monospace, monospace; letter-spacing: 1.1px; color: var(--op-muted); margin-bottom: 12px; }
 #ontomosaic-public h1 { font-size: 36px; line-height: 1.2; font-weight: 500; letter-spacing: -1.4px; max-width: 1000px; }
 #ontomosaic-public em { display: inline; font-style: normal; color: var(--op-accent); }
@@ -125,6 +125,7 @@
 @media (max-width: 960px) {
   #ontomosaic-public .op-hero-grid { grid-template-columns: 1fr; gap: 28px; }
   #ontomosaic-public .op-hero-media { width: 100%; max-width: 680px; justify-self: center; }
+  #ontomosaic-public .op-hero-media figcaption { position: static; }
 }
 @media (max-width: 780px) {
   #ontomosaic-public .oo-graph-scroll { overflow-x: auto; }

@@ -44,9 +44,9 @@ export default function OntoMosaicDBPage() {
     </header>
     <main className="op-wrap" id="op-main">
       <section className="op-hero" id="ontology" aria-labelledby="op-title">
+        <p className="op-eyebrow"><a href={siteUrl('/')}>DATAMOSAIC</a> / ONTOLOGY LAYER</p>
         <div className="op-hero-grid">
           <div className="op-hero-copy">
-            <p className="op-eyebrow"><a href={siteUrl('/')}>DATAMOSAIC</a> / ONTOLOGY LAYER</p>
             <h1 id="op-title">Your business knowledge, <em>connected to your data.</em></h1>
             <p className="op-lead">OntoMosaic-DB builds ontology graphs that describe your business, explain your data, and connect the two—giving database tasks a shared foundation of knowledge.</p>
             <div className="op-layers">
