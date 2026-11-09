@@ -196,10 +196,10 @@ export default function App() {
           <div className="workflow-grid">
             <article className="workflow-card">
               <a className="card-main" href={siteUrl('/ontomosaic-doc/')} aria-label="Open OntoMosaic-Doc">
-                <span className="card-header"><span className="card-title"><span className="card-number">01</span>OntoMosaic-Doc <span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 8v4M5 16v-4h14v4"/><rect x="9" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="16" width="6" height="6" rx="1.5"/><rect x="16" y="16" width="6" height="6" rx="1.5"/></svg></span></span><span className="service-status" role="status">Overview</span></span>
-                <span className="card-description">Let a context graph lead retrieval across the enterprise. Follow concepts, relationships, and evidence from the question to a grounded answer.</span>
+                <span className="card-header"><span className="card-title"><span className="card-number">01</span>OntoMosaic-Doc <span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 8v4M5 16v-4h14v4"/><rect x="9" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="16" width="6" height="6" rx="1.5"/><rect x="16" y="16" width="6" height="6" rx="1.5"/></svg></span></span><span className="service-status" role="status">Demo</span></span>
+                <span className="card-description">Build a reusable ontology from visual documents. Connect concepts, relationships, and source evidence to guide grounded document reasoning.</span>
                 <img className="product-demo" src={ontoDocDemo} alt="OntoMosaic-Doc context graph retrieval" loading="lazy" decoding="async"/>
-                <span className="card-features"><span>Context graph</span><span>Enterprise retrieval</span></span>
+                <span className="card-features"><span>Document-to-ontology</span><span>Grounded evidence</span></span>
               </a>
               <div className="card-actions"><a href={siteUrl('/ontomosaic-doc/')}>Open OntoMosaic-Doc <span aria-hidden="true">↗</span></a></div>
             </article>
@@ -212,7 +212,7 @@ export default function App() {
               </a>
               <div className="card-actions"><a href={siteUrl('/ontomosaic-db')}>Open OntoMosaic-DB <span aria-hidden="true">↗</span></a><button className="card-demo" type="button" onClick={() => setActiveDemo('ontology')} aria-label="Watch OntoMosaic-DB demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>Demo</button></div>
             </article>
-            <article className="workflow-card">
+            <article className="workflow-card enterprise">
               <a className="card-main" href={siteUrl('/ontomosaic-enterprise/index.html')} aria-label="Open OntoMosaic-Enterprise">
                 <span className="card-header"><span className="card-title"><span className="card-number">03</span>OntoMosaic-Enterprise <span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 8v4M5 16v-4h14v4"/><rect x="9" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="16" width="6" height="6" rx="1.5"/><rect x="16" y="16" width="6" height="6" rx="1.5"/></svg></span></span><span className="service-status" role="status">Demo</span></span>
                 <span className="card-description">Turn business workflows into a shared enterprise ontology. Unify concepts and relationships, then connect them to databases, systems, and documents.</span>

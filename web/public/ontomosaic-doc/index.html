@@ -6,8 +6,8 @@
   <title>OntoMosaic-Doc · Evidence, connected. Meaning, preserved.</title>
   <meta name="description" content="A reusable semantic layer for long visual documents. Connect concepts, source evidence, and conditions to guide document agents.">
   <link rel="icon" href="logo.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=2">
-  <script src="site.js?v=1" defer></script>
+  <link rel="stylesheet" href="styles.css?v=9">
+  <script src="site.js?v=2" defer></script>
 </head>
 <body>
   <a class="skip" href="#about" data-zh="跳到正文">Skip to content</a>
@@ -37,18 +37,13 @@
           <p class="lede" data-zh="文档里散落着定义、口径与适用条件。OntoMosaic-Doc 将它们与原始证据连接，构建可复用的语义层，帮助智能体找对信息、理解其含义，并将已有知识用于下一个问题。">Definitions, measurement rules, and conditions are scattered across documents. OntoMosaic-Doc connects them to their original evidence, building a reusable semantic layer that helps agents find the right information, understand it, and carry that knowledge into the next question.</p>
           <div class="hero-actions"><a class="button primary" href="#demo"><span data-zh="观看演示">Watch the Demo</span><span aria-hidden="true">↗</span></a><a class="button secondary" href="#framework"><span data-zh="了解原理">Explore the Framework</span><span aria-hidden="true">↓</span></a></div>
         </div>
-        <figure class="semantic-preview" aria-labelledby="bridge-caption">
-          <figcaption class="visual-heading" id="bridge-caption"><span data-zh="文档 → 语义 → 智能体">DOCUMENT → MEANING → AGENT</span><span class="diagram-index">01 / SEMANTIC BRIDGE</span></figcaption>
-          <div class="source-row"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h9l5 5v13H5zM14 3v6h5M8 13h8M8 17h5"/></svg><div><b data-zh="原始文档">Original documents</b><span data-zh="文字 · 表格 · 图表 · 脚注">Text · tables · charts · footnotes</span></div><span class="source-tag">PDF</span></div>
-          <div class="bridge-connector" aria-hidden="true"><span>↓</span></div>
-          <div class="meaning-layer">
-            <div class="layer-label"><i aria-hidden="true"></i><span data-zh="共享语义层">SHARED SEMANTIC LAYER</span></div>
-            <div class="concept-pair"><div><small>GAAP</small><b data-zh="报告营业利润">Reported profit</b></div><span class="relation-label" data-zh="不同口径">distinct</span><div><small>NON-GAAP</small><b data-zh="核心营业利润">Core profit</b></div></div>
-            <div class="meaning-details"><div><span data-zh="来源映射">SOURCE MAPPING</span><b data-zh="营业利润 × 2022 年列">Operating Profit × 2022</b><small data-zh="利润表 · PDF 第 73 页">Income statement · PDF p.73</small></div><div><span data-zh="适用条件">CONDITIONS</span><b>FY2022 · USD million</b><small data-zh="保留期间与计量口径">Period and measurement basis</small></div></div>
-          </div>
-          <div class="bridge-connector" aria-hidden="true"><span>↓</span></div>
-          <div class="agent-row"><strong data-zh="文档智能体">Document agent</strong><div><span data-zh="寻找证据">Seek</span><span data-zh="理解含义">Interpret</span><span data-zh="复核答案">Verify</span></div></div>
-          <p class="visual-note" data-zh="语义桥接示意 · 每项知识都保留与来源的连接">Illustrative semantic bridge · knowledge stays connected to its sources</p>
+        <figure class="semantic-preview hero-film" aria-labelledby="bridge-caption">
+          <figcaption class="visual-heading" id="bridge-caption"><span data-zh="文档 → 本体">DOCUMENT → ONTOLOGY</span><span class="diagram-index">01 / SEMANTIC BRIDGE</span></figcaption>
+          <video controls playsinline preload="metadata" poster="introduction.jpg" width="1920" height="1080" aria-label="OntoMosaic-Doc semantic understanding introduction" data-zh-label="OntoMosaic-Doc 语义理解产品介绍">
+            <source src="introduction.mp4" type="video/mp4">
+            <track kind="captions" src="introduction.vtt" srclang="en" label="English narration">
+            <span data-zh="你的浏览器不支持 HTML 视频播放。">Your browser does not support HTML video.</span>
+          </video>
         </figure>
       </div>
       <div class="wrap hero-strip"><span data-zh="让知识跨越一次提问。">KNOWLEDGE BEYOND ONE QUESTION.</span><div><b data-zh="有据可循">Source-linked</b><small data-zh="保留原始证据位置">Keep original evidence locations</small></div><div><b data-zh="理解适用边界">Scope-aware</b><small data-zh="保留定义、单位与条件">Preserve definitions and conditions</small></div><div><b data-zh="跨问题复用">Reusable</b><small data-zh="让已有知识支持后续问题">Carry knowledge across questions</small></div></div>
@@ -63,7 +58,55 @@
         <article><span class="index">02</span><h3 data-zh="关键条件不在答案旁边">The qualifier is somewhere else.</h3><p data-zh="决定含义的细节可能在图例、公式、页脚或另一份定义中。找到了数值，也可能遗漏了解读它所需的证据。">The decisive detail may be in a legend, a formula, a footnote, or a separate definition. Finding a value can still miss what makes it meaningful.</p></article>
         <article><span class="index">03</span><h3 data-zh="下一个问题，又从头找起">The next question starts over.</h3><p data-zh="相关问题往往需要相同的定义、证据位置与计算。如果没有显式的语义层，这些知识很容易被反复查找、重新拼接。">Related questions often need the same definitions, source locations, and calculations. Without an explicit semantic layer, that work is rediscovered and reconstructed.</p></article>
       </div>
-      <aside class="profit-example" aria-label="Illustrative financial semantics" data-zh-label="财务语义示例"><div><span data-zh="同一年度，同一单位">SAME YEAR. SAME UNIT.</span><b>PepsiCo FY2022</b><small data-zh="来源：年度报告，PDF 第 143 页">Source: annual report, PDF p.143</small></div><div><span data-zh="报告营业利润 · GAAP">Reported operating profit · GAAP</span><strong>11,512</strong></div><span class="not-equal" aria-hidden="true">≠</span><div><span data-zh="核心营业利润 · 非 GAAP">Core operating profit · non-GAAP</span><strong>12,325</strong></div><p data-zh="单位：百万美元。含义不同的指标，应保留为不同概念。">USD millions. Different definitions belong to different concepts.</p></aside>
+      <figure class="context-study" aria-labelledby="context-title">
+        <div class="context-document">
+          <div class="document-masthead"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h9l5 5v13H5zM14 3v6h5M8 13h8M8 17h5"/></svg><span data-zh="边缘设备手册 · 跨模态证据">Edge-device handbook · Cross-modal evidence</span></span><span class="example-tag" data-zh="示意数据">Illustrative data</span></div>
+          <h4 class="context-question" data-zh="“45°C 下，电池供电能以 ≥20 TOPS 持续运行 6 小时吗？”">“On battery at 45°C: ≥20 TOPS for 6 hours?”</h4>
+          <div class="context-evidence-grid">
+            <section class="context-evidence thermal-evidence" aria-labelledby="thermal-title">
+              <div class="evidence-kind"><span>C1</span><span data-zh="图表 · 第 4 页">CHART · p.4</span></div>
+              <h5 id="thermal-title" data-zh="温度降额">Thermal derating</h5>
+              <p class="evidence-unit" data-zh="持续算力 · INT8 · TOPS">Sustained · INT8 · TOPS</p>
+              <svg class="thermal-chart" viewBox="0 0 260 125" role="img" aria-label="Sustained INT8 performance: 28 TOPS at 25°C, 18 TOPS at 45°C. The dashed line marks the 20 TOPS requirement. The scale starts at zero." data-zh-label="持续 INT8 算力：25°C 时为 28 TOPS，45°C 时为 18 TOPS。虚线表示 20 TOPS 要求，刻度从零开始。">
+                <g class="thermal-grid"><path d="M54 16v74M234 16v74"/><path class="thermal-target" d="M144 12v78"/></g>
+                <g class="thermal-temperatures"><text x="2" y="39">25°C</text><text x="2" y="77">45°C</text></g>
+                <rect x="54" y="24" width="126" height="20" rx="3" fill="#b8bbdf"/>
+                <rect x="54" y="62" width="81" height="20" rx="3" fill="#7477be"/>
+                <g class="thermal-values"><text x="188" y="39">28</text><text x="150" y="77">18</text></g>
+                <g class="thermal-axis"><text x="54" y="110">0</text><text x="144" y="110">20</text><text x="234" y="110">40</text></g>
+              </svg>
+            </section>
+            <section class="context-evidence power-evidence" aria-labelledby="power-title">
+              <div class="evidence-kind"><span>T1</span><span data-zh="表格 · 第 9 页">TABLE · p.9</span></div>
+              <h5 id="power-title" data-zh="电池与功耗">Battery &amp; power</h5>
+              <table class="context-power-table" aria-labelledby="power-title">
+                <thead><tr><th scope="col" data-zh="项目">Item</th><th scope="col" data-zh="45°C 工况">At 45°C</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row" data-zh="标称电池能量">Rated battery</th><td>96 Wh</td></tr>
+                  <tr><th scope="row" data-zh="主板 · 持续模式">Board · sustained</th><td>12 W</td></tr>
+                  <tr><th scope="row" data-zh="独立风扇">Separate fan</th><td>3 W</td></tr>
+                </tbody>
+              </table>
+            </section>
+            <section class="context-evidence note-evidence" aria-label="Handbook conditions" data-zh-label="手册条件说明">
+              <div class="evidence-kind"><span>N1</span><span data-zh="文字注释 · 第 10 页">TEXT · p.10</span></div>
+              <p data-zh="40 TOPS 仅为 ≤60 秒的峰值；预留 20% 电量。电池同时为主板和风扇供电，主板功耗不含风扇；按恒定负载估算续航。">40 TOPS is a ≤60 s peak. Reserve 20% of battery energy. The battery powers both board and fan; board power excludes the fan. Assume constant load.</p>
+            </section>
+          </div>
+        </div>
+        <div class="context-definition">
+          <p class="context-label"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.5v4H5v2M12 10.5h7v2"/><circle cx="12" cy="4" r="2.5"/><circle cx="5" cy="15" r="2.5"/><circle cx="19" cy="15" r="2.5"/></svg><span data-zh="领域概念 · 关联 C1 + T1 + N1">DOMAIN CONCEPT · C1 + T1 + N1</span></p>
+          <h3 id="context-title" data-zh="电池供电的持续工作点">Sustained battery operating point</h3>
+          <dl class="context-facts">
+            <div><dt data-zh="适用条件">Applies to</dt><dd data-zh="45°C · INT8 · 持续模式">45°C · INT8 · Sustained mode</dd></div>
+            <div><dt data-zh="区分概念">Distinct from</dt><dd data-zh="40 TOPS 峰值 · ≤60 秒">40 TOPS peak · ≤60 s</dd></div>
+            <div><dt data-zh="供电范围">Power boundary</dt><dd data-zh="主板 + 风扇；预留 20% 电量">Board + fan; 20% energy reserve</dd></div>
+            <div><dt data-zh="续航推导">Runtime rule</dt><dd><code>96 × 0.8 ÷ (12 + 3) = 5.12 h</code></dd></div>
+          </dl>
+          <div class="context-answer"><strong>18 TOPS · ~5.12 h</strong><span data-zh="不满足：算力低于 20 TOPS，估算续航不足 6 小时。">No: below 20 TOPS; estimated runtime falls short of 6 h.</span></div>
+          <p class="context-resolution" data-zh="峰值、温度、供电范围与预留电量必须同时对应。单独读到“40 TOPS”和“96 Wh ÷ 12 W = 8 h”，会得出错误结论。">Match mode, temperature, power boundary, and reserve. Reading “40 TOPS” and “96 Wh ÷ 12 W = 8 h” alone gives the wrong answer.</p>
+        </div>
+      </figure>
     </section>
 
     <section class="framework-section" id="framework" aria-labelledby="framework-title">
@@ -98,59 +141,82 @@
         <h2 id="scenarios-title" data-zh="当定义改变了答案。">Where the definition changes the answer.</h2>
         <p class="section-intro" data-zh="从一份财报到一张调查图表，看看本体如何连接原始证据、保留领域含义，并让下一个问题用上已有知识。">From a financial report to a survey chart: see how ontology connects the evidence, preserves domain meaning, and gives the next question something to build on.</p>
         <div class="case-grid">
-          <article class="case-study finance-case">
+          <article class="case-study finance-case" data-case-tabs>
             <div class="case-story">
               <span class="case-kicker" data-zh="案例 01 / 财报分析">CASE 01 / FINANCIAL ANALYSIS</span>
-              <div class="case-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 3h10l4 4v14H5zM14 3v5h5M8 12h8M8 16h3"/><path d="m13 18 2-2 2 1 3-4"/></svg></div>
-              <h3><span data-zh="读对一次，">Read it right once.</span><br><em data-zh="两个答案都有依据。">Ground both answers.</em></h3>
-              <p data-zh="PepsiCo FY2022 财报中，报告利润与核心利润看起来很像，却不能互换。本体先选对口径、连接跨页数据，再把同一个 EBITDA 计算用于两个问题。">PepsiCo’s FY2022 report contains two similar-looking profit measures. Ontology keeps them distinct, connects inputs across pages, and reuses one EBITDA calculation for two questions.</p>
-              <div class="case-takeaway"><span data-zh="本体的作用">WHAT ONTOLOGY ADDS</span><p data-zh="同名指标不混用。跨页数据有出处。共享计算可复用。">Keep measures distinct. Link every input to its source. Reuse the shared calculation.</p></div>
-              <p class="case-source" data-zh="来源：研究材料中的 PepsiCo FY2022 案例 · 原始 PDF 第 73、75、143 页">Source: PepsiCo FY2022 case in the research overview · original PDF pp.73, 75, 143</p>
+              <h3>PepsiCo · FY2022</h3>
+              <p data-zh="区分报告利润与核心利润，关联跨页数据，用同一份 EBITDA 计算回答两个问题。">Distinguish reported from core profit, connect inputs across pages, and reuse the same EBITDA calculation for two questions.</p>
+            </div>
+            <div class="case-switch" role="tablist" aria-label="Explore the financial case" data-zh-label="探索财报案例">
+              <button type="button" role="tab" id="finance-evidence-tab" aria-controls="finance-evidence" aria-selected="true" tabindex="0"><span data-zh="查看证据">Read the evidence</span><span aria-hidden="true">01</span></button>
+              <button type="button" role="tab" id="finance-reuse-tab" aria-controls="finance-reuse" aria-selected="false" tabindex="-1"><span data-zh="复用计算">Reuse the calculation</span><span aria-hidden="true">02</span></button>
             </div>
             <div class="case-canvas">
-              <div class="canvas-heading"><span class="step-label" data-zh="01 / 对齐原始证据">01 / CONNECT THE EVIDENCE</span><span class="source-chip">FY2022 · USD million</span></div>
+              <section class="case-panel" id="finance-evidence" role="tabpanel" aria-labelledby="finance-evidence-tab" tabindex="0">
+                <div class="canvas-heading"><span class="step-label" data-zh="先选对利润口径">Choose the profit definition</span><span class="source-chip">FY2022 · USD million</span></div>
               <div class="evidence-table" role="table" aria-label="PepsiCo FY2022 source values" data-zh-label="PepsiCo FY2022 原始数据">
                 <div class="evidence-head" role="row"><span role="columnheader" data-zh="指标">Measure</span><span role="columnheader">2022</span><span role="columnheader" data-zh="PDF 页码">PDF page</span></div>
                 <div class="selected-evidence" role="row"><span role="cell"><i aria-hidden="true"></i><span data-zh="报告营业利润 · GAAP">Reported operating profit · GAAP</span></span><b role="cell">11,512</b><span role="cell">73 / 143</span></div>
                 <div class="alternate-evidence" role="row"><span role="cell" data-zh="核心营业利润 · 非 GAAP">Core operating profit · non-GAAP</span><b role="cell">12,325</b><span role="cell">143</span></div>
                 <div role="row"><span role="cell" data-zh="折旧与摊销 · D&amp;A">Depreciation &amp; amortization</span><b role="cell">2,763</b><span role="cell">75</span></div>
               </div>
-              <div class="calculation-link" aria-hidden="true"><span></span>↓<span></span></div>
+                <div class="evidence-route"><div><small data-zh="PDF 第 73 页 · 利润表">PDF p.73 · Income statement</small><span data-zh="报告营业利润">Reported operating profit</span><b>11,512</b></div><span class="route-plus" aria-hidden="true">+</span><div><small data-zh="PDF 第 75 页 · 现金流">PDF p.75 · Cash flows</small><span data-zh="折旧与摊销">Depreciation &amp; amortization</span><b>2,763</b></div></div>
+                <p class="case-explanation" data-zh="题目定义 EBITDA 为报告营业利润加折旧摊销。核心利润采用另一套调整口径，因此不能仅凭“利润”这个关键词替换。">These questions define EBITDA as reported operating profit plus D&amp;A. Core profit includes different adjustments, so a matching “profit” label is insufficient.</p>
+              </section>
+              <section class="case-panel" id="finance-reuse" role="tabpanel" aria-labelledby="finance-reuse-tab" tabindex="0" hidden>
+                <div class="canvas-heading"><span class="step-label" data-zh="相同的中间计算，用于两个问题">One intermediate, two questions</span><span class="source-chip">FY2022 · USD million</span></div>
               <div class="shared-calculation">
-                <div><span class="step-label" data-zh="02 / 一个共享计算">02 / ONE SHARED CALCULATION</span><h4 data-zh="未调整 EBITDA">Unadjusted EBITDA</h4><p data-zh="按这两个问题给定的定义：报告利润 + D&amp;A">As defined by these questions: reported profit + D&amp;A</p></div>
+                <div><h4 data-zh="未调整 EBITDA">Unadjusted EBITDA</h4><p data-zh="按题设：报告利润 + D&amp;A">Question definition: reported profit + D&amp;A</p></div>
                 <div class="calculation-value"><strong>14,275</strong><span>11,512 + 2,763</span></div>
               </div>
-              <div class="answer-branch" aria-hidden="true"><span></span><span></span></div>
               <div class="case-answers">
-                <div><span class="answer-question">Q1 <span data-zh="扣除资本支出后，还剩多少？">What remains after CapEx?</span></span><strong>9,068</strong><code>14,275 − 5,207</code><small data-zh="百万美元 · EBITDA 减 CapEx">USD million · EBITDA less CapEx</small></div>
-                <div><span class="answer-question">Q2 <span data-zh="EBITDA 占营收的比例？">What is the EBITDA margin?</span></span><strong>16.52<small>%</small></strong><code>14,275 / 86,392 × 100%</code><small data-zh="相同 EBITDA，不同问题">Same EBITDA, a different question</small></div>
+                <div><span class="answer-question" data-zh="EBITDA 减 CapEx">EBITDA less CapEx</span><code>14,275 − 5,207</code><strong>9,068</strong></div>
+                <div><span class="answer-question" data-zh="EBITDA 利润率">EBITDA margin</span><code>14,275 / 86,392 × 100%</code><strong>16.52%</strong></div>
               </div>
-              <p class="case-note" data-zh="示例计算依据原始数据；营收为 86,392（第 73 页）。资本支出在现金流中记为 (5,207)（第 75 页）；这里以支出金额 5,207 计算，保留原始现金流符号。">Illustrative calculations from source values. Revenue: 86,392 (p.73). Capital spending is recorded as (5,207) (p.75); the calculation uses its expenditure magnitude, 5,207, while retaining the original cash-flow sign.</p>
+                <div class="reuse-thread"><i aria-hidden="true"></i><p data-zh="报告利润与 D&amp;A 的含义、年度和单位一并保留。换一个问题，可以复用同一计算及其依据。">Keep the profit definition, D&amp;A, year, and unit together. A new question can reuse the same calculation and its grounding.</p></div>
+                <p class="case-note" data-zh="营收 86,392；资本支出原值 (5,207)，此处按支出金额 5,207 计算，保留原始现金流符号。">Revenue: 86,392. Capital spending: (5,207); calculations use its expenditure magnitude, 5,207, preserving the original cash-flow sign.</p>
+              </section>
             </div>
           </article>
-          <article class="case-study survey-case">
+          <article class="case-study survey-case" data-case-tabs>
             <div class="case-story">
               <span class="case-kicker" data-zh="案例 02 / 调查与社会研究">CASE 02 / SURVEYS &amp; SOCIAL RESEARCH</span>
-              <div class="case-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4v16h17M8 15v-4M13 15V7M18 15V4"/><circle cx="8" cy="6" r="2"/></svg></div>
-              <h3><span data-zh="看见 3%，">See the 3%.</span><br><em data-zh="还要知道它属于谁。">Know who it describes.</em></h3>
-              <p data-zh="图中最小的部分是 3%。但要读懂这个数，还得连接颜色图例、移民代际与调查人群。本体把这些条件一起保留，而不是只提取一个百分比。">The smallest segment is 3%. Reading it correctly means connecting the color legend, immigrant generation, and survey population. Ontology carries that context alongside the number.</p>
-              <div class="case-takeaway"><span data-zh="本体的作用">WHAT ONTOLOGY ADDS</span><p data-zh="把“颜色—类别—群体—数值”连起来，同时保留不同语境中的分类规则。">Connect color, category, population, and value. Keep classification rules tied to their context.</p></div>
-              <p class="case-source" data-zh="来源：研究材料中的 Hispanic Identity 案例 · 图表按原图数据重绘">Source: Hispanic Identity case in the research overview · chart redrawn from the source values</p>
+              <h3 data-zh="跨代际的西班牙裔认同">Hispanic identity across generations</h3>
+              <p data-zh="将百分比与图例、代际及调查人群对应，同时分别保留报告正文与样本表格的分类口径。">Map percentages to the legend, generation, and survey population. Keep report and sample-table definitions separate.</p>
+            </div>
+            <div class="case-switch" role="tablist" aria-label="Explore the survey case" data-zh-label="探索调查案例">
+              <button type="button" role="tab" id="survey-chart-tab" aria-controls="survey-chart" aria-selected="true" tabindex="0"><span data-zh="点击读图">Explore the chart</span><span aria-hidden="true">01</span></button>
+              <button type="button" role="tab" id="survey-scope-tab" aria-controls="survey-scope" aria-selected="false" tabindex="-1"><span data-zh="切换分类口径">Compare definitions</span><span aria-hidden="true">02</span></button>
             </div>
             <div class="case-canvas">
-              <div class="canvas-heading"><span class="step-label" data-zh="01 / 读取图表与图例">01 / READ THE CHART &amp; LEGEND</span><span class="source-chip" data-zh="人群加权 · 成年人">Population-weighted · Adults</span></div>
+              <section class="case-panel" id="survey-chart" role="tabpanel" aria-labelledby="survey-chart-tab" tabindex="0">
+                <div class="canvas-heading"><span class="step-label" data-zh="选择一个代际，查看对应含义">Select a generation to read its meaning</span><span class="source-chip" data-zh="人群加权 · 成年人">Population-weighted · Adults</span></div>
               <h4 class="chart-title" data-zh="有西班牙裔血统的美国成年人，如何自我认同？">How do U.S. adults with Hispanic ancestry identify?</h4>
               <div class="chart-legend"><span><i class="hispanic-color" aria-hidden="true"></i><span data-zh="西班牙裔">Hispanic</span></span><span><i class="nonhispanic-color" aria-hidden="true"></i><span data-zh="非西班牙裔">Non-Hispanic</span></span></div>
-              <div class="survey-chart" role="img" aria-label="Hispanic and non-Hispanic identity, respectively: foreign born 97% and 3%; second generation 92% and 8%; third generation 77% and 23%; fourth or higher generation 50% and 50%." data-zh-label="西班牙裔与非西班牙裔认同比例依次为：境外出生 97% 与 3%；第二代 92% 与 8%；第三代 77% 与 23%；第四代及以后 50% 与 50%。">
-                <div class="chart-row"><span data-zh="境外出生">Foreign born</span><div class="chart-bar" aria-hidden="true"><i style="width:97%"></i><i style="width:3%"></i></div><span class="chart-values"><b>97</b> / <b>3</b></span></div>
-                <div class="chart-row"><span data-zh="第二代">2nd generation</span><div class="chart-bar" aria-hidden="true"><i style="width:92%"></i><i style="width:8%"></i></div><span class="chart-values"><b>92</b> / <b>8</b></span></div>
-                <div class="chart-row"><span data-zh="第三代">3rd generation</span><div class="chart-bar" aria-hidden="true"><i style="width:77%"></i><i style="width:23%"></i></div><span class="chart-values"><b>77</b> / <b>23</b></span></div>
-                <div class="chart-row"><span data-zh="第四代及以后">4th+ generation</span><div class="chart-bar" aria-hidden="true"><i style="width:50%"></i><i style="width:50%"></i></div><span class="chart-values"><b>50</b> / <b>50</b></span></div>
+              <div class="survey-chart" role="group" aria-label="Hispanic and non-Hispanic identity, respectively: foreign born 97% and 3%; second generation 92% and 8%; third generation 77% and 23%; fourth or higher generation 50% and 50%." data-zh-label="西班牙裔与非西班牙裔认同比例依次为：境外出生 97% 与 3%；第二代 92% 与 8%；第三代 77% 与 23%；第四代及以后 50% 与 50%。">
+                <button class="chart-row" type="button" data-reading="0" aria-pressed="true"><span data-zh="境外出生">Foreign born</span><div class="chart-bar" aria-hidden="true"><i style="width:97%"></i><i style="width:3%"></i></div><span class="chart-values"><b>97</b> / <b>3</b></span></button>
+                <button class="chart-row" type="button" data-reading="1" aria-pressed="false"><span data-zh="第二代">2nd generation</span><div class="chart-bar" aria-hidden="true"><i style="width:92%"></i><i style="width:8%"></i></div><span class="chart-values"><b>92</b> / <b>8</b></span></button>
+                <button class="chart-row" type="button" data-reading="2" aria-pressed="false"><span data-zh="第三代">3rd generation</span><div class="chart-bar" aria-hidden="true"><i style="width:77%"></i><i style="width:23%"></i></div><span class="chart-values"><b>77</b> / <b>23</b></span></button>
+                <button class="chart-row" type="button" data-reading="3" aria-pressed="false"><span data-zh="第四代及以后">4th+ generation</span><div class="chart-bar" aria-hidden="true"><i style="width:50%"></i><i style="width:50%"></i></div><span class="chart-values"><b>50</b> / <b>50</b></span></button>
               </div>
-              <div class="chart-reading"><strong>3<small>%</small></strong><div><span class="step-label" data-zh="02 / 将数值与含义绑定">02 / BIND VALUE TO MEANING</span><p data-zh="有西班牙裔血统、境外出生的美国成年人中，3% 自我认同为非西班牙裔。">Of foreign-born U.S. adults with Hispanic ancestry, 3% identify as non-Hispanic.</p></div></div>
-              <div class="scope-heading"><span class="step-label" data-zh="03 / 保留分类语境">03 / PRESERVE THE CLASSIFICATION CONTEXT</span><span data-zh="同一个地名，两种口径">One place, two scopes</span></div>
-              <div class="scope-records"><div><span data-zh="报告正文定义">Report definition</span><b>Puerto Rico</b><span class="scope-tag" data-zh="归入 foreign born">Foreign born</span></div><div><span data-zh="样本表格定义">Sample-table definition</span><b>Puerto Rico</b><span class="scope-tag" data-zh="归入 U.S. born">U.S. born</span></div></div>
-              <p class="case-note" data-zh="这是报告中的两个不同分类语境。按所用来源选择对应规则，并保留调查人群与加权条件，不能直接合并成一条通用定义。">These are distinct classification contexts in the report. Use the rule attached to the relevant source, retaining its population and weighting conditions.</p>
+                <div class="chart-reading" aria-live="polite">
+                  <p data-reading-detail="0" data-zh="境外出生：97% 认同为西班牙裔，3% 认同为非西班牙裔。这里的 3% 对应黄色图例，并限定于有西班牙裔血统的境外出生美国成年人。">Foreign born: 97% identify as Hispanic and 3% as non-Hispanic. The 3% belongs to the gold legend and this generation of U.S. adults with Hispanic ancestry.</p>
+                  <p data-reading-detail="1" data-zh="第二代：92% 认同为西班牙裔，8% 认同为非西班牙裔。颜色的含义不变，所对应的代际已变为第二代。" hidden>Second generation: 92% identify as Hispanic and 8% as non-Hispanic. The legend stays the same; the generation attached to these values changes.</p>
+                  <p data-reading-detail="2" data-zh="第三代：77% 认同为西班牙裔，23% 认同为非西班牙裔。百分比需要与第三代的定义、调查人群及加权条件一起解读。" hidden>Third generation: 77% identify as Hispanic and 23% as non-Hispanic. Interpret these values with the generation definition, population, and weighting conditions.</p>
+                  <p data-reading-detail="3" data-zh="第四代及以后：两种认同比例均为 50%。这是这个代际内部的比例，不能当作全部美国成年人的占比。" hidden>Fourth or higher generation: 50% identify with each category. These shares describe this generation, rather than all U.S. adults.</p>
+                </div>
+                <p class="case-note" data-zh="图表按研究材料重绘。点击不同代际，数值与所属人群一起切换。">Chart redrawn from the research overview. Select a row to follow the value together with its population.</p>
+              </section>
+              <section class="case-panel" id="survey-scope" role="tabpanel" aria-labelledby="survey-scope-tab" tabindex="0" hidden>
+                <div class="canvas-heading"><span class="step-label" data-zh="Puerto Rico 应归入哪一类？">How is Puerto Rico classified?</span><span class="source-chip" data-zh="点击选择上下文">Choose the context</span></div>
+                <div class="scope-records" role="group" aria-label="Classification context" data-zh-label="分类语境">
+                  <button type="button" data-scope="report" aria-pressed="true"><span data-zh="报告正文定义">Report definition</span><b>Puerto Rico</b><span class="scope-tag" data-zh="境外出生">Foreign born</span></button>
+                  <button type="button" data-scope="sample" aria-pressed="false"><span data-zh="样本表格定义">Sample-table definition</span><b>Puerto Rico</b><span class="scope-tag" data-zh="美国出生">U.S. born</span></button>
+                </div>
+                <div class="scope-reading" aria-live="polite"><p data-scope-detail="report" data-zh="报告正文将 Puerto Rico 出生者归入 foreign born。这条规则绑定正文定义；阅读该报告的相关论述时，应带上这一分类条件。">The report definition includes people born in Puerto Rico under foreign born. Keep this rule attached to the report’s definition when interpreting the relevant discussion.</p><p data-scope-detail="sample" data-zh="样本表格则将 Puerto Rico 出生者归入 U.S. born。解读这个表格时使用表格自己的口径，并分别保留正文定义。" hidden>The sample table includes people born in Puerto Rico under U.S. born. Read this table with its own classification rule while retaining the separate report definition.</p></div>
+                <div class="scope-binding"><span data-zh="类别">Category</span><i aria-hidden="true"></i><span data-zh="适用语境">Context</span><i aria-hidden="true"></i><span data-zh="原文证据">Evidence</span></div>
+                <p class="case-explanation" data-zh="本体将“类别—上下文—证据”连接起来。两种分类口径分别保留，不合并成一条无条件适用的规则。">Ontology connects category, context, and evidence. Preserve these distinct classification contexts instead of merging them into one unconditional rule.</p>
+              </section>
             </div>
           </article>
         </div>

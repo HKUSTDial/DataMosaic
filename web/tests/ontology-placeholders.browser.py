@@ -36,10 +36,10 @@ with sync_playwright() as p:
             expect(cards.nth(index).get_by_role('link', name=f'Open {name}', exact=True).first).to_have_attribute('href', prefix + href)
         assert cards.locator('.card-number').all_text_contents() == ['01', '02', '03']
         doc = cards.nth(0)
-        expect(doc.locator('.card-description')).to_have_text('Let a context graph lead retrieval across the enterprise. Follow concepts, relationships, and evidence from the question to a grounded answer.')
+        expect(doc.locator('.card-description')).to_have_text('Build a reusable ontology from visual documents. Connect concepts, relationships, and source evidence to guide grounded document reasoning.')
         assert doc.locator('.product-demo').get_attribute('src')
-        assert doc.locator('.card-features span').all_text_contents() == ['Context graph', 'Enterprise retrieval']
-        expect(doc.locator('.service-status')).to_have_text('Overview')
+        assert doc.locator('.card-features span').all_text_contents() == ['Document-to-ontology', 'Grounded evidence']
+        expect(doc.locator('.service-status')).to_have_text('Demo')
         expect(doc.locator('.service-status')).to_have_class('service-status')
         assert doc.evaluate('e => e.scrollWidth <= e.clientWidth + 1'), width
         enterprise = cards.nth(2)

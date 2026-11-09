@@ -310,6 +310,10 @@ h2 em { color: #1e4863; font-style: normal; }
 .extract .card-number { color: #8970aa; }
 .structure .card-number { color: #4d86a8; }
 .card-title { display: flex; align-items: center; gap: 9px; color: #22282f; font-size: 23px; font-weight: 710; letter-spacing: -.045em; line-height: 32px; }
+.enterprise .card-header { container-type: inline-size; }
+.enterprise .card-title { font-size: clamp(15px, 5.5cqi, 23px); gap: 6px; white-space: nowrap; }
+.enterprise .card-number { font-size: 11px; }
+.enterprise .workflow-icon { width: 22px; height: 22px; }
 .card-description { max-width: 470px; margin-top: 11px; color: #536170; font-size: 12px; line-height: 1.65; }
 .product-demo { display: block; width: 100%; height: auto; aspect-ratio: 2 / 1; object-fit: contain; margin-top: 10px; border: 1px solid var(--night-border, #dde3ea); border-radius: 11px; background: #f8fafc; }
 .card-features { display: flex; flex-wrap: wrap; gap: 7px; margin-top: auto; padding-top: 20px; }
