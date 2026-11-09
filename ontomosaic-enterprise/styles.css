@@ -37,3 +37,5 @@
 
 .wordmark{gap:0}.wordmark b{margin-left:0}.hero-film blockquote{position:relative;padding:29px 30px 30px 32px;border-top:1px solid #b7cadd;background:linear-gradient(135deg,#edf5fb,#f8fafd);color:#243d5c;font-size:clamp(21px,2vw,28px);line-height:1.28;letter-spacing:-.025em;box-shadow:inset 5px 0 #4c76b9,0 -8px 25px #4c76b914}.hero-film blockquote:before{content:'“';position:absolute;top:10px;left:12px;color:#78a2cf;font:46px/1 Georgia,serif;opacity:.55}.hero-film cite{margin-top:15px;color:#52739a;font-size:11px;letter-spacing:.04em;font-weight:600}.hero-film cite:before{content:'— ';color:#8ba9c7}.hero-film figcaption{font-size:10px}
 @media(max-width:700px){.hero-film blockquote{padding:24px 20px 23px 27px;font-size:20px}}
+
+.hero-film .hero-demo{display:block;width:100%;height:auto;background:#d8e1ea}
