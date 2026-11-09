@@ -3,6 +3,7 @@ import OntologyGraphDetail from './features/ontology/OntologyGraphDetail';
 import { siteUrl } from './site';
 import './ontomosaic-db-page.css';
 import overviewVideo from '../../assets/OntoMosaic-DB-overview.mp4';
+import overviewPoster from '../../assets/OntoMosaic-DB-overview-poster.jpg';
 
 type IconName = 'network' | 'search' | 'chart' | 'workflow' | 'database' | 'files';
 function Icon({ name }: { name: IconName }) {
@@ -43,25 +44,29 @@ export default function OntoMosaicDBPage() {
     </header>
     <main className="op-wrap" id="op-main">
       <section className="op-hero" id="ontology" aria-labelledby="op-title">
-        <p className="op-eyebrow"><a href={siteUrl('/')}>DATAMOSAIC</a> / ONTOLOGY LAYER</p>
-        <h1 id="op-title">Your business knowledge, <em>connected to your data.</em></h1>
-        <p className="op-lead">OntoMosaic-DB builds ontology graphs that describe your business, explain your data, and connect the two—giving database tasks a shared foundation of knowledge.</p>
-        <div className="op-layers">
-          <article><h3><span className="op-marker business"/>Business semantics &amp; processes</h3><p>Business concepts, objects and events; their relationships, and the steps and conditions of business processes.</p></article>
-          <article><h3><span className="op-marker data"/>The meaning of database data</h3><p>What tables, columns and values represent, including record granularity, units and value codes.</p></article>
-          <article><h3><span className="op-marker mapping"/>Business-to-data mappings</h3><p>How concepts and metrics map to data through matching conditions, calculations and dependencies.</p></article>
+        <div className="op-hero-grid">
+          <div className="op-hero-copy">
+            <p className="op-eyebrow"><a href={siteUrl('/')}>DATAMOSAIC</a> / ONTOLOGY LAYER</p>
+            <h1 id="op-title">Your business knowledge, <em>connected to your data.</em></h1>
+            <p className="op-lead">OntoMosaic-DB builds ontology graphs that describe your business, explain your data, and connect the two—giving database tasks a shared foundation of knowledge.</p>
+            <div className="op-layers">
+              <article><h3><span className="op-marker business"/>Business semantics &amp; processes</h3><p>Business concepts, objects and events; their relationships, and the steps and conditions of business processes.</p></article>
+              <article><h3><span className="op-marker data"/>The meaning of database data</h3><p>What tables, columns and values represent, including record granularity, units and value codes.</p></article>
+              <article><h3><span className="op-marker mapping"/>Business-to-data mappings</h3><p>How concepts and metrics map to data through matching conditions, calculations and dependencies.</p></article>
+            </div>
+          </div>
+          <figure className="op-hero-media" id="product-overview" aria-labelledby="op-video-title">
+            <video className="op-video" src={overviewVideo} poster={overviewPoster} controls playsInline preload="metadata" width="1920" height="1080" aria-label="OntoMosaic-DB product overview">
+              Your browser does not support embedded video. <a href={overviewVideo}>Download the product overview</a>.
+            </video>
+            <figcaption id="op-video-title">Product overview</figcaption>
+          </figure>
         </div>
         <div className="op-graph">
           <div className="op-graph-heading"><span>Ontology graph example</span><div className="op-graph-controls" role="group" aria-label="Graph view">{(Object.keys(graphViews) as GraphView[]).map(view => <button key={view} type="button" aria-pressed={graphView === view} onClick={() => setGraphView(view)}>{graphViews[view].label}</button>)}</div></div>
           <div className="op-graph-drawing" ref={graphRef}><OntologyGraphDetail/></div>
           <div className="op-graph-legend"><span><i className="op-marker business"/>Business structure</span><span><i className="op-marker mapping"/>Concepts, metrics &amp; rules</span><span><i className="op-marker binding"/>Data dependencies</span></div>
         </div>
-      </section>
-      <section className="op-section op-video-section" id="product-overview" aria-labelledby="op-video-title">
-        <h2 id="op-video-title">Product overview</h2>
-        <video className="op-video" src={overviewVideo} controls playsInline preload="metadata" width="1920" height="1080" aria-label="OntoMosaic-DB product overview">
-          Your browser does not support embedded video. <a href={overviewVideo}>Download the product overview</a>.
-        </video>
       </section>
       <section className="op-section" id="applications" aria-labelledby="op-applications-title">
         <p className="op-eyebrow">WHAT IT ENABLES</p><h2 id="op-applications-title">One knowledge foundation. Many database tasks.</h2>

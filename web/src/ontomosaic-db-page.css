@@ -43,13 +43,17 @@
 #ontomosaic-public .op-brand > span { color: var(--op-accent); margin-left: -9px; }
 #ontomosaic-public .op-nav { display: flex; gap: 22px; font-size: 13px; }
 #ontomosaic-public .op-hero { padding: 42px 0 30px; }
+#ontomosaic-public .op-hero-grid { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: 48px; align-items: center; margin-bottom: 36px; }
+#ontomosaic-public .op-hero-copy, #ontomosaic-public .op-hero-media { min-width: 0; }
+#ontomosaic-public .op-hero-media { scroll-margin-top: 24px; }
+#ontomosaic-public .op-hero-media figcaption { margin-top: 10px; font-size: 12px; color: var(--op-muted); }
 #ontomosaic-public .op-eyebrow { font: 11px/1.6 ui-monospace, monospace; letter-spacing: 1.1px; color: var(--op-muted); margin-bottom: 12px; }
 #ontomosaic-public h1 { font-size: 36px; line-height: 1.2; font-weight: 500; letter-spacing: -1.4px; max-width: 1000px; }
 #ontomosaic-public em { display: inline; font-style: normal; color: var(--op-accent); }
 #ontomosaic-public .op-lead { font-size: 16px; line-height: 1.75; color: var(--op-muted); margin-top: 17px; max-width: 850px; }
 #ontomosaic-public h2 { font-size: 27px; font-weight: 500; line-height: 1.3; letter-spacing: -.6px; }
 #ontomosaic-public h3 { font-size: 16px; font-weight: 500; line-height: 1.4; display: flex; align-items: center; gap: 9px; }
-#ontomosaic-public .op-layers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; margin: 28px 0; }
+#ontomosaic-public .op-layers { display: grid; grid-template-columns: 1fr; gap: 18px; margin: 24px 0 0; }
 #ontomosaic-public .op-layers h3 { align-items: flex-start; }
 #ontomosaic-public .op-marker { display: inline-block; width: 7px; height: 7px; border-radius: 50%; flex: none; background: var(--op-mapping); }
 #ontomosaic-public h3 .op-marker { margin-top: 7px; }
@@ -57,8 +61,8 @@
 #ontomosaic-public .op-marker.data { background: var(--op-data); }
 #ontomosaic-public .op-marker.mapping { background: var(--op-mapping); }
 #ontomosaic-public .op-marker.binding { background: var(--op-binding); }
-#ontomosaic-public .op-layers p { font-size: 14px; line-height: 1.7; color: var(--op-muted); margin-top: 9px; }
-#ontomosaic-public .op-graph { padding-top: 18px; border-top: 1px solid var(--op-line); }
+#ontomosaic-public .op-layers p { font-size: 14px; line-height: 1.7; color: var(--op-muted); margin: 5px 0 0 16px; }
+#ontomosaic-public .op-graph { max-width: 1040px; margin-inline: auto; padding-top: 18px; border-top: 1px solid var(--op-line); }
 #ontomosaic-public .op-graph-heading { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-bottom: 15px; font-size: 13px; }
 #ontomosaic-public .op-graph-controls { display: flex; flex-wrap: wrap; gap: 4px; }
 #ontomosaic-public .op-graph-controls button { padding: 6px 10px; min-height: 32px; font-size: 12px; color: var(--op-muted); background: transparent; border: 0; border-radius: 4px; }
@@ -118,6 +122,10 @@
 #ontomosaic-public .oo-binding-copy { font-size: 12px; fill: var(--op-binding); }
 #ontomosaic-public .oo-code { font: 12px ui-monospace, monospace; fill: var(--op-ink); }
 
+@media (max-width: 960px) {
+  #ontomosaic-public .op-hero-grid { grid-template-columns: 1fr; gap: 28px; }
+  #ontomosaic-public .op-hero-media { width: 100%; max-width: 680px; justify-self: center; }
+}
 @media (max-width: 780px) {
   #ontomosaic-public .oo-graph-scroll { overflow-x: auto; }
   #ontomosaic-public .oo-graph-scroll svg { min-width: 1080px; }
@@ -143,4 +151,4 @@
   #ontomosaic-public .op-nav a { padding-block: 6px; }
 }
 
-#ontomosaic-public .op-video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; margin-top: 20px; border: 1px solid var(--op-line); border-radius: 8px; background: #111720; }
+#ontomosaic-public .op-video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; margin: 0; border: 1px solid var(--op-line); border-radius: 8px; background: #111720; }
